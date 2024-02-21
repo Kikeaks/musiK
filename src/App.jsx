@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Navegacion from "./componentes/estructura/Navegacion.jsx";
+import Encabezado from "./componentes/estructura/Encabezado.jsx";
 import Principal from "./componentes/estructura/Principal.jsx";
 import Pie from "./componentes/estructura/Pie.jsx";
 import "./App.css";
@@ -7,7 +7,7 @@ import "./App.css";
 const App = () => {
   return (
     <Fragment>
-      <Navegacion />
+{/*       <Encabezado /> */}
       <Principal />
       <Pie />
     </Fragment>

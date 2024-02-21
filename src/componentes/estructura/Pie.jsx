@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 const Pie = () => {
   return (
-    <div>Pie</div>
+    <Fragment>
+      <footer>
+        <p>&copy; 2024 Kike Azorín</p>
+      </footer>
+    </Fragment>
   )
 }
 

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import LoginRegistro from '../../paginas/usuarios/LoginRegistro'
 
 const Principal = () => {
   return (
-    <div>Principal</div>
+    <Fragment>
+      <LoginRegistro/>
+    </Fragment>
   )
 }
 
