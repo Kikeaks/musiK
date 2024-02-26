@@ -147,7 +147,9 @@ const ProveedorUsuarios = ({ children }) => {
 
   // Renderiza el proveedor con el contexto y sus hijos.
   return (
-    <CtxUsuarios.Provider value={exports}>{children}</CtxUsuarios.Provider>
+    <CtxUsuarios.Provider value={exports}>
+      {children}
+    </CtxUsuarios.Provider>
   );
 };
 

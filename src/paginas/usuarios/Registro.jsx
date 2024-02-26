@@ -1,24 +1,23 @@
 import React, { Fragment } from "react";
 
-const LoginRegistro = () => {
+const Registro = () => {
   return (
     <Fragment>
       <div className="bg-slate-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a className="flex items-center mb-6 text-2xl font-semibold text-white">
             <img
-              className="w-12 h-12"
-              src="https://svgshare.com/i/13Qm.svg"
+              className="w-16 h-16"
+              src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
               title="musik-w"
             />
-            musiK
           </a>
           <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-800 border-slate-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-                ¡Te echábamos de menos!
+                Bienvenid@ a musiK :)
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 <div>
                   <label
                     htmlFor="email"
@@ -51,30 +50,19 @@ const LoginRegistro = () => {
                     required
                   />
                 </div>
-                <div class="flex items-center justify-between">
-                  <a
-                    href="#"
-                    class="text-sm font-medium hover:underline text-indigo-500"
-                  >
-                    ¿Has olvidado la contraseña?
-                  </a>
-                </div>
-                <button
-                  type="submit"
-                  class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
-                >
-                  Iniciar sesión
+                <button class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800">
+                  Registrar
                 </button>
                 <p class="text-sm font-light text-slate-400">
-                  ¿Todavía no tienes cuenta?{" "}
+                  ¿Ya tienes cuenta?{" "}
                   <a
                     href="#"
                     class="font-medium text-indigo-500 hover:underline"
                   >
-                    Regístrate
+                    Inicia sesión
                   </a>
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -83,4 +71,4 @@ const LoginRegistro = () => {
   );
 };
 
-export default LoginRegistro;
+export default Registro;

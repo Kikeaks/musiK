@@ -1,15 +1,19 @@
 import React, { Fragment } from "react";
-import Encabezado from "./componentes/estructura/Encabezado.jsx";
 import Principal from "./componentes/estructura/Principal.jsx";
 import Pie from "./componentes/estructura/Pie.jsx";
-import "./App.css";
+import ProveedorCanciones from "./contextos/ProveedorCanciones.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
   return (
     <Fragment>
-{/*       <Encabezado /> */}
-      <Principal />
-      <Pie />
+      <BrowserRouter>
+        <ProveedorCanciones>
+          {/*       <Encabezado /> */}
+          <Principal />
+          <Pie />
+        </ProveedorCanciones>
+      </BrowserRouter>
     </Fragment>
   );
 };

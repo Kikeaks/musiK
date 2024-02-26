@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
-import LoginRegistro from '../../paginas/usuarios/LoginRegistro'
+import React, { Fragment } from "react";
+import Rutas from "./Rutas.jsx";
 
 const Principal = () => {
   return (
     <Fragment>
-      <LoginRegistro/>
+      <Rutas />
     </Fragment>
-  )
-}
+  );
+};
 
-export default Principal
+export default Principal;

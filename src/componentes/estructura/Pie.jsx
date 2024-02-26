@@ -4,7 +4,7 @@ const Pie = () => {
   return (
     <Fragment>
       <footer>
-        <p>&copy; 2024 Kike Azorín</p>
+        &copy; 2024 Kike Azorín
       </footer>
     </Fragment>
   )
