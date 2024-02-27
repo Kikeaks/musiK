@@ -15,6 +15,7 @@ const ProveedorCanciones = ({ children }) => {
       const response = await deezerAPI.get("/search", {
         params: {
           q: terminoBusqueda,
+          limit: 10
         },
       });
 
@@ -29,7 +30,7 @@ const ProveedorCanciones = ({ children }) => {
     try {
       const response = await deezerAPI.get("/chart/0/tracks", {
         params: {
-          limit: 10
+          limit: 25
         },
       });
 

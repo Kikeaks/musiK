@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Cancion from "./Cancion.jsx";
-import CancionCard from "../cards/CancionCard.jsx";
+import CancionCard from "./CancionCard.jsx";
 
 // Componente para mostrar el listado de canciones.
 const ListadoCanciones = ({ canciones }) => {
@@ -10,7 +10,7 @@ const ListadoCanciones = ({ canciones }) => {
       {canciones.length ? (
         canciones.map((cancion) => (
           // Componente para mostrar detalles de cada canción.
-          <CancionCard key={cancion.id} id={cancion.id} cancion={cancion} />
+          <Cancion key={cancion.id} id={cancion.id} cancion={cancion} />
         ))
       ) : (
         // Mensaje si no se encuentran canciones.

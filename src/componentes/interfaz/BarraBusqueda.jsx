@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useCanciones } from "../../hooks/useCanciones.js";
 
 const BarraBusqueda = () => {
@@ -23,14 +23,17 @@ const BarraBusqueda = () => {
   }, [busqueda, cargarCanciones]);
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Buscar canciones..."
-        value={busqueda}
-        onChange={handleChange}
-      />
-    </div>
+    <Fragment>
+      <div>
+        <input
+          type="text"
+          placeholder="Buscar canciones..."
+          className="px-4 text-md bg-slate-900 rounded outline-0 text-onNeutralBg border-onNeutralBg focus:bg-card"
+          value={busqueda}
+          onChange={handleChange}
+        />
+      </div>
+    </Fragment>
   );
 };
 
