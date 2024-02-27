@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useCanciones } from "../hooks/useCanciones.js";
-import CancionesCuadricula from "../componentes/canciones/CuadriculaCanciones,.jsx";
+import CancionesCuadricula from "../componentes/canciones/CancionesCuadricula.jsx";
 import BarraBusqueda from "../componentes/interfaz/BarraBusqueda.jsx";
 
 const Explorar = () => {

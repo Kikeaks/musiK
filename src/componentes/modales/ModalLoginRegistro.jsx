@@ -5,25 +5,19 @@ import { useUsuarios } from "../../hooks/useUsuarios.js";
 const ModalLoginRegistro = ({ mostrar, manejarCerrado }) => {
   // Estados y funciones del contexto de usuarios.
   const { iniciarSesion, actualizarDato, registrarUsuario } = useUsuarios();
-
-  // Estado para el mensaje si el registro ha ido correctamente.
   const [registroCorrecto, setRegistroCorrecto] = useState(false);
+  const [mostrarRegistro, setMostrarRegistro] = useState(false);
 
-  // Manejo del botón de inicio de sesión.
-  const manejoLogin = (e) => {
+  const manejoLogin = async (e) => {
     e.preventDefault();
-    iniciarSesion();
+    await iniciarSesion();
+    // Puedes añadir lógica adicional después del inicio de sesión si es necesario
   };
 
-  // Manejo del botón de registro.
   const manejoRegistro = async (e) => {
     e.preventDefault();
-
-    // Se espera a que se complete el registro para mostrar el mensaje de confirmación.
     await registrarUsuario();
     setRegistroCorrecto(true);
-
-    // A los 5 segundos, el mensaje desaparece.
     setTimeout(() => {
       setRegistroCorrecto(false);
     }, 5000);
@@ -32,68 +26,141 @@ const ModalLoginRegistro = ({ mostrar, manejarCerrado }) => {
   return (
     <Fragment>
       {mostrar && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border border-gray-300 z-50">
-
-
-            <form>
-              <label htmlFor="correo">Correo electrónico:</label>
-              <br />
-              <input
-                type="email"
-                name="email"
-                placeholder="nombre@correo.com"
-                onChange={(e) => {
-                  actualizarDato(e);
-                }}
-              />
-              <br />
-              <label htmlFor="passwd">Contraseña:</label>
-              <br />
-              <input
-                type="password"
-                placeholder="******"
-                name="password"
-                onChange={(e) => {
-                  actualizarDato(e);
-                }}
-              />
-              <br />
-              <button
-                className="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={(e) => {
-                  manejoLogin(e);
-                }}
-              >
-                Iniciar sesión
-              </button>
-              <br />
-              <button
-                className="block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                onClick={(e) => {
-                  manejoRegistro(e);
-                }}
-              >
-                Registrar usuario
-              </button>
-              <br />
-              <button
-                className="block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => {
-                  manejarCerrado();
-                }}
-              >
-                Cerrar
-              </button>
-            </form>
-            {/* Si el registro es correcto, se informa de ello. */}
-            {registroCorrecto && (
-              <p>
-                Un enlace ha sido enviado al correo electrónico proporcionado
-                para completar el registro.
-              </p>
-            )}
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-gray-900 bg-opacity-50">
+          <div className="absolute top-4 right-4">
+            <button
+              className="text-white rounded-md p-2 bg-gray-800 focus:outline-none"
+              onClick={manejarCerrado}
+            >
+              X
+            </button>
           </div>
-
+          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-800 border-slate-700">
+              <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                {!mostrarRegistro ? (
+                  <Fragment>
+                    <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+                      ¡Te echábamos de menos!
+                    </h1>
+                    <div className="space-y-4 md:space-y-6">
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-medium text-white"
+                        >
+                          Correo electrónico
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
+                          placeholder="usuario@correo.com"
+                          onChange={(e) => {
+                            actualizarDato(e);
+                          }}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-white"
+                        >
+                          Contraseña
+                        </label>
+                        <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
+                          placeholder="********"
+                          onChange={(e) => {
+                            actualizarDato(e);
+                          }}
+                          required
+                        />
+                      </div>
+                      <button
+                        className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
+                        onClick={(e) => manejoLogin(e)}
+                      >
+                        Iniciar sesión
+                      </button>
+                      <p className="text-sm font-light text-slate-400">
+                        ¿Todavía no tienes cuenta?{" "}
+                        <button
+                          className="font-medium text-indigo-500 hover:underline"
+                          onClick={() => setMostrarRegistro(true)}
+                        >
+                          Regístrate
+                        </button>
+                      </p>
+                    </div>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+                      Bienvenid@ a musiK :)
+                    </h1>
+                    <div className="space-y-4 md:space-y-6">
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-medium text-white"
+                        >
+                          Correo electrónico
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
+                          placeholder="usuario@correo.com"
+                          onChange={(e) => actualizarDato(e)}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-white"
+                        >
+                          Contraseña
+                        </label>
+                        <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
+                          placeholder="********"
+                          onChange={(e) => actualizarDato(e)}
+                          required
+                        />
+                      </div>
+                      <button
+                        className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
+                        onClick={(e) => manejoRegistro(e)}
+                      >
+                        Registrar
+                      </button>
+                      <p className="text-sm font-light text-slate-400">
+                        ¿Ya tienes cuenta?{" "}
+                        <button
+                          className="font-medium text-indigo-500 hover:underline"
+                          onClick={() => setMostrarRegistro(false)}
+                        >
+                          Inicia sesión
+                        </button>
+                      </p>
+                    </div>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </Fragment>
   );

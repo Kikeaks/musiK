@@ -5,6 +5,7 @@ import ProveedorCanciones from "./contextos/ProveedorCanciones.jsx";
 import { BrowserRouter } from "react-router-dom";
 import Encabezado from "./componentes/estructura/Encabezado.jsx";
 import ProveedorUsuarios from "./contextos/ProveedorUsuarios.jsx";
+import ProveedorPlaylists from "./contextos/ProveedorPlaylists.jsx";
 
 const App = () => {
   return (
@@ -12,11 +13,13 @@ const App = () => {
       <BrowserRouter>
         <ProveedorUsuarios>
           <ProveedorCanciones>
-            <main>
-              <Encabezado />
-              <Principal />
-              <Pie />
-            </main>
+            <ProveedorPlaylists>
+              <main>
+                <Encabezado />
+                <Principal />
+                <Pie />
+              </main>
+            </ProveedorPlaylists>
           </ProveedorCanciones>
         </ProveedorUsuarios>
       </BrowserRouter>

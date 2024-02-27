@@ -1,7 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUsuarios } from "../../hooks/useUsuarios.js";
 import ModalLoginRegistro from "../../componentes/modales/ModalLoginRegistro.jsx";
+import {
+  faPersonRunning,
+  faRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Componente para el login/registro de los usuarios.
 const LoginRegistro = () => {
@@ -24,15 +28,20 @@ const LoginRegistro = () => {
 
   return (
     <Fragment>
-      <button className=""
+      <button
+        className="w-12 h-12 flex justify-center items-center"
         id="usuario"
         onClick={() => {
           sesionIniciada ? cerrarSesion() : setMostrarModal(true);
         }}
       >
         {" "}
-        {/* Dependiendo de si la sesión está iniciada o no, aparecerá en el botón una cosa u otra. */}
-        {sesionIniciada ? "Cerrar sesión" : "Registro/Login"}
+        {/* Dependiendo de si la sesión está iniciada o no, aparecerá en el botón un icono u otro. */}
+        {sesionIniciada ? (
+          <FontAwesomeIcon icon={faPersonRunning} />
+        ) : (
+          <FontAwesomeIcon icon={faRightToBracket} />
+        )}
       </button>
       <ModalLoginRegistro
         mostrar={mostrarModal}
