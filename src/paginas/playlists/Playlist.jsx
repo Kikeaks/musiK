@@ -22,7 +22,7 @@ const Playlist = () => {
   }, [id]);
 
   if (!playlistData) {
-    return <div className="text-center">Cargando datos...</div>;
+    return <div className="text-center font-semibold mb-3">Cargando datos...</div>;
   }
 
   const { playlist, canciones } = playlistData;

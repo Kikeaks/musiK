@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { supabaseConexion } from "../config/supabase.js";
 import { deezerAPI } from "../config/deezer.js";
 
 // Creación de un contexto para las canciones.
@@ -41,49 +42,39 @@ const ProveedorCanciones = ({ children }) => {
   };
 
   // Función para introducir las canciones de Deezer a la BBDD cuando se añaden a una playlist.
-  const addCancionABaseDatos = async (cancion) => {
-    try {
-      // Inserta la canción en la tabla de canciones de Supabase
-      const { error } = await supabaseConexion.from("canciones").insert([
+const addCancionABaseDatos = async (cancion) => {
+  try {
+    // Comprueba si la canción ya existe en la tabla de canciones de Supabase
+    const { data, error } = await supabaseConexion
+      .from("canciones")
+      .select("*")
+      .eq("id_deezer", cancion.id);
+
+    if (error) {
+      throw error;
+    }
+
+    // Si la canción no existe en la base de datos, la inserta
+    if (!data || data.length === 0) {
+      await supabaseConexion.from("canciones").insert([
         {
           id_deezer: cancion.id,
           nombre: cancion.title,
           artista: cancion.artist.name,
-          portada: cancion.album.cover_medium,
+          portada: cancion.album.cover_small,
           duracion: cancion.duration,
         },
       ]);
-      if (error) throw error;
-    } catch (error) {
-      console.error(
-        "Error al añadir la canción a la base de datos:",
-        error.message
-      );
-      throw error;
     }
-  };
+  } catch (error) {
+    console.error(
+      "Error al añadir la canción a la base de datos:",
+      error.message
+    );
+    throw error;
+  }
+};
 
-  // Función para obtener las canciones de un álbum.
-  const obtenerCancionesAlbum = async (albumId) => {
-    try {
-      const response = await deezerAPI.get(`/album/${albumId}`);
-
-      setCanciones(response.data.tracks.data);
-    } catch (error) {
-      console.error("Error al obtener canciones del álbum:", error.message);
-    }
-  };
-
-  // Función para obtener las canciones de un artista.
-  const obtenerCancionesArtista = async (artistaId) => {
-    try {
-      const response = await deezerAPI.get(`/artist/${artistaId}/top`);
-
-      setCanciones(response.data.data);
-    } catch (error) {
-      console.error("Error al obtener canciones del artista:", error.message);
-    }
-  };
 
   useEffect(() => {
     cargarCancionesDestacadas(); // Cargar las canciones destacadas al montar el componente
@@ -95,9 +86,7 @@ const ProveedorCanciones = ({ children }) => {
       value={{
         canciones,
         cargarCanciones,
-        obtenerCancionesAlbum,
-        obtenerCancionesArtista,
-        addCancionABaseDatos,
+        addCancionABaseDatos
       }}
     >
       {children}

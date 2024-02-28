@@ -39,7 +39,7 @@ const Playlists = () => {
             </button>
           ) : (
             <p className="text-center mt-2 font-semibold">
-              Para poder crear playlists, inicia sesión.
+              Para poder crear y ver tus playlists, inicia sesión.
             </p>
           )}
         </div>

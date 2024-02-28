@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
-import ListadoCanciones from "../../componentes/canciones/ListadoCanciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
+import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
 
 const PlaylistUsuario = () => {
   const { id } = useParams();
@@ -23,10 +23,10 @@ const PlaylistUsuario = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, playlistData]);
 
   if (!playlistData) {
-    return <div className="text-center">Cargando datos...</div>;
+    return <div className="text-center font-semibold mb-3">Cargando datos...</div>;
   }
 
   const { playlist, canciones } = playlistData;
@@ -44,7 +44,7 @@ const PlaylistUsuario = () => {
             <FontAwesomeIcon
               icon={faEdit}
               onClick={abrirModalEditar}
-              className="ml-3 hover:text-indigo-600 duration-300 ease-in cursor-pointer "
+              className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer "
             />
           </div>
 
@@ -52,7 +52,7 @@ const PlaylistUsuario = () => {
           <p className="text-sm">Creada por · {playlist.usuario}</p>
         </div>
       </div>
-      <ListadoCanciones canciones={canciones} />
+      <ListadoCancionesUsuario canciones={canciones} playlistId={id}/>
       <ModalEditarPlaylist
         mostrar={mostrarModalEditar}
         manejarCerrado={() => setMostrarModalEditar(false)} playlistId={id}
