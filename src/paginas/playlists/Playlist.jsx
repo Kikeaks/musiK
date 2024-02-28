@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { usePlaylists } from "../hooks/usePlaylists";
-import ListadoCanciones from "../componentes/canciones/ListadoCanciones";
+import { usePlaylists } from "../../hooks/usePlaylists";
+import ListadoCanciones from "../../componentes/canciones/ListadoCanciones";
 
 const Playlist = () => {
   const { id } = useParams();

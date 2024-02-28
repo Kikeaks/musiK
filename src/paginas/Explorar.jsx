@@ -9,8 +9,12 @@ const Explorar = () => {
   return (
     <Fragment>
       <div>
-        <BarraBusqueda/>
-        <h2 className="font-bold text-2xl text-center mt-3">Canciones destacadas</h2>
+        <h2 className="font-bold text-2xl text-center mt-3">
+          Canciones destacadas
+        </h2>
+        <div className="flex justify-center items-center mt-3">
+          <BarraBusqueda />
+        </div>
         <CancionesCuadricula canciones={canciones} />
       </div>
     </Fragment>

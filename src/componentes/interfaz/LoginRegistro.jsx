@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUsuarios } from "../../hooks/useUsuarios.js";
-import ModalLoginRegistro from "../../componentes/modales/ModalLoginRegistro.jsx";
+import ModalLoginRegistro from "../modales/ModalLoginRegistro.jsx";
 import {
   faPersonRunning,
   faRightToBracket,

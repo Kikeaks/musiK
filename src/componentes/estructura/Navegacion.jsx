@@ -6,7 +6,6 @@ import {
   faMagnifyingGlass,
   faMusic,
 } from "@fortawesome/free-solid-svg-icons";
-import LoginRegistro from "../../paginas/usuarios/LoginRegistro";
 
 const Navegacion = () => {
   return (
@@ -46,7 +45,6 @@ const Navegacion = () => {
           </li>
         </ul>
       </nav>
-      <LoginRegistro />
     </Fragment>
   );
 };

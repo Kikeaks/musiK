@@ -10,8 +10,6 @@ const PlaylistUsuarioCard = ({ playlist }) => {
     try {
       // Llama a la función para obtener las canciones de la playlist del usuario.
       const canciones = await obtenerCancionesPlaylistUsuario(playlist.id);
-      // Haz lo que necesites con las canciones obtenidas, por ejemplo, mostrarlas en la página.
-      console.log("Canciones de la playlist:", canciones);
     } catch (error) {
       console.error(
         "Error al obtener las canciones de la playlist:",

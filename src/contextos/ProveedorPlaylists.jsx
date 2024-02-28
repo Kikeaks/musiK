@@ -261,6 +261,63 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  // Función para eliminar una playlist.
+const eliminarPlaylist = async (idPlaylist) => {
+  try {
+    // Elimina la playlist de la tabla de playlists.
+    const { error } = await supabaseConexion
+      .from("playlists")
+      .delete()
+      .eq("id", idPlaylist);
+
+    if (error) {
+      throw error;
+    }
+
+    // Elimina las relaciones de canciones de la playlist en la tabla de playlists_canciones.
+    await supabaseConexion
+      .from("playlists_canciones")
+      .delete()
+      .eq("id_playlist", idPlaylist);
+
+    // Actualiza el estado local de las playlists del usuario eliminando la playlist.
+    setPlaylistsUsuario(playlistsUsuario.filter(playlist => playlist.id !== idPlaylist));
+  } catch (error) {
+    console.error("Error al eliminar la playlist:", error.message);
+    throw error;
+  }
+};
+
+
+  // Función para editar el nombre de una playlist.
+  const editarNombrePlaylist = async (idPlaylist, nuevoNombre) => {
+    try {
+      // Realiza la actualización del nombre de la playlist en la base de datos.
+      const { error } = await supabaseConexion
+        .from("playlists")
+        .update({ nombre: nuevoNombre })
+        .eq("id", idPlaylist);
+
+      if (error) {
+        throw error;
+      }
+
+      // Actualiza el estado local de las playlists del usuario con el nuevo nombre.
+      setPlaylistsUsuario(
+        playlistsUsuario.map((playlist) => {
+          if (playlist.id === idPlaylist) {
+            return { ...playlist, nombre: nuevoNombre };
+          } else {
+            return playlist;
+          }
+        })
+      );
+    } catch (error) {
+      console.error("Error al editar el nombre de la playlist:", error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     cargarPlaylistsDestacadas(); // Cargar playlists destacadas al montar el componente
     if (usuario.id) {
@@ -280,6 +337,9 @@ const ProveedorPlaylists = ({ children }) => {
     obtenerCancionesPlaylistUsuario,
     obtenerPlaylistUsuarioPorId,
     obtenerDatosPlaylistUsuario,
+    editarNombrePlaylist,
+    quitarCancionDePlaylist,
+    eliminarPlaylist
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.

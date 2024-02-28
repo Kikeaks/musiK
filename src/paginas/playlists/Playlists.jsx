@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { usePlaylists } from "../hooks/usePlaylists";
-import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
-import { useUsuarios } from "../hooks/useUsuarios";
+import { usePlaylists } from "../../hooks/usePlaylists";
+import PlaylistsCuadricula from "../../componentes/playlists/PlaylistsCuadricula";
+import { useUsuarios } from "../../hooks/useUsuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import ModalCrearPlaylist from "../componentes/modales/ModalCrearPlaylist";
+import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
 const Playlists = () => {
   const { playlistsDestacadas, playlistsUsuario, cargarPlaylistsUsuario } =
