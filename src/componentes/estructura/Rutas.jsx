@@ -4,6 +4,7 @@ import Inicio from "../../paginas/Inicio.jsx";
 import Explorar from "../../paginas/Explorar.jsx";
 import Playlists from "../../paginas/Playlists.jsx";
 import Playlist from "../../paginas/Playlist.jsx";
+import PlaylistUsuario from "../../paginas/PlaylistUsuario.jsx";
 
 const Rutas = () => {
   return (
@@ -12,7 +13,8 @@ const Rutas = () => {
         <Route path="/" exact element={<Inicio />} />
         <Route path="/explorar" element={<Explorar />} />
         <Route path="/playlists" element={<Playlists />} />
-        <Route path="/playlists/:id" element={<Playlist />} />
+        <Route path="/playlists/deezer/:id" element={<Playlist />} />
+        <Route path="/playlists/bbdd/:id" element={<PlaylistUsuario />} />
       </Routes>
     </Fragment>
   );

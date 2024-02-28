@@ -31,9 +31,7 @@ const Inicio = () => {
           moverte, aquí encontrarás todo lo que necesitas para satisfacer tus
           necesidades auditivas. ¡Vamos, la música te está esperando!
         </p>
-        <p>
-          Para comenzar a usar la aplicación, debes estar registrado.
-        </p>
+        <p>Para comenzar a usar la aplicación, debes estar registrado.</p>
       </div>
     </Fragment>
   );

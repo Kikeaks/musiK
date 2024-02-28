@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import Cancion from "./Cancion.jsx";
-import CancionCard from "./CancionCard.jsx";
 
 // Componente para mostrar el listado de canciones.
 const ListadoCanciones = ({ canciones }) => {
@@ -14,7 +13,12 @@ const ListadoCanciones = ({ canciones }) => {
         ))
       ) : (
         // Mensaje si no se encuentran canciones.
-        <p>No se han encontrado canciones.</p>
+        <p className="text-center font-semibold">
+          ¡Vaya, la playlist está vacía!
+          <br />
+          Para añadir canciones, accede a la página "Explorar" o bien a una
+          playlist de Deezer.
+        </p>
       )}
     </Fragment>
   );

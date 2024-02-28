@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const PlaylistCard = ({ playlist }) => {
   return (
     <Fragment>
-      <Link to={`/playlists/${playlist.id}`}>
+      <Link to={`/playlists/deezer/${playlist.id}`}>
         <div
           id={playlist.id}
           className="playlist shadow-lg p-3 backdrop-blur-md rounded hover:backdrop-blur-2xl duration-300 ease-in cursor-pointer group"
@@ -19,10 +19,10 @@ const PlaylistCard = ({ playlist }) => {
           </div>
 
           <div className="playlist-info desc mt-2 text-left">
-            <p className="playlist-titulo text-sm font-semibold text-onNeutralBg truncate">
+            <p className="playlist-titulo font-semibold text-onNeutralBg truncate">
               {playlist.title}
             </p>
-            <p className="playlist-creador text-sm font-normal text-secondary truncate">
+            <p className="playlist-creador font-normal text-secondary truncate">
               {playlist.nb_tracks} canciones
             </p>
           </div>

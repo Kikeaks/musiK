@@ -120,7 +120,7 @@ const ProveedorUsuarios = ({ children }) => {
     const suscripcion = supabaseConexion.auth.onAuthStateChange(
       (e, session) => {
         if (session) {
-          navigate("/"); // Redirige a la página principal.
+          navigate("/playlists"); // Redirige a la página principal.
           setSesionIniciada(true); // Cambia el estado de la sesión a "iniciada".
           obtenerUsuario(); // Obtiene los datos del usuario.
         } else {
@@ -147,9 +147,7 @@ const ProveedorUsuarios = ({ children }) => {
 
   // Renderiza el proveedor con el contexto y sus hijos.
   return (
-    <CtxUsuarios.Provider value={exports}>
-      {children}
-    </CtxUsuarios.Provider>
+    <CtxUsuarios.Provider value={exports}>{children}</CtxUsuarios.Provider>
   );
 };
 

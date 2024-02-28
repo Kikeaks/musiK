@@ -14,10 +14,10 @@ const CancionCard = ({ cancion }) => {
         </div>
 
         <div className="cancion-info desc mt-2 text-left">
-          <p className="cancion-titulo text-sm font-semibold text-onNeutralBg truncate">
+          <p className="cancion-titulo font-semibold text-onNeutralBg truncate">
             {cancion.title}
           </p>
-          <p className="cancion-artista text-sm font-normal text-secondary truncate">
+          <p className="cancion-artista font-normal text-secondary truncate">
             {cancion.artist.name}
           </p>
         </div>

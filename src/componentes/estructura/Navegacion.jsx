@@ -27,13 +27,19 @@ const Navegacion = () => {
             </Link>
           </li>
           <li>
-            <Link to="/explorar" className="duration-300 ease-in cursor-pointer group">
+            <Link
+              to="/explorar"
+              className="duration-300 ease-in cursor-pointer group"
+            >
               <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-xl" />
               <span className="ml-2">Explorar</span>
             </Link>
           </li>
           <li>
-            <Link to="/playlists" className="duration-300 ease-in cursor-pointer group">
+            <Link
+              to="/playlists"
+              className="duration-300 ease-in cursor-pointer group"
+            >
               <FontAwesomeIcon icon={faMusic} className="fa-xl" />
               <span className="ml-2">Playlists</span>
             </Link>
