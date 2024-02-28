@@ -42,7 +42,7 @@ const ProveedorPlaylists = ({ children }) => {
     try {
       const response = await deezerAPI.get("/chart/0/playlists", {
         params: {
-          limit: 10, // Limitar la cantidad de playlists destacadas
+          limit: 25, // Limita la cantidad de playlists destacadas.
         },
       });
 
@@ -52,8 +52,69 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  // Función para añadir una canción a una playlist.
+  const addCancionAPlaylist = async (idPlaylist, idCancion) => {
+    try {
+      const { error } = await supabase
+        .from("playlists_canciones")
+        .insert([{ id_playlist: idPlaylist, id_cancion: idCancion }]);
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error al añadir la canción a la playlist:", error.message);
+      throw error;
+    }
+  };
+
+  // Función para obtener las canciones de una playlist por su ID desde la API de Deezer
+  const obtenerCancionesPlaylist = async (playlistId) => {
+    try {
+      const response = await deezerAPI.get(`/playlist/${playlistId}/tracks`);
+
+      return response.data.data; // Retorna las canciones de la playlist
+    } catch (error) {
+      console.error(
+        "Error al obtener canciones de la playlist:",
+        error.message
+      );
+      throw error;
+    }
+  };
+
+  // Función para obtener una playlist por su ID desde la API de Deezer
+  const obtenerPlaylistDeezerPorId = async (id) => {
+    try {
+      const response = await deezerAPI.get(`/playlist/${id}`);
+
+      return response.data; // Retorna la playlist encontrada
+    } catch (error) {
+      console.error("Error al obtener playlist por ID:", error.message);
+      throw error;
+    }
+  };
+
+  // Función para obtener los datos completos de una playlist por su ID
+  const obtenerDatosPlaylist = async (idPlaylist) => {
+    try {
+      // Obtener la información de la playlist
+      const playlistData = await obtenerPlaylistDeezerPorId(idPlaylist);
+
+      // Obtener las canciones de la playlist
+      const cancionesPlaylist = await obtenerCancionesPlaylist(idPlaylist);
+
+      // Combinar la información de la playlist y las canciones
+      return {
+        playlist: playlistData,
+        canciones: cancionesPlaylist,
+      };
+    } catch (error) {
+      console.error("Error al obtener datos de la playlist:", error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     cargarPlaylistsDestacadas(); // Cargar playlists destacadas al montar el componente
+    cargarPlaylistsUsuario();
   }, []);
 
   const exports = {
@@ -61,6 +122,8 @@ const ProveedorPlaylists = ({ children }) => {
     playlistsDestacadas,
     cargarPlaylistsUsuario,
     cargarPlaylistsDestacadas,
+    obtenerPlaylistDeezerPorId,
+    obtenerDatosPlaylist,
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.

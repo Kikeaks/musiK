@@ -3,18 +3,18 @@ import React, { Fragment } from "react";
 const Inicio = () => {
   return (
     <Fragment>
-      <div className="backdrop-blur-sm">
-        <p>
+      <div className="backdrop-blur-md p-4">
+        <p className="mb-2">
           ¡Bienvenido a nuestra plataforma de música, donde la melodía encuentra
           su hogar y tus oídos son los invitados de honor!
         </p>
-        <p>
+        <p className="mb-2">
           Imagina un lugar donde puedas sumergirte en un océano de sonidos,
           explorar nuevos ritmos y redescubrir tus canciones favoritas, todo
           ello con la facilidad de un clic. Bien, deja de imaginar, ¡porque eso
           es exactamente lo que te ofrecemos!
         </p>
-        <p>
+        <p className="mb-2">
           Con nuestra aplicación, el mundo de la música está literalmente al
           alcance de tus dedos. ¿Buscas una canción en particular? No hay
           problema, nuestro potente motor de búsqueda te ayudará a encontrarla
@@ -24,7 +24,7 @@ const Inicio = () => {
           tus pistas favoritas en playlists personalizadas que se adaptan a
           cualquier estado de ánimo o situación.
         </p>
-        <p>
+        <p className="mb-2">
           Así que, ¿a qué estás esperando? Únete a nosotros y comienza tu viaje
           musical hoy mismo. Desde los clásicos atemporales hasta las últimas
           tendencias, desde melodías relajantes hasta ritmos que te harán
