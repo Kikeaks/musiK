@@ -9,7 +9,11 @@ const ListadoCancionesUsuario = ({ canciones, playlistId }) => {
       {canciones.length ? (
         canciones.map((cancion) => (
           // Componente para mostrar detalles de cada canción.
-          <CancionPlaylistUsuario key={cancion.id_deezer} cancion={cancion} playlistId={playlistId} />
+          <CancionPlaylistUsuario
+            key={cancion.id_deezer}
+            cancion={cancion}
+            playlistId={playlistId}
+          />
         ))
       ) : (
         // Mensaje si no se encuentran canciones.

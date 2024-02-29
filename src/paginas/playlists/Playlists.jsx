@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
+// Componente para la página de playlists.
 const Playlists = () => {
   const { playlistsDestacadas, playlistsUsuario, cargarPlaylistsUsuario } =
-    usePlaylists();
-  const { sesionIniciada } = useUsuarios();
-  const [mostrarModal, setMostrarModal] = useState(false);
+    usePlaylists(); // Obtiene las playlists destacadas y del usuario desde el hook usePlaylists.
+  const { sesionIniciada } = useUsuarios(); // Obtiene el estado de la sesión desde el hook useUsuarios.
+  const [mostrarModal, setMostrarModal] = useState(false); // Define el estado para controlar la visibilidad del modal de creación de playlist.
 
   // Función para abrir el modal de creación de playlist
   const abrirModal = () => {
@@ -20,16 +21,18 @@ const Playlists = () => {
   // Función para cerrar el modal de creación de playlist
   const cerrarModal = () => {
     setMostrarModal(false);
-    cargarPlaylistsUsuario();
+    cargarPlaylistsUsuario(); // Recarga las playlists del usuario después de cerrar el modal.
   };
 
   useEffect(() => {
+    // Efecto para cargar las playlists del usuario cuando cambia el estado de la sesión.
     cargarPlaylistsUsuario();
-  }, [sesionIniciada]);
+  }, [sesionIniciada]); // Se ejecuta cada vez que cambia el estado de la sesión.
 
   return (
     <Fragment>
       <div>
+        {/* Título y botón para crear playlist si el usuario ha iniciado sesión */}
         <h2 className="font-bold text-2xl text-center mt-3">Mis playlists</h2>
         <div className="flex align-center justify-center">
           {sesionIniciada ? (
@@ -43,7 +46,9 @@ const Playlists = () => {
             </p>
           )}
         </div>
+        {/* Cuadrícula de playlists del usuario */}
         <PlaylistsCuadricula playlists={playlistsUsuario} origen={"bbdd"} />
+        {/* Título y cuadrícula de playlists destacadas */}
         <h2 className="font-bold text-2xl text-center mt-3">
           Playlists destacadas
         </h2>

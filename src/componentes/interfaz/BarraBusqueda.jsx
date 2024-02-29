@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useCanciones } from "../../hooks/useCanciones.js";
 
+// Componente para la barra de búsqueda de canciones.
 const BarraBusqueda = () => {
-  const [busqueda, setBusqueda] = useState(""); // Estado para almacenar el término de búsqueda
+  // Estado para almacenar el término de búsqueda.
+  const [busqueda, setBusqueda] = useState("");
+  // Hook personalizado para cargar canciones.
   const { cargarCanciones } = useCanciones();
 
-  // Función que se ejecuta cada vez que cambia el valor de la barra de búsqueda
+  // Función que se ejecuta cada vez que cambia el valor de la barra de búsqueda.
   const handleChange = (e) => {
     setBusqueda(e.target.value);
   };
 
-  // Función para cargar canciones cuando cambia la búsqueda
+  // Función para cargar canciones cuando cambia la búsqueda.
   useEffect(() => {
     const cargarCancionesPorBusqueda = async () => {
-      // Limita las consultas a 10 si el término de búsqueda es mayor que 2 caracteres
+      // Limita las consultas a 10 si el término de búsqueda es mayor que 2 caracteres.
       if (busqueda.length > 2) {
         await cargarCanciones(busqueda);
       }
@@ -25,6 +28,7 @@ const BarraBusqueda = () => {
   return (
     <Fragment>
       <div>
+        {/* Input para la búsqueda de canciones */}
         <input
           type="text"
           placeholder="Buscar canciones..."

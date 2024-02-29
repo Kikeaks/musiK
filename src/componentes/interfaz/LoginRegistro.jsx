@@ -10,7 +10,8 @@ import {
 // Componente para el login/registro de los usuarios.
 const LoginRegistro = () => {
   // Importar el estado y las funciones del contexto de usuarios.
-  const { sesionIniciada, cerrarSesion, confirmacionLogin } = useUsuarios();
+  const { usuario, sesionIniciada, cerrarSesion, confirmacionLogin } =
+    useUsuarios();
 
   // Valor inicial del modal de inicio de sesión.
   const valorInicialModal = false;
@@ -29,7 +30,7 @@ const LoginRegistro = () => {
   return (
     <Fragment>
       <button
-        className="w-12 h-12 flex justify-center items-center"
+        className="flex justify-center items-center mt-3"
         id="usuario"
         onClick={() => {
           sesionIniciada ? cerrarSesion() : setMostrarModal(true);
@@ -38,11 +39,18 @@ const LoginRegistro = () => {
         {" "}
         {/* Dependiendo de si la sesión está iniciada o no, aparecerá en el botón un icono u otro. */}
         {sesionIniciada ? (
-          <FontAwesomeIcon icon={faPersonRunning} />
+          <>
+            <FontAwesomeIcon icon={faPersonRunning} />
+            <span className="ml-2">Cerrar sesión</span>
+          </>
         ) : (
-          <FontAwesomeIcon icon={faRightToBracket} />
+          <>
+            <FontAwesomeIcon icon={faRightToBracket} />
+            <span className="ml-2">Iniciar sesión</span>
+          </>
         )}
       </button>
+      {sesionIniciada && <p className="text-center font-semibold mb-3">Has iniciado sesión como: {usuario.email}</p>}
       <ModalLoginRegistro
         mostrar={mostrarModal}
         manejarCerrado={() => {

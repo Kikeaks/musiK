@@ -6,9 +6,11 @@ import Playlists from "../../paginas/playlists/Playlists.jsx";
 import Playlist from "../../paginas/playlists/Playlist.jsx";
 import PlaylistUsuario from "../../paginas/playlists/PlaylistUsuario.jsx";
 
+// Componente para definir las rutas de la aplicación.
 const Rutas = () => {
   return (
     <Fragment>
+      {/* Definición de las rutas */}
       <Routes>
         <Route path="/" exact element={<Inicio />} />
         <Route path="/explorar" element={<Explorar />} />
