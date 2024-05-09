@@ -1,8 +1,8 @@
 // Importa la librería Axios.
 import axios from "axios";
 
-// URL base de la API de Deezer (pasándola previamente por CORS Anywhere, si no da error de CORS).
-const DEEZER_API_BASE_URL = "https://cors-anywhere.herokuapp.com/api.deezer.com";
+// URL base de la API de Deezer (pasándola previamente por CORS Proxy, si no da error de CORS).
+const DEEZER_API_BASE_URL = 'https://corsproxy.io/?' + encodeURIComponent('https://api.deezer.com');
 
 // Crea una instancia de Axios con la URL base de Deezer.
 const deezerAPI = axios.create({
