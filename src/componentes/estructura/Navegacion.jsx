@@ -167,7 +167,7 @@ const Navegacion = () => {
               <ul>
                 <li>
                   <Link
-                    to={`/usuario/${usuario.id}`}
+                    to={`/perfil/${usuario.id}`}
                     className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm"
                     onClick={toggleMenu}
                   >
