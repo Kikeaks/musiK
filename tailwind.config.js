@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'cards': '#1E1E1E',
+        'highlight' : '#FF4081',
       }
     },
   },

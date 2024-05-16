@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 const Inicio = () => {
   return (
     <Fragment>
-      <div className="backdrop-blur-md p-4 mt-3">
+      <div className="p-4 mt-3">
         <h1 className="font-bold text-center mb-3">¡Bienvenid@ a musiK!</h1>
         <p className="mb-3">
           ¡Bienvenido a nuestra plataforma de música, donde la melodía encuentra
