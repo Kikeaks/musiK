@@ -171,7 +171,6 @@ const ProveedorUsuarios = ({ children }) => {
         if (sesion) {
           setSesionIniciada(true);
           obtenerUsuario();
-          navigate("/explorar");
         } else {
           setSesionIniciada(false);
           navigate("/");

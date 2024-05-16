@@ -5,7 +5,7 @@ import Explorar from "../../paginas/Explorar.jsx";
 import Playlists from "../../paginas/playlists/Playlists.jsx";
 import Playlist from "../../paginas/playlists/Playlist.jsx";
 import PlaylistUsuario from "../../paginas/playlists/PlaylistUsuario.jsx";
-import Usuario from "../../paginas/PerfilUsuario.jsx";
+import PerfilUsuario from "../../paginas/PerfilUsuario.jsx";
 
 // Componente para definir las rutas de la aplicación.
 const Rutas = () => {
@@ -18,7 +18,7 @@ const Rutas = () => {
         <Route path="/playlists" element={<Playlists />} />
         <Route path="/playlists/deezer/:id" element={<Playlist />} />
         <Route path="/playlists/bbdd/:id" element={<PlaylistUsuario />} />
-        <Route path="/usuario/:id" element={<Usuario />} />
+        <Route path="/perfil/:id" element={<PerfilUsuario />} />
       </Routes>
     </Fragment>
   );

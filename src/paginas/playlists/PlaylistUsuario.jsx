@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
+import { useUsuarios } from "../../hooks/useUsuarios";
 
 // Componente para la página de una playlist de usuario.
 const PlaylistUsuario = () => {
@@ -12,6 +13,8 @@ const PlaylistUsuario = () => {
   const { obtenerDatosPlaylistUsuario } = usePlaylists(); // Obtiene la función para obtener los datos de la playlist del usuario desde el hook usePlaylists.
   const [playlistData, setPlaylistData] = useState(null); // Estado para almacenar los datos de la playlist.
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false); // Estado para controlar la visibilidad del modal de edición.
+  const [autorPlaylist, setAutorPlaylist] = useState(null);
+  const { obtenerDatosUsuarioPorId } = useUsuarios();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +22,18 @@ const PlaylistUsuario = () => {
         // Obtiene los datos de la playlist del usuario.
         const data = await obtenerDatosPlaylistUsuario(id);
         setPlaylistData(data); // Actualiza el estado con los datos de la playlist.
+
+        console.log(data);
+
+        // Obtiene el autor de la playlist
+        if (data && data.playlist && data.playlist.usuario) {
+          const autorData = await obtenerDatosUsuarioPorId(
+            data.playlist.usuario
+          );
+          if (autorData && autorData.nombre) {
+            setAutorPlaylist(autorData.nombre);
+          }
+        }
       } catch (error) {
         console.error("Error al obtener datos de la playlist:", error.message);
       }
@@ -55,7 +70,10 @@ const PlaylistUsuario = () => {
             />
           </div>
           <p className="mb-2">{playlist.descripcion}</p>
-          <p className="text-sm">Creada por · {playlist.usuario}</p>
+          <p className="text-sm">
+            Creada por ·{" "}
+            <Link className="duration-300 ease-in cursor-pointer group" to={`/perfil/${playlist.usuario}`}>{autorPlaylist}</Link>
+          </p>
         </div>
       </div>
       {/* Listado de canciones de la playlist */}
