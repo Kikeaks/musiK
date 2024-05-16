@@ -3,17 +3,18 @@
 @tailwind utilities;
 
 a:hover {
-  color: #535bf2;
+  color: #FF4081;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: rgb(15,23,42);
+  background-color: #121212;
   color: white;
-  background-image: url('https://wallpapers.com/images/hd/soothing-vintage-music-aesthetic-zt916qz666u2503u.jpg');
-  background-repeat: repeat;
+  font-family: 'Reddit Sans';
+  /* background-image: url('https://wallpapers.com/images/hd/soothing-vintage-music-aesthetic-zt916qz666u2503u.jpg');
+  background-repeat: repeat; */
 }
 
 h1 {
@@ -28,13 +29,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #FF4081;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #FF4081;
 }
 
 button:focus,
