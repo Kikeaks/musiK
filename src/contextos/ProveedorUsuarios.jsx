@@ -139,6 +139,7 @@ const ProveedorUsuarios = ({ children }) => {
     cerrarSesion,
     actualizarDato,
     usuario,
+    obtenerUsuario,
     confirmarLogin,
     infoSesion,
     confirmacionLogin,
