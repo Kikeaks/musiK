@@ -1,8 +1,17 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useUsuarios } from "../hooks/useUsuarios";
+import UsuarioHeader from "../componentes/usuarios/UsuarioHeader";
 
 const Usuario = () => {
   const { sesionIniciada, usuario, obtenerUsuario } = useUsuarios();
+
+  // Obtiene la primera parte de una dirección de email.
+  const cortarEmail = (correo) => {
+    var indiceArroba = correo.indexOf('@');
+    if (indiceArroba !== -1) {
+      return correo.substring(0, indiceArroba);
+    }
+  }
 
   useEffect(() => {
     // Obtiene los datos del usuario al cargar la página.
@@ -11,7 +20,13 @@ const Usuario = () => {
     }
   }, [sesionIniciada, obtenerUsuario]);
 
-  return <div>Usuario: {usuario.id}</div>;
+  return (
+    <Fragment>
+      <div>
+        <UsuarioHeader nombre={cortarEmail(usuario.email)}/>
+      </div>
+    </Fragment>
+  );
 };
 
 export default Usuario;
