@@ -26,7 +26,7 @@ const PlaylistUsuarioCard = ({ playlist }) => {
         {/* Tarjeta de la playlist del usuario */}
         <div
           id={playlist.id}
-          className="playlist shadow-lg p-3 backdrop-blur-md rounded hover:backdrop-blur-2xl duration-300 ease-in cursor-pointer group"
+          className="playlist bg-cards p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group"
         >
           {/* Detalles de la playlist */}
           <div className="playlist-info desc mt-2 text-left">

@@ -9,7 +9,7 @@ const PlaylistCard = ({ playlist }) => {
       <Link to={`/playlists/deezer/${playlist.id}`}>
         <div
           id={playlist.id}
-          className="playlist shadow-lg p-3 backdrop-blur-md rounded hover:backdrop-blur-2xl duration-300 ease-in cursor-pointer group"
+          className="playlist shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"
         >
           <div className="rounded">
             {/* Imagen de la playlist */}
