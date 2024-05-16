@@ -16,7 +16,7 @@ const Navegacion = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-4 py-2 h-24 backdrop-blur-2xl">
+    <nav className="flex justify-between items-center px-4 py-2 h-24">
       <div>
         <img
           className="w-12 h-12"

@@ -43,7 +43,7 @@ const PlaylistUsuario = () => {
   return (
     <div className="p-2">
       {/* Información de la playlist */}
-      <div className="flex items-center shadow-lg p-3 backdrop-blur-md rounded group mb-3">
+      <div className="flex items-center shadow-lg p-3 rounded group mb-3">
         <div className="playlist-info desc ml-4 text-left">
           <div className="flex items-center">
             <h1 className="mb-2 font-semibold">{playlist.nombre}</h1>

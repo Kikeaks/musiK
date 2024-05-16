@@ -3,7 +3,7 @@ import React from "react";
 // Componente para mostrar los detalles de una canción.
 const Cancion = ({ cancion }) => (
   // Contenedor principal del componente, muestra los detalles de la canción.
-  <div className="cancion flex items-center shadow-lg p-3 backdrop-blur-md rounded group mb-3 bg-cards">
+  <div className="cancion flex items-center shadow-lg p-3 rounded group mb-3 bg-cards">
     {/* Imagen de la portada del álbum. */}
     <img
       className="rounded mr-2"

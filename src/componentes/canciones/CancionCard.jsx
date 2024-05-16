@@ -6,7 +6,7 @@ const CancionCard = ({ cancion, onCancionClick }) => {
     <Fragment>
       {/* Contenedor principal de la tarjeta de la canción */}
       <div
-        className="cancion shadow-lg p-3 backdrop-blur-md rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"
+        className="cancion shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"
         onClick={onCancionClick}
       >
         {/* Imagen de la portada del álbum */}

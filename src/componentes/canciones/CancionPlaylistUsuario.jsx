@@ -19,7 +19,7 @@ const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
   };
 
   return (
-    <div className="cancion flex items-center shadow-lg p-3 backdrop-blur-md rounded mb-3">
+    <div className="cancion flex items-center shadow-lg p-3 rounded mb-3">
       {/* Imagen de la portada del álbum */}
       <img
         className="rounded mr-2"
