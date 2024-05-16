@@ -26,24 +26,41 @@ const ProveedorUsuarios = ({ children }) => {
     confirmacionLoginInicial
   );
 
+  // Función para cortar la cadena de un correo electrónico y obtener solo lo de antes de @.
+  const obtenerNombreDeUsuario = (email) => {
+    if (typeof email !== 'string') {
+      throw new Error('El email debe ser una cadena de texto');
+    }
+  
+    const [nombreDeUsuario] = email.split('@');
+    return nombreDeUsuario;
+  };
+
   // Función para crear una cuenta de usuario.
   const registrarUsuario = async () => {
     try {
       // Se crea la cuenta en Supabase.
-      const { error } = await supabaseConexion.auth.signUp({
+      const { data, error } = await supabaseConexion.auth.signUp({
         email: infoSesion.email,
         password: infoSesion.password,
       });
 
-      // Si hay un error, se lanza una excepción.
       if (error) {
         throw error;
-      } else {
-        // Si no hay error, se muestra un mensaje al usuario.
-        console.error("Recibirás un correo para la confirmación del registro.");
-
-        limpiarCampos();
       }
+
+      // Inserta el nuevo usuario en la tabla `usuarios`.
+      const { user } = data;
+      const { error: insertError } = await supabaseConexion
+        .from("usuarios")
+        .insert([{ id: user.id, email: user.email, nombre: obtenerNombreDeUsuario(user.email) }]);
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      console.error("Recibirás un correo para la confirmación del registro.");
+      limpiarCampos();
     } catch (error) {
       console.error("Error al crear la cuenta: " + error.message);
     }
@@ -92,16 +109,48 @@ const ProveedorUsuarios = ({ children }) => {
   // Función para obtener los datos del usuario.
   const obtenerUsuario = async () => {
     try {
-      // Se obtiene la información del usuario que tiene sesión iniciada.
-      const { data, error } = await supabaseConexion.auth.getUser();
+      // Se obtiene la información del usuario autenticado.
+      const { data: authData, error: authError } =
+        await supabaseConexion.auth.getUser();
 
+      if (authError) {
+        throw authError;
+      }
+
+      // Se obtiene la información adicional del usuario desde la tabla `usuarios`.
+      const { data: userData, error: userError } = await supabaseConexion
+        .from("usuarios")
+        .select("*")
+        .eq("id", authData.user.id)
+        .single();
+
+      if (userError) {
+        throw userError;
+      }
+
+      // Se actualiza el estado del usuario.
+      setUsuario(userData);
+    } catch (error) {
+      console.error("Error al obtener el usuario:", error.message);
+    }
+  };
+
+  const obtenerDatosUsuarioPorId = async (usuarioId) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from('usuarios')
+        .select('*')
+        .eq('id', usuarioId)
+        .single();
+  
       if (error) {
         throw error;
       }
-      // Se actualiza el estado del usuario.
-      setUsuario(data.user);
+  
+      return data;
     } catch (error) {
-      console.error("Error al obtener el usuario:" + error.message);
+      console.error("Error al obtener los datos del usuario:", error.message);
+      return null;
     }
   };
 
@@ -117,18 +166,22 @@ const ProveedorUsuarios = ({ children }) => {
   };
 
   useEffect(() => {
-    const suscripcion = supabaseConexion.auth.onAuthStateChange(
-      (e, session) => {
-        if (session) {
-          navigate("/"); // Redirige a la página principal.
-          setSesionIniciada(true); // Cambia el estado de la sesión a "iniciada".
-          obtenerUsuario(); // Obtiene los datos del usuario.
+    const { data: authListener } = supabaseConexion.auth.onAuthStateChange(
+      (e, sesion) => {
+        if (sesion) {
+          setSesionIniciada(true);
+          obtenerUsuario();
+          navigate("/explorar");
         } else {
-          navigate("/"); // Redirige a la página principal.
-          setSesionIniciada(false); // Cambia el estado de la sesión a "no iniciada".
+          setSesionIniciada(false);
+          navigate("/");
         }
       }
     );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
   // Objeto con los estados/funciones a proveer por el contexto.
@@ -140,6 +193,7 @@ const ProveedorUsuarios = ({ children }) => {
     actualizarDato,
     usuario,
     obtenerUsuario,
+    obtenerDatosUsuarioPorId,
     confirmarLogin,
     infoSesion,
     confirmacionLogin,

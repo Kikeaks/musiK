@@ -54,7 +54,7 @@ const Navegacion = () => {
             onClick={toggleMenu}
           />
         </div>
-        <ul className="hidden md:flex space-x-6 items-center flex-grow justify-center h-full">
+        <ul className="hidden md:flex space-x-6 items-center flex-grow justify-end h-full">
           <li>
             <Link to="/" className="duration-300 ease-in cursor-pointer group">
               <FontAwesomeIcon icon={faHouse} className="fa-xl" />
@@ -76,6 +76,40 @@ const Navegacion = () => {
               <FontAwesomeIcon icon={faMusic} className="fa-xl" />
             </Link>
           </li>
+          {!sesionIniciada ? (
+            <>
+              <li
+                className="duration-300 ease-in cursor-pointer group hover:text-highlight"
+                onClick={() => {
+                  setMostrarModal(true);
+                }}
+              >
+                <FontAwesomeIcon icon={faUser} className="fa-xl mr-2" />
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to={`/usuario/${usuario.id}`}
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm"
+                  onClick={toggleMenu}
+                >
+                  <FontAwesomeIcon icon={faUser} className="mr-2" />
+                  Perfil
+                </Link>
+              </li>
+              <li
+                className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm"
+                onClick={() => {
+                  cerrarSesion();
+                }}
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
+                Cerrar sesión
+              </li>
+            </>
+          )}
         </ul>
         {/* Desplegable */}
         {menuAbierto && (
