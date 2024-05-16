@@ -27,7 +27,7 @@ const Navegacion = () => {
           <li>
             <Link to="/" className="duration-300 ease-in cursor-pointer group">
               <FontAwesomeIcon icon={faHouse} className="fa-xl" />
-              <span className="ml-2">Inicio</span>
+              {/* <span className="ml-2">Inicio</span> */}
             </Link>
           </li>
           {/* Enlace a la página de exploración */}
@@ -37,7 +37,7 @@ const Navegacion = () => {
               className="duration-300 ease-in cursor-pointer group"
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-xl" />
-              <span className="ml-2">Explorar</span>
+              {/* <span className="ml-2">Explorar</span> */}
             </Link>
           </li>
           {/* Enlace a la página de playlists */}
@@ -47,7 +47,7 @@ const Navegacion = () => {
               className="duration-300 ease-in cursor-pointer group"
             >
               <FontAwesomeIcon icon={faMusic} className="fa-xl" />
-              <span className="ml-2">Playlists</span>
+              {/* <span className="ml-2">Playlists</span> */}
             </Link>
           </li>
         </ul>
