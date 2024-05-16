@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import Navegacion from "./Navegacion";
-import LoginRegistro from "../interfaz/LoginRegistro";
 
 // Componente para el encabezado de la página.
 const Encabezado = () => {
@@ -10,8 +9,6 @@ const Encabezado = () => {
       <header>
         {/* Componente de navegación */}
         <Navegacion />
-        {/* Componente de inicio de sesión y registro */}
-        <LoginRegistro />
       </header>
     </Fragment>
   );
