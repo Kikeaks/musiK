@@ -32,8 +32,8 @@ const UsuarioHeader = ({
         {/* Muestra la información del usuario */}
         <div className="usuario-info desc text-center sm:text-left">
           <h1 className="mb-2 font-bold">{nombre}</h1>{" "}
-          <p>{numListas} {numListas === 1 ? "lista de reproducción" : "listas de reproducción"}</p>
-          <p>{seguidores} {seguidores === 1 ? "seguidor" : "seguidores"} · {seguidos} {seguidos === 1 ? "seguido" : "seguidos"}</p>
+          <p className="mb-2">{numListas} {numListas === 1 ? "lista de reproducción" : "listas de reproducción"}</p>
+          <p className="text-sm">{seguidores} {seguidores === 1 ? "seguidor" : "seguidores"} · Sigue a {seguidos} {seguidos === 1 ? "usuario" : "usuarios"}</p>
         </div>
       </div>
     </div>
