@@ -26,7 +26,7 @@ const Navegacion = () => {
       <nav className="flex justify-between items-center px-4 py-2 h-24">
         <div>
           <img
-            src="https://svgshare.com/i/13Qm.svg"
+            src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
             title="musik-w"
             className="size-12"
           />

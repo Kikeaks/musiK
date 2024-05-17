@@ -12,9 +12,9 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <img
-        src="https://svgshare.com/i/13Qm.svg"
+        src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
         title="musik-w"
-        className="size-44 m-12"
+        className="size-32 md:size-44 m-12"
       />
       <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl text-white">
         ¡Te echábamos de menos!
