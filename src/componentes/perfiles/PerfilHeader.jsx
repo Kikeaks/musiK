@@ -30,7 +30,7 @@ const UsuarioHeader = ({
           }
         />
         {/* Muestra la información del usuario */}
-        <div className="usuario-info desc text-left">
+        <div className="usuario-info desc text-center sm:text-left">
           <h1 className="mb-2 font-bold">{nombre}</h1>{" "}
           <p>{numListas} listas de reproducción</p>
           <p>{seguidores} seguidores · {seguidos} seguidos</p>

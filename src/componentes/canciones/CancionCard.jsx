@@ -10,16 +10,16 @@ const CancionCard = ({ cancion, onCancionClick }) => {
         onClick={onCancionClick}
       >
         {/* Imagen de la portada del álbum */}
-        <div className="rounded">
+        <div className="flex flex-col justify-center items-center mt-1">
           <img
-            className="object-cover aspect-square w-100 h-100 rounded"
+            className="object-cover aspect-square rounded shadow-lg size-44 sm:size-36 md:size-52 lg:size-40 xl:size-52"
             src={cancion.album.cover_medium}
             alt={cancion.title}
           />
         </div>
 
         {/* Información de la canción */}
-        <div className="cancion-info desc mt-2 text-left">
+        <div className="cancion-info desc mt-3 mx-0 md:mx-1">
           {/* Título de la canción */}
           <p className="cancion-titulo font-semibold text-onNeutralBg truncate">
             {cancion.title}

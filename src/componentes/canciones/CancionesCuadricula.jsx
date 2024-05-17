@@ -23,7 +23,7 @@ const CancionesCuadricula = ({ canciones }) => {
   return (
     <Fragment>
       {/* Contenedor de la cuadrícula de canciones */}
-      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8">
+      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-7 gap-8">
         {/* Mapeo de las canciones para crear las tarjetas */}
         {canciones.map((cancion, index) => (
           <CancionCard

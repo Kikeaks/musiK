@@ -87,16 +87,16 @@ const PerfilUsuario = () => {
           seguidores={perfil.seguidores.length}
           seguidos={perfil.seguidos.length}
         />
-        <h2 className="font-bold text-xl mt-4">Seguidores</h2>
+        <h2 className="font-bold text-xl mt-4 ml-4">Seguidores</h2>
         <PerfilesCuadricula perfiles={seguidores} />
         {/* Muestra la cuadrícula de seguidos */}
-        <h2 className="font-bold text-xl mt-4">Seguidos</h2>
+        <h2 className="font-bold text-xl mt-4 ml-4">Seguidos</h2>
         <PerfilesCuadricula perfiles={seguidos} />
         {!esMiPerfil &&
           sesionIniciada &&
           (sigueAlUsuario ? (
             <button
-              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-neutral-800"
+              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-neutral-800 ml-4"
               onClick={handleDejarDeSeguir}
             >
               <FontAwesomeIcon icon={faUserMinus} className="mr-2" />
@@ -104,7 +104,7 @@ const PerfilUsuario = () => {
             </button>
           ) : (
             <button
-              className="text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
+              className="text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight ml-4"
               onClick={handleSeguir}
             >
               <FontAwesomeIcon icon={faUserPlus} className="mr-2" />

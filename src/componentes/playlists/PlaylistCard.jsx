@@ -9,18 +9,19 @@ const PlaylistCard = ({ playlist }) => {
       <Link to={`/playlists/deezer/${playlist.id}`}>
         <div
           id={playlist.id}
-          className="playlist shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"
+          className="playlist shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards" // Utilizamos flexbox para centrar los elementos vertical y horizontalmente
         >
-          <div className="rounded">
-            {/* Imagen de la playlist */}
+          {/* Imagen de la playlist */}
+          <div className="flex flex-col justify-center items-center mt-1">
             <img
-              className="object-cover aspect-square w-100 h-100 rounded"
+              className="object-cover aspect-square rounded shadow-lg size-44 sm:size-36 md:size-52 lg:size-40 xl:size-52"
               src={playlist.picture_medium}
               alt={playlist.title}
             />
           </div>
           {/* Información de la playlist */}
-          <div className="playlist-info desc mt-2 text-left">
+          <div className="playlist-info desc mt-3 mx-0 md:mx-1">
+            {" "}
             <p className="playlist-titulo font-semibold text-onNeutralBg truncate">
               {playlist.title}
             </p>
