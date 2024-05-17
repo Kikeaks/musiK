@@ -24,8 +24,12 @@ const PerfilCard = ({ perfil }) => {
         {/* Información del usuario */}
         <div className="perfil-info mt-2 text-left">
           {/* Nombre del usuario */}
-          <p className="perfil-nombre font-semibold text-onNeutralBg truncate">
+          <p className="perfil-nombre font-semibold truncate">
             {perfil.nombre}
+          </p>
+          <p className="perfil-nombre truncate text-sm text-neutral-400">
+            {perfil.seguidores.length}{" "}
+            {perfil.seguidores.length === 1 ? "seguidor" : "seguidores"}
           </p>
         </div>
       </Link>

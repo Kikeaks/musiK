@@ -21,11 +21,11 @@ const CancionCard = ({ cancion, onCancionClick }) => {
         {/* Información de la canción */}
         <div className="cancion-info desc mt-3 mx-0 md:mx-1">
           {/* Título de la canción */}
-          <p className="cancion-titulo font-semibold text-onNeutralBg truncate">
+          <p className="cancion-titulo font-semibold truncate">
             {cancion.title}
           </p>
           {/* Nombre del artista */}
-          <p className="cancion-artista font-normal text-secondary truncate">
+          <p className="cancion-artista text-sm text-neutral-400 truncate">
             {cancion.artist.name}
           </p>
         </div>

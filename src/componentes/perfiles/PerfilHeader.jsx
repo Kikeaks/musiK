@@ -22,7 +22,7 @@ const UsuarioHeader = ({
       <div className="flex flex-col sm:flex-row items-center p-3 backdrop-blur-md group mb-3">
         {/* Muestra la imagen del usuario */}
         <img
-          className="rounded-full shadow-2xl mb-4 sm:mb-0 sm:mr-4 size-60"
+          className="rounded-full aspect-square shadow-2xl mb-4 sm:mb-0 sm:mr-4 size-44 sm:size-52"
           src={
             fotoPerfil
               ? fotoPerfil
@@ -32,8 +32,8 @@ const UsuarioHeader = ({
         {/* Muestra la información del usuario */}
         <div className="usuario-info desc text-center sm:text-left">
           <h1 className="mb-2 font-bold">{nombre}</h1>{" "}
-          <p>{numListas} listas de reproducción</p>
-          <p>{seguidores} seguidores · {seguidos} seguidos</p>
+          <p>{numListas} {numListas === 1 ? "lista de reproducción" : "listas de reproducción"}</p>
+          <p>{seguidores} {seguidores === 1 ? "seguidor" : "seguidores"} · {seguidos} {seguidos === 1 ? "seguido" : "seguidos"}</p>
         </div>
       </div>
     </div>

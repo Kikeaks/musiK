@@ -34,7 +34,7 @@ const PlaylistUsuarioCard = ({ playlist }) => {
           {/* Detalles de la playlist */}
           <div className="playlist-info desc mt-2 mx-1">
             {/* Título de la playlist */}
-            <p className="playlist-titulo font-semibold text-onNeutralBg truncate">
+            <p className="playlist-titulo font-semibold truncate">
               {playlist.nombre}
             </p>
           </div>
