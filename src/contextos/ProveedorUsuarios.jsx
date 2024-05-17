@@ -26,16 +26,6 @@ const ProveedorUsuarios = ({ children }) => {
     confirmacionLoginInicial
   );
 
-  // Función para cortar la cadena de un correo electrónico y obtener solo lo de antes de @.
-  const obtenerNombreDeUsuario = (email) => {
-    if (typeof email !== "string") {
-      throw new Error("El email debe ser una cadena de texto");
-    }
-
-    const [nombreDeUsuario] = email.split("@");
-    return nombreDeUsuario;
-  };
-
   // Función para crear una cuenta de usuario.
   const registrarUsuario = async () => {
     try {
@@ -110,6 +100,7 @@ const ProveedorUsuarios = ({ children }) => {
     setConfirmacionLogin(true);
     setTimeout(() => {
       setConfirmacionLogin(false);
+      navigate("/explorar");
     }, 5000);
   };
 
@@ -120,6 +111,7 @@ const ProveedorUsuarios = ({ children }) => {
       await supabaseConexion.auth.signOut();
       // Se redirige la aplicación a la página de inicio.
       setSesionIniciada(false);
+      navigate("/");
     } catch (error) {
       console.error("Error al cerrar sesión:" + error.message);
     }
@@ -156,22 +148,60 @@ const ProveedorUsuarios = ({ children }) => {
 
   const obtenerDatosUsuarioPorId = async (usuarioId) => {
     try {
-      const { data, error } = await supabaseConexion
+      const { data: usuarioData, error: usuarioError } = await supabaseConexion
         .from("usuarios")
         .select("*")
         .eq("id", usuarioId)
         .single();
-
-      if (error) {
-        throw error;
+  
+      if (usuarioError) {
+        throw usuarioError;
+      }
+  
+      // Obtener las listas de reproducción del usuario
+      const { data: listasData, error: listasError } = await supabaseConexion
+        .from("playlists")
+        .select("*")
+        .eq("usuario", usuarioId);
+  
+      if (listasError) {
+        throw listasError;
       }
 
-      return data;
+      // Obtener las listas de reproducción del usuario
+      const { data: seguidosData, error: seguidosError } = await supabaseConexion
+        .from("seguidores")
+        .select("*")
+        .eq("id_seguidor", usuarioId);
+  
+      if (seguidosError) {
+        throw seguidosError;
+      }
+
+      // Obtener las listas de reproducción del usuario
+      const { data: seguidoresData, error: seguidoresError } = await supabaseConexion
+        .from("seguidores")
+        .select("*")
+        .eq("id_seguido", usuarioId);
+  
+      if (seguidoresError) {
+        throw seguidoresError;
+      }
+  
+      const usuarioCompleto = {
+        ...usuarioData,
+        playlists: listasData,
+        seguidos: seguidosData,
+        seguidores: seguidoresData
+      };
+  
+      return usuarioCompleto;
     } catch (error) {
       console.error("Error al obtener los datos del usuario:", error.message);
       return null;
     }
   };
+  
 
   const actualizarDato = (e) => {
     const { name, value } = e.target;
@@ -213,13 +243,37 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
+  // Verifica si el usuario es seguido.
+  const verificarSeguimiento = async (idSeguido) => {
+    if (!sesionIniciada) {
+      return false;
+    }
+
+    try {
+      const { data, error } = await supabaseConexion
+        .from("seguidores")
+        .select("*")
+        .eq("id_seguidor", usuario.id)
+        .eq("id_seguido", idSeguido)
+        .single();
+
+      if (error && error.details !== "No rows found") {
+        throw error;
+      }
+
+      return !!data; // Devuelve true si sigue al usuario, false en caso contrario
+    } catch (error) {
+      console.error("Error al verificar el seguimiento:", error.message);
+      return false;
+    }
+  };
+
   useEffect(() => {
     const { data: authListener } = supabaseConexion.auth.onAuthStateChange(
       (e, sesion) => {
         if (sesion) {
           setSesionIniciada(true);
           obtenerUsuario();
-          navigate("/explorar");
         } else {
           setSesionIniciada(false);
         }
@@ -245,6 +299,9 @@ const ProveedorUsuarios = ({ children }) => {
     infoSesion,
     confirmacionLogin,
     limpiarCampos,
+    seguirUsuario,
+    dejarDeSeguirUsuario,
+    verificarSeguimiento,
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.
