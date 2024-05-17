@@ -11,7 +11,6 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUsuarios } from "../../hooks/useUsuarios";
-import ModalLoginRegistro from "../modales/ModalLoginRegistro.jsx";
 
 const Navegacion = () => {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -20,31 +19,16 @@ const Navegacion = () => {
     setMenuAbierto(!menuAbierto);
   };
 
-  const { usuario, sesionIniciada, cerrarSesion, confirmacionLogin } =
-    useUsuarios();
-
-  // Valor inicial del modal de inicio de sesión.
-  const valorInicialModal = false;
-
-  // Estado para mostrar u ocultar el modal de inicio de sesión.
-  const [mostrarModal, setMostrarModal] = useState(valorInicialModal);
-
-  // Efecto para cerrar el modal de inicio de sesión.
-  useEffect(() => {
-    // Verifica si se ha confirmado el inicio de sesión y cierra el modal si es así.
-    if (confirmacionLogin) {
-      setMostrarModal(false);
-    }
-  }, [confirmacionLogin]); // Se ejecuta cada vez que confirmacionLogin cambia, es decir, cuando se inicia sesión.
+  const { usuario, sesionIniciada, cerrarSesion } = useUsuarios();
 
   return (
     <Fragment>
       <nav className="flex justify-between items-center px-4 py-2 h-24">
         <div>
           <img
-            className="w-12 h-12"
-            src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
-            alt="musik-w"
+            src="https://svgshare.com/i/13Qm.svg"
+            title="musik-w"
+            className="size-12"
           />
         </div>
         <div className="md:hidden">
@@ -78,13 +62,13 @@ const Navegacion = () => {
           </li>
           {!sesionIniciada ? (
             <>
-              <li
-                className="duration-300 ease-in cursor-pointer group hover:text-highlight"
-                onClick={() => {
-                  setMostrarModal(true);
-                }}
-              >
-                <FontAwesomeIcon icon={faUser} className="fa-xl mr-2" />
+              <li>
+                <Link
+                  to="/login"
+                  className="duration-300 ease-in cursor-pointer group"
+                >
+                  <FontAwesomeIcon icon={faUser} className="fa-xl mr-2" />
+                </Link>
               </li>
             </>
           ) : (
@@ -152,14 +136,17 @@ const Navegacion = () => {
             {!sesionIniciada ? (
               <>
                 <ul>
-                  <li
-                    className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm"
-                    onClick={() => {
-                      setMostrarModal(true);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faPersonRunning} className="mr-2" />
-                    Iniciar sesión
+                  <li>
+                    <Link
+                      to="/login"
+                      className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm my-2"
+                    >
+                      <FontAwesomeIcon
+                        icon={faPersonRunning}
+                        className="mr-2"
+                      />
+                      Iniciar sesión
+                    </Link>
                   </li>
                 </ul>
               </>
@@ -189,12 +176,6 @@ const Navegacion = () => {
           </div>
         )}
       </nav>
-      <ModalLoginRegistro
-        mostrar={mostrarModal}
-        manejarCerrado={() => {
-          setMostrarModal(false);
-        }}
-      />
     </Fragment>
   );
 };

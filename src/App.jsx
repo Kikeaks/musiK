@@ -15,7 +15,6 @@ const App = () => {
           <ProveedorCanciones>
             <ProveedorPlaylists>
               <main className="flex flex-col min-h-screen">
-                <Encabezado />
                 <Principal />
                 <Pie />
               </main>

@@ -28,11 +28,11 @@ const ProveedorUsuarios = ({ children }) => {
 
   // Función para cortar la cadena de un correo electrónico y obtener solo lo de antes de @.
   const obtenerNombreDeUsuario = (email) => {
-    if (typeof email !== 'string') {
-      throw new Error('El email debe ser una cadena de texto');
+    if (typeof email !== "string") {
+      throw new Error("El email debe ser una cadena de texto");
     }
-  
-    const [nombreDeUsuario] = email.split('@');
+
+    const [nombreDeUsuario] = email.split("@");
     return nombreDeUsuario;
   };
 
@@ -53,7 +53,9 @@ const ProveedorUsuarios = ({ children }) => {
       const { user } = data;
       const { error: insertError } = await supabaseConexion
         .from("usuarios")
-        .insert([{ id: user.id, email: user.email, nombre: user.nombre }]);
+        .insert([
+          { id: user.id, email: user.email, nombre: infoSesion.nombre },
+        ]);
 
       if (insertError) {
         throw insertError;
@@ -66,12 +68,29 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para iniciar sesión.
+  // Función para iniciar sesión a través del username.
   const iniciarSesion = async () => {
     try {
-      // Se inicia sesión en Supabase.
+      // Busca al usuario por su nombre de usuario en la tabla de usuarios.
+      const { data: userData, error: userError } = await supabaseConexion
+        .from("usuarios")
+        .select("*")
+        .eq("nombre", infoSesion.nombre); // Busca al usuario por su nombre de usuario
+
+      if (userError) {
+        throw userError;
+      }
+
+      if (!userData) {
+        throw new Error("Usuario no encontrado");
+      }
+
+      // Utiliza el correo electrónico del usuario encontrado.
+      const { email } = userData[0];
+
+      // Se inicia sesión.
       const { error } = await supabaseConexion.auth.signInWithPassword({
-        email: infoSesion.email,
+        email,
         password: infoSesion.password,
       });
 
@@ -138,15 +157,15 @@ const ProveedorUsuarios = ({ children }) => {
   const obtenerDatosUsuarioPorId = async (usuarioId) => {
     try {
       const { data, error } = await supabaseConexion
-        .from('usuarios')
-        .select('*')
-        .eq('id', usuarioId)
+        .from("usuarios")
+        .select("*")
+        .eq("id", usuarioId)
         .single();
-  
+
       if (error) {
         throw error;
       }
-  
+
       return data;
     } catch (error) {
       console.error("Error al obtener los datos del usuario:", error.message);
@@ -154,15 +173,44 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para actualizar los datos de sesión del usuario.
   const actualizarDato = (e) => {
     const { name, value } = e.target;
-    setInfoSesion({ ...infoSesion, [name]: value });
+    setInfoSesion((prevState) => ({ ...prevState, [name]: value }));
   };
 
   // Función para limpiar los campos del formulario de registro/login.
   const limpiarCampos = () => {
     setInfoSesion(datosSesionInicial);
+  };
+
+  // Función para seguir a un usuario.
+  const seguirUsuario = async (usuarioId) => {
+    try {
+      // Insertar el nuevo registro en la tabla de seguidores.
+      await supabaseConexion
+        .from("seguidores")
+        .insert([{ id_seguidor: usuario.id, id_seguido: usuarioId }]);
+
+      // Puedes realizar alguna acción adicional después de seguir al usuario, si es necesario.
+    } catch (error) {
+      console.error("Error al seguir al usuario:", error.message);
+    }
+  };
+
+  // Función para dejar de seguir a un usuario.
+  const dejarDeSeguirUsuario = async (usuarioId) => {
+    try {
+      // Eliminar el registro correspondiente en la tabla de seguidores.
+      await supabaseConexion
+        .from("seguidores")
+        .delete()
+        .eq("id_seguidor", usuario.id)
+        .eq("id_seguido", usuarioId);
+
+      // Puedes realizar alguna acción adicional después de dejar de seguir al usuario, si es necesario.
+    } catch (error) {
+      console.error("Error al dejar de seguir al usuario:", error.message);
+    }
   };
 
   useEffect(() => {
@@ -171,9 +219,9 @@ const ProveedorUsuarios = ({ children }) => {
         if (sesion) {
           setSesionIniciada(true);
           obtenerUsuario();
+          navigate(`/perfil/${usuario.id}`);
         } else {
           setSesionIniciada(false);
-
         }
       }
     );

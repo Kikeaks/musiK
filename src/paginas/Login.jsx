@@ -11,6 +11,11 @@ const Login = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center">
+      <img
+        src="https://svgshare.com/i/13Qm.svg"
+        title="musik-w"
+        className="size-44 m-12"
+      />
       <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl text-white">
         ¡Te echábamos de menos!
       </h1>
@@ -18,17 +23,17 @@ const Login = () => {
         <div className="space-y-4 md:space-y-6">
           <div>
             <label
-              htmlFor="email-login"
-              className="block mb-2 text-sm md:text-base font-medium text-white"
+              htmlFor="username-login"
+              className="block mb-2 text-base font-medium text-white"
             >
-              Correo electrónico
+              Nombre de usuario
             </label>
             <input
-              type="email"
-              name="email"
-              id="email-login"
-              className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-              placeholder="ejemplo@correo.com"
+              type="text"
+              name="nombre"
+              id="username-login"
+              className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+              placeholder="Introduce tu nombre de usuario"
               onChange={(e) => {
                 actualizarDato(e);
               }}
@@ -38,7 +43,7 @@ const Login = () => {
           <div>
             <label
               htmlFor="password-login"
-              className="block mb-2 text-sm md:text-base font-medium text-white"
+              className="block mb-2 text-base font-medium text-white"
             >
               Contraseña
             </label>
@@ -46,8 +51,8 @@ const Login = () => {
               type="password"
               name="password"
               id="password-login"
-              className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-              placeholder="********"
+              className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+              placeholder="Introduce tu contraseña"
               onChange={(e) => {
                 actualizarDato(e);
               }}
@@ -55,13 +60,13 @@ const Login = () => {
             />
           </div>
           <button
-            className="w-full text-white font-medium rounded-lg text-sm hover:border-white text-center focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
+            className="w-full text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
             onClick={(e) => manejoLogin(e)}
           >
             Iniciar sesión
           </button>
           <p className="text-center text-sm">
-            ¿Todavía no tienes cuenta? {""}
+            ¿Todavía no tienes cuenta? · {""}
             <Link
               className="duration-300 ease-in cursor-pointer group"
               to="/registro"

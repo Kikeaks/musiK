@@ -1,3 +1,5 @@
+// Rutas.jsx
+
 import React, { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import Inicio from "../../paginas/Inicio.jsx";
@@ -6,6 +8,7 @@ import Playlists from "../../paginas/playlists/Playlists.jsx";
 import Playlist from "../../paginas/playlists/Playlist.jsx";
 import PlaylistUsuario from "../../paginas/playlists/PlaylistUsuario.jsx";
 import PerfilUsuario from "../../paginas/PerfilUsuario.jsx";
+import Encabezado from "../../componentes/estructura/Encabezado.jsx"; // Importa el encabezado
 import Login from "../../paginas/Login.jsx";
 import Registro from "../../paginas/Registro.jsx";
 
@@ -15,12 +18,27 @@ const Rutas = () => {
     <Fragment>
       {/* Definición de las rutas */}
       <Routes>
-        <Route path="/" exact element={<Inicio />} />
-        <Route path="/explorar" element={<Explorar />} />
-        <Route path="/playlists" element={<Playlists />} />
-        <Route path="/playlists/deezer/:id" element={<Playlist />} />
-        <Route path="/playlists/bbdd/:id" element={<PlaylistUsuario />} />
-        <Route path="/perfil/:id" element={<PerfilUsuario />} />
+        {/* Encabezado se renderiza para todas las rutas excepto login y registro */}
+        <Route
+          path="/*"
+          element={
+            <Fragment>
+              <Encabezado />
+              <Routes>
+                <Route path="/" exact element={<Inicio />} />
+                <Route path="/explorar" element={<Explorar />} />
+                <Route path="/playlists" element={<Playlists />} />
+                <Route path="/playlists/deezer/:id" element={<Playlist />} />
+                <Route
+                  path="/playlists/bbdd/:id"
+                  element={<PlaylistUsuario />}
+                />
+                <Route path="/perfil/:id" element={<PerfilUsuario />} />
+              </Routes>
+            </Fragment>
+          }
+        />
+        {/* Rutas de autenticación */}
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
       </Routes>

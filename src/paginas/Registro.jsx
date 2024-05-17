@@ -16,6 +16,11 @@ const Registro = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center">
+      <img
+        src="https://svgshare.com/i/13Qm.svg"
+        title="musik-w"
+        className="size-44 m-12"
+      />
       <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl text-white">
         Bienvenid@ a musiK :)
       </h1>
@@ -26,10 +31,10 @@ const Registro = () => {
       ) : (
         <div className="w-full max-w-md p-6">
           <div className="space-y-4 md:space-y-6">
-          <div>
+            <div>
               <label
                 htmlFor="user-register"
-                className="block mb-2 text-sm md:text-base font-medium text-white"
+                className="block mb-2 text-base font-medium text-white"
               >
                 Nombre de usuario
               </label>
@@ -37,8 +42,8 @@ const Registro = () => {
                 type="text"
                 name="nombre"
                 id="user-register"
-                className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-                placeholder="usuario"
+                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+                placeholder="Introduce un nombre de usuario"
                 onChange={(e) => actualizarDato(e)}
                 required
               />
@@ -46,7 +51,7 @@ const Registro = () => {
             <div>
               <label
                 htmlFor="email-register"
-                className="block mb-2 text-sm md:text-base font-medium text-white"
+                className="block mb-2 text-base font-medium text-white"
               >
                 Correo electrónico
               </label>
@@ -54,8 +59,8 @@ const Registro = () => {
                 type="email"
                 name="email"
                 id="email-register"
-                className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-                placeholder="usuario@correo.com"
+                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+                placeholder="Introduce una dirección de correo electrónico"
                 onChange={(e) => actualizarDato(e)}
                 required
               />
@@ -63,7 +68,7 @@ const Registro = () => {
             <div>
               <label
                 htmlFor="password-register"
-                className="block mb-2 text-sm md:text-base font-medium text-white"
+                className="block mb-2 text-base font-medium text-white"
               >
                 Contraseña (mínimo 8 caracteres)
               </label>
@@ -71,8 +76,8 @@ const Registro = () => {
                 type="password"
                 name="password"
                 id="password-register"
-                className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-                placeholder="********"
+                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+                placeholder="Introduce una contraseña"
                 onChange={(e) => actualizarDato(e)}
                 required
               />
@@ -80,35 +85,35 @@ const Registro = () => {
             <div>
               <label
                 htmlFor="password-repeat"
-                className="block mb-2 text-sm md:text-base font-medium text-white"
+                className="block mb-2 text-base font-medium text-white"
               >
-                Repite la contraseña
+                Repetir contraseña
               </label>
               <input
                 type="password"
                 name="password-repeat"
                 id="password-r-register"
-                className="border-cards sm:text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
-                placeholder="********"
+                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+                placeholder="Repite la contraseña escogida"
                 onChange={(e) => actualizarDato(e)}
                 required
               />
             </div>
             <button
-              className="w-full text-white font-medium rounded-lg text-sm hover:border-white text-center focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
+              className="w-full text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
               onClick={(e) => manejoRegistro(e)}
             >
               Registrar
             </button>
             <p className="text-center text-sm">
-            ¿Ya tienes cuenta? {""}
-            <Link
-              className="duration-300 ease-in cursor-pointer group"
-              to="/login"
-            >
-              Inicia sesión
-            </Link>
-          </p>
+              ¿Ya tienes cuenta? · {""}
+              <Link
+                className="duration-300 ease-in cursor-pointer group"
+                to="/login"
+              >
+                Inicia sesión
+              </Link>
+            </p>
           </div>
         </div>
       )}

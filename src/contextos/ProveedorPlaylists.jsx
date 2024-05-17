@@ -9,7 +9,7 @@ const CtxPlaylists = createContext();
 
 // Componente proveedor que utiliza el contexto para proporcionar datos de playlists a sus hijos.
 const ProveedorPlaylists = ({ children }) => {
-  const { usuario } = useUsuarios();
+  const { usuario, sesionIniciada } = useUsuarios();
   const { addCancionABaseDatos } = useCanciones();
   // Estado local para almacenar la lista de playlists del usuario.
   const [playlistsUsuario, setPlaylistsUsuario] = useState([]);
@@ -18,7 +18,7 @@ const ProveedorPlaylists = ({ children }) => {
   const [playlistsDestacadas, setPlaylistsDestacadas] = useState([]);
 
   const cargarPlaylistsUsuario = async () => {
-    if (usuario) {
+    if (sesionIniciada) {
       try {
         const { data, error } = await supabaseConexion
           .from("playlists")
