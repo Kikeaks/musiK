@@ -66,7 +66,7 @@ const PlaylistUsuario = () => {
             <FontAwesomeIcon
               icon={faEdit}
               onClick={abrirModalEditar}
-              className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer "
+              className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer"
             />
           </div>
           <p className="mb-2">{playlist.descripcion}</p>

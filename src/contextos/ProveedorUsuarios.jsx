@@ -53,7 +53,7 @@ const ProveedorUsuarios = ({ children }) => {
       const { user } = data;
       const { error: insertError } = await supabaseConexion
         .from("usuarios")
-        .insert([{ id: user.id, email: user.email, nombre: obtenerNombreDeUsuario(user.email) }]);
+        .insert([{ id: user.id, email: user.email, nombre: user.nombre }]);
 
       if (insertError) {
         throw insertError;
@@ -173,7 +173,7 @@ const ProveedorUsuarios = ({ children }) => {
           obtenerUsuario();
         } else {
           setSesionIniciada(false);
-          navigate("/");
+
         }
       }
     );

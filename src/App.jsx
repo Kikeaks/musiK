@@ -14,7 +14,7 @@ const App = () => {
         <ProveedorUsuarios>
           <ProveedorCanciones>
             <ProveedorPlaylists>
-              <main>
+              <main className="flex flex-col min-h-screen">
                 <Encabezado />
                 <Principal />
                 <Pie />
