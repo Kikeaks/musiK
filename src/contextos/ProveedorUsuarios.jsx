@@ -101,7 +101,7 @@ const ProveedorUsuarios = ({ children }) => {
     setTimeout(() => {
       setConfirmacionLogin(false);
       navigate("/explorar");
-    }, 5000);
+    }, 3000);
   };
 
   // Función para cerrar la sesión de usuario.
@@ -153,48 +153,50 @@ const ProveedorUsuarios = ({ children }) => {
         .select("*")
         .eq("id", usuarioId)
         .single();
-  
+
       if (usuarioError) {
         throw usuarioError;
       }
-  
+
       // Obtener las listas de reproducción del usuario
       const { data: listasData, error: listasError } = await supabaseConexion
         .from("playlists")
         .select("*")
         .eq("usuario", usuarioId);
-  
+
       if (listasError) {
         throw listasError;
       }
 
       // Obtener las listas de reproducción del usuario
-      const { data: seguidosData, error: seguidosError } = await supabaseConexion
-        .from("seguidores")
-        .select("*")
-        .eq("id_seguidor", usuarioId);
-  
+      const { data: seguidosData, error: seguidosError } =
+        await supabaseConexion
+          .from("seguidores")
+          .select("*")
+          .eq("id_seguidor", usuarioId);
+
       if (seguidosError) {
         throw seguidosError;
       }
 
       // Obtener las listas de reproducción del usuario
-      const { data: seguidoresData, error: seguidoresError } = await supabaseConexion
-        .from("seguidores")
-        .select("*")
-        .eq("id_seguido", usuarioId);
-  
+      const { data: seguidoresData, error: seguidoresError } =
+        await supabaseConexion
+          .from("seguidores")
+          .select("*")
+          .eq("id_seguido", usuarioId);
+
       if (seguidoresError) {
         throw seguidoresError;
       }
-  
+
       const usuarioCompleto = {
         ...usuarioData,
         playlists: listasData,
         seguidos: seguidosData,
-        seguidores: seguidoresData
+        seguidores: seguidoresData,
       };
-  
+
       return usuarioCompleto;
     } catch (error) {
       console.error("Error al obtener los datos del usuario:", error.message);
@@ -203,60 +205,60 @@ const ProveedorUsuarios = ({ children }) => {
   };
 
   // Función para obtener los seguidores de un usuario
-const obtenerSeguidores = async (usuarioId) => {
-  try {
-    const { data, error } = await supabaseConexion
-      .from("seguidores")
-      .select("*")
-      .eq("id_seguido", usuarioId);
+  const obtenerSeguidores = async (usuarioId) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("seguidores")
+        .select("*")
+        .eq("id_seguido", usuarioId);
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      // Obtén los datos de los seguidores
+      const seguidores = data.map((seguidor) => seguidor.id_seguidor);
+      // Obtén la información completa de los seguidores desde la tabla de usuarios
+      const seguidoresInfo = await Promise.all(
+        seguidores.map(async (seguidorId) => {
+          return await obtenerDatosUsuarioPorId(seguidorId);
+        })
+      );
+
+      return seguidoresInfo;
+    } catch (error) {
+      console.error("Error al obtener los seguidores:", error.message);
+      return [];
     }
+  };
 
-    // Obtén los datos de los seguidores
-    const seguidores = data.map((seguidor) => seguidor.id_seguidor);
-    // Obtén la información completa de los seguidores desde la tabla de usuarios
-    const seguidoresInfo = await Promise.all(
-      seguidores.map(async (seguidorId) => {
-        return await obtenerDatosUsuarioPorId(seguidorId);
-      })
-    );
+  // Función para obtener los seguidos por un usuario
+  const obtenerSeguidos = async (usuarioId) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("seguidores")
+        .select("*")
+        .eq("id_seguidor", usuarioId);
 
-    return seguidoresInfo;
-  } catch (error) {
-    console.error("Error al obtener los seguidores:", error.message);
-    return [];
-  }
-};
+      if (error) {
+        throw error;
+      }
 
-// Función para obtener los seguidos por un usuario
-const obtenerSeguidos = async (usuarioId) => {
-  try {
-    const { data, error } = await supabaseConexion
-      .from("seguidores")
-      .select("*")
-      .eq("id_seguidor", usuarioId);
+      // Obtén los datos de los seguidos
+      const seguidos = data.map((seguido) => seguido.id_seguido);
+      // Obtén la información completa de los seguidos desde la tabla de usuarios
+      const seguidosInfo = await Promise.all(
+        seguidos.map(async (seguidoId) => {
+          return await obtenerDatosUsuarioPorId(seguidoId);
+        })
+      );
 
-    if (error) {
-      throw error;
+      return seguidosInfo;
+    } catch (error) {
+      console.error("Error al obtener los seguidos:", error.message);
+      return [];
     }
-
-    // Obtén los datos de los seguidos
-    const seguidos = data.map((seguido) => seguido.id_seguido);
-    // Obtén la información completa de los seguidos desde la tabla de usuarios
-    const seguidosInfo = await Promise.all(
-      seguidos.map(async (seguidoId) => {
-        return await obtenerDatosUsuarioPorId(seguidoId);
-      })
-    );
-
-    return seguidosInfo;
-  } catch (error) {
-    console.error("Error al obtener los seguidos:", error.message);
-    return [];
-  }
-};
+  };
 
   const actualizarDato = (e) => {
     const { name, value } = e.target;

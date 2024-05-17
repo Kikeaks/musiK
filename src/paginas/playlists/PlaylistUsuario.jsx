@@ -71,8 +71,13 @@ const PlaylistUsuario = () => {
           </div>
           <p className="mb-2">{playlist.descripcion}</p>
           <p className="text-sm">
-            Creada por · {" "}
-            <Link className="duration-300 ease-in cursor-pointer group" to={`/perfil/${playlist.usuario}`}>{autorPlaylist}</Link>
+            Creada por ·{" "}
+            <Link
+              className="duration-300 ease-in cursor-pointer group"
+              to={`/perfil/${playlist.usuario}`}
+            >
+              {autorPlaylist}
+            </Link>
           </p>
         </div>
       </div>

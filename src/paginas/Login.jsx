@@ -84,7 +84,7 @@ const Login = () => {
           </div>
         ) : (
           <div className="text-center">
-            <p>En breves se te redigirá a la página principal.</p>
+            <p>Redigiriendo a la página principal...</p>
             <p className="mt-2 font-bold">Gracias por usar musiK :)</p>
           </div>
         )}

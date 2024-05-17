@@ -1,4 +1,4 @@
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import ModalQuitarDePlaylist from "../modales/ModalQuitarDePlaylist.jsx";
@@ -19,19 +19,31 @@ const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
   };
 
   return (
-    <div className="cancion flex items-center shadow-lg p-3 rounded mb-3">
+    <div className="cancion flex items-center shadow-lg p-3 rounded group mb-3 bg-cards">
       {/* Imagen de la portada del álbum */}
-      <img
-        className="rounded mr-2"
-        src={cancion.portada}
-        alt={cancion.nombre}
-      />
+      <div className="relative mr-2 group">
+        <img
+          className="rounded object-cover"
+          src={cancion.portada}
+          alt={cancion.nombre}
+        />
+        {/* Overlay con el ícono */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded">
+          <FontAwesomeIcon
+            icon={faPlay}
+            className="text-white hover:text-highlight cursor-pointer fa-lg duration-300 ease-in-out group"
+          />
+        </div>
+      </div>
+
       {/* Información de la canción */}
       <div className="cancion-info">
         {/* Título de la canción */}
-        <p className="cancion-titulo font-semibold text-sm">{cancion.nombre}</p>
+        <p className="cancion-titulo font-semibold">{cancion.nombre}</p>
         {/* Nombre del artista */}
-        <p className="cancion-artista text-sm">{cancion.artista}</p>
+        <p className="cancion-artista text-sm text-neutral-400">
+          {cancion.artista}
+        </p>
       </div>
       {/* Duración de la canción */}
       <p className="cancion-duracion ml-auto font-semibold">

@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUsuarios } from "../hooks/useUsuarios";
+import { usePlaylists } from "../hooks/usePlaylists";
 import PerfilHeader from "../componentes/perfiles/PerfilHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import PerfilesCuadricula from "../componentes/perfiles/PerfilesCuadricula";
+import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
 
 const PerfilUsuario = () => {
   const { id } = useParams();
@@ -16,13 +18,17 @@ const PerfilUsuario = () => {
     verificarSeguimiento,
     sesionIniciada,
     obtenerSeguidores,
-    obtenerSeguidos
+    obtenerSeguidos,
   } = useUsuarios();
+
+  const { playlistsUsuario, cargarPlaylistsPorIdUsuario } = usePlaylists();
+
   const [perfil, setPerfil] = useState(null);
   const [carga, setCarga] = useState(true);
   const [sigueAlUsuario, setSigueAlUsuario] = useState(false);
   const [seguidores, setSeguidores] = useState([]);
   const [seguidos, setSeguidos] = useState([]);
+  const [playlistsPerfil, setPlaylistsPerfil] = useState([]);
 
   useEffect(() => {
     const cargarPerfil = async () => {
@@ -56,6 +62,15 @@ const PerfilUsuario = () => {
 
     obtenerDatos();
   }, [id, obtenerSeguidores, obtenerSeguidos]);
+
+  useEffect(() => {
+    const cargarPlaylists = async () => {
+      const playlists = await cargarPlaylistsPorIdUsuario(id);
+      setPlaylistsPerfil(playlists);
+    };
+
+    cargarPlaylists();
+  }, [id, cargarPlaylistsPorIdUsuario]);
 
   const esMiPerfil = usuario?.id === id;
 
@@ -92,7 +107,7 @@ const PerfilUsuario = () => {
           (sigueAlUsuario ? (
             <button
               className="text-white font-medium rounded-lg hover:border-highlight text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-neutral-800 ml-4 mt-2"
-              style={{width: 180}}
+              style={{ width: 180 }}
               onClick={handleDejarDeSeguir}
             >
               <FontAwesomeIcon icon={faUserMinus} className="mr-2" />
@@ -101,20 +116,25 @@ const PerfilUsuario = () => {
           ) : (
             <button
               className="text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-2"
-              style={{width: 180}}
+              style={{ width: 180 }}
               onClick={handleSeguir}
             >
               <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
               Seguir
             </button>
-          ))
-        }
+          ))}
         {/* Muestra la cuadrícula de seguidores */}
         <h2 className="font-bold text-xl mt-4 ml-4">Seguidores</h2>
         <PerfilesCuadricula perfiles={seguidores} />
         {/* Muestra la cuadrícula de seguidos */}
         <h2 className="font-bold text-xl mt-4 ml-4">Siguiendo</h2>
         <PerfilesCuadricula perfiles={seguidos} />
+        {playlistsPerfil && playlistsPerfil.length > 0 && (
+          <div>
+            <h2 className="font-bold text-xl mt-4 ml-4">Playlists</h2>
+            <PlaylistsCuadricula playlists={playlistsPerfil} origen="bbdd" />
+          </div>
+        )}
       </div>
     </Fragment>
   );

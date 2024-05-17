@@ -15,7 +15,7 @@ const Cancion = ({ cancion }) => (
       {/* Título de la canción. */}
       <p className="cancion-titulo font-semibold">{cancion.title}</p>
       {/* Nombre del artista. */}
-      <p className="cancion-artista">{cancion.artist.name}</p>
+      <p className="cancion-artista text-sm text-neutral-400">{cancion.artist.name}</p>
     </div>
     {/* Duración de la canción. */}
     <p className="cancion-duracion ml-auto font-semibold">

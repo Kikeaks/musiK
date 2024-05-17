@@ -9,7 +9,7 @@ const PlaylistCard = ({ playlist }) => {
       <Link to={`/playlists/deezer/${playlist.id}`}>
         <div
           id={playlist.id}
-          className="playlist shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards" // Utilizamos flexbox para centrar los elementos vertical y horizontalmente
+          className="playlist shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"
         >
           {/* Imagen de la playlist */}
           <div className="flex flex-col justify-center items-center mt-1">

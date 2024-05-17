@@ -32,8 +32,6 @@ const Playlists = () => {
   return (
     <Fragment>
       <div>
-        {/* Título y botón para crear playlist si el usuario ha iniciado sesión */}
-        <h2 className="font-bold text-2xl text-center mt-3">Mis playlists</h2>
         <div className="flex align-center justify-center">
           {sesionIniciada ? (
             <button className="mt-2" onClick={abrirModal}>
@@ -46,8 +44,6 @@ const Playlists = () => {
             </p>
           )}
         </div>
-        {/* Cuadrícula de playlists del usuario */}
-        <PlaylistsCuadricula playlists={playlistsUsuario} origen={"bbdd"} />
         {/* Título y cuadrícula de playlists destacadas */}
         <h2 className="font-bold text-2xl text-center mt-3">
           Playlists destacadas

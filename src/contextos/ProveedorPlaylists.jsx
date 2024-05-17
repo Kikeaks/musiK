@@ -259,6 +259,12 @@ const ProveedorPlaylists = ({ children }) => {
   // Función para eliminar una playlist.
   const eliminarPlaylist = async (idPlaylist) => {
     try {
+      // Elimina las relaciones de canciones de la playlist en la tabla de playlists_canciones.
+      await supabaseConexion
+        .from("playlists_canciones")
+        .delete()
+        .eq("id_playlist", idPlaylist);
+
       // Elimina la playlist de la tabla de playlists.
       const { error } = await supabaseConexion
         .from("playlists")
@@ -268,12 +274,6 @@ const ProveedorPlaylists = ({ children }) => {
       if (error) {
         throw error;
       }
-
-      // Elimina las relaciones de canciones de la playlist en la tabla de playlists_canciones.
-      await supabaseConexion
-        .from("playlists_canciones")
-        .delete()
-        .eq("id_playlist", idPlaylist);
 
       // Actualiza el estado local de las playlists del usuario eliminando la playlist.
       setPlaylistsUsuario(
@@ -314,6 +314,26 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  const cargarPlaylistsPorIdUsuario = async (idUsuario) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("playlists")
+        .select("*")
+        .eq("usuario", idUsuario);
+
+      if (error) {
+        throw error;
+      } else {
+        return data;
+      }
+    } catch (error) {
+      console.error(
+        `Error al obtener las playlists del usuario: ${error.message}`
+      );
+      return [];
+    }
+  };
+
   useEffect(() => {
     cargarPlaylistsDestacadas(); // Cargar playlists destacadas al montar el componente
     if (usuario.id) {
@@ -336,6 +356,7 @@ const ProveedorPlaylists = ({ children }) => {
     editarNombrePlaylist,
     quitarCancionDePlaylist,
     eliminarPlaylist,
+    cargarPlaylistsPorIdUsuario,
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.
