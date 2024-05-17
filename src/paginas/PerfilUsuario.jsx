@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUsuarios } from "../hooks/useUsuarios";
-import UsuarioHeader from "../componentes/usuarios/UsuarioHeader";
+import PerfilHeader from "../componentes/perfiles/PerfilHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import PerfilesCuadricula from "../componentes/perfiles/PerfilesCuadricula";
 
 const PerfilUsuario = () => {
   const { id } = useParams();
@@ -14,10 +15,14 @@ const PerfilUsuario = () => {
     dejarDeSeguirUsuario,
     verificarSeguimiento,
     sesionIniciada,
+    obtenerSeguidores,
+    obtenerSeguidos
   } = useUsuarios();
   const [perfil, setPerfil] = useState(null);
   const [carga, setCarga] = useState(true);
   const [sigueAlUsuario, setSigueAlUsuario] = useState(false);
+  const [seguidores, setSeguidores] = useState([]);
+  const [seguidos, setSeguidos] = useState([]);
 
   useEffect(() => {
     const cargarPerfil = async () => {
@@ -40,6 +45,17 @@ const PerfilUsuario = () => {
 
     verificar();
   }, [sesionIniciada, id, verificarSeguimiento]);
+
+  useEffect(() => {
+    const obtenerDatos = async () => {
+      const seguidores = await obtenerSeguidores(id);
+      const seguidos = await obtenerSeguidos(id);
+      setSeguidores(seguidores);
+      setSeguidos(seguidos);
+    };
+
+    obtenerDatos();
+  }, [id, obtenerSeguidores, obtenerSeguidos]);
 
   const esMiPerfil = usuario?.id === id;
 
@@ -64,13 +80,18 @@ const PerfilUsuario = () => {
   return (
     <Fragment>
       <div>
-        <UsuarioHeader
+        <PerfilHeader
           nombre={perfil.nombre}
           fotoPerfil={perfil.avatar}
           numListas={perfil.playlists.length}
           seguidores={perfil.seguidores.length}
           seguidos={perfil.seguidos.length}
         />
+        <h2 className="font-bold text-xl mt-4">Seguidores</h2>
+        <PerfilesCuadricula perfiles={seguidores} />
+        {/* Muestra la cuadrícula de seguidos */}
+        <h2 className="font-bold text-xl mt-4">Seguidos</h2>
+        <PerfilesCuadricula perfiles={seguidos} />
         {!esMiPerfil &&
           sesionIniciada &&
           (sigueAlUsuario ? (

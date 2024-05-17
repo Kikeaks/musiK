@@ -201,7 +201,62 @@ const ProveedorUsuarios = ({ children }) => {
       return null;
     }
   };
-  
+
+  // Función para obtener los seguidores de un usuario
+const obtenerSeguidores = async (usuarioId) => {
+  try {
+    const { data, error } = await supabaseConexion
+      .from("seguidores")
+      .select("*")
+      .eq("id_seguido", usuarioId);
+
+    if (error) {
+      throw error;
+    }
+
+    // Obtén los datos de los seguidores
+    const seguidores = data.map((seguidor) => seguidor.id_seguidor);
+    // Obtén la información completa de los seguidores desde la tabla de usuarios
+    const seguidoresInfo = await Promise.all(
+      seguidores.map(async (seguidorId) => {
+        return await obtenerDatosUsuarioPorId(seguidorId);
+      })
+    );
+
+    return seguidoresInfo;
+  } catch (error) {
+    console.error("Error al obtener los seguidores:", error.message);
+    return [];
+  }
+};
+
+// Función para obtener los seguidos por un usuario
+const obtenerSeguidos = async (usuarioId) => {
+  try {
+    const { data, error } = await supabaseConexion
+      .from("seguidores")
+      .select("*")
+      .eq("id_seguidor", usuarioId);
+
+    if (error) {
+      throw error;
+    }
+
+    // Obtén los datos de los seguidos
+    const seguidos = data.map((seguido) => seguido.id_seguido);
+    // Obtén la información completa de los seguidos desde la tabla de usuarios
+    const seguidosInfo = await Promise.all(
+      seguidos.map(async (seguidoId) => {
+        return await obtenerDatosUsuarioPorId(seguidoId);
+      })
+    );
+
+    return seguidosInfo;
+  } catch (error) {
+    console.error("Error al obtener los seguidos:", error.message);
+    return [];
+  }
+};
 
   const actualizarDato = (e) => {
     const { name, value } = e.target;
@@ -302,6 +357,8 @@ const ProveedorUsuarios = ({ children }) => {
     seguirUsuario,
     dejarDeSeguirUsuario,
     verificarSeguimiento,
+    obtenerSeguidores,
+    obtenerSeguidos,
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.
