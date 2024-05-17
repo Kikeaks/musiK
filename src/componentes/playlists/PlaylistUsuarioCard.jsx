@@ -29,10 +29,10 @@ const PlaylistUsuarioCard = ({ playlist }) => {
           className="playlist bg-cards p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group"
         >
           <div className="flex flex-col justify-center items-center">
-            <img src={playlist.portada ? playlist.portada : "https://i.pinimg.com/originals/dd/53/31/dd5331bc3dd9fdffead6ed1bef96cd90.jpg"} className="object-cover aspect-square rounded shadow-lg size-36 md:size-40 xl:size-44 2xl:size-48" />
+            <img src={playlist.portada ? playlist.portada : "https://i.pinimg.com/originals/dd/53/31/dd5331bc3dd9fdffead6ed1bef96cd90.jpg"} className="object-cover aspect-square rounded shadow" />
           </div>
           {/* Detalles de la playlist */}
-          <div className="playlist-info desc mt-2 mx-1 md:mx-2 text-center">
+          <div className="playlist-info desc mt-2">
             {/* Título de la playlist */}
             <p className="playlist-titulo font-semibold truncate">
               {playlist.nombre}

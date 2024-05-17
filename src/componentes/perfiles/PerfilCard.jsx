@@ -10,19 +10,21 @@ const PerfilCard = ({ perfil }) => {
       >
         {/* Foto de perfil */}
         <div className="flex flex-col justify-center items-center mt-1">
-          <img
-            className="object-cover aspect-square rounded-full size-36 md:size-40 xl:size-44 2xl:size-48 shadow-lg"
-            src={
-              perfil.avatar
-                ? perfil.avatar
-                : "https://static.vecteezy.com/system/resources/previews/023/465/688/original/contact-dark-mode-glyph-ui-icon-address-book-profile-page-user-interface-design-white-silhouette-symbol-on-black-space-solid-pictogram-for-web-mobile-isolated-illustration-vector.jpg"
-            }
-            alt={perfil.nombre}
-          />
+          <div className="w-full" style={{ maxWidth: "250px" }}>
+            <img
+              className="object-cover aspect-square rounded-full shadow-md w-full"
+              src={
+                perfil.avatar
+                  ? perfil.avatar
+                  : "https://static.vecteezy.com/system/resources/previews/023/465/688/original/contact-dark-mode-glyph-ui-icon-address-book-profile-page-user-interface-design-white-silhouette-symbol-on-black-space-solid-pictogram-for-web-mobile-isolated-illustration-vector.jpg"
+              }
+              alt={perfil.nombre}
+            />
+          </div>
         </div>
 
         {/* Información del usuario */}
-        <div className="perfil-info mt-2 text-left">
+        <div className="perfil-info mt-2">
           {/* Nombre del usuario */}
           <p className="perfil-nombre font-semibold truncate">
             {perfil.nombre}

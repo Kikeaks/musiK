@@ -14,15 +14,15 @@ const PlaylistCard = ({ playlist }) => {
           {/* Imagen de la playlist */}
           <div className="flex flex-col justify-center items-center mt-1">
             <img
-              className="object-cover aspect-square rounded shadow-lg size-36 md:size-40 xl:size-44 2xl:size-48"
+              className="object-cover aspect-square rounded shadow-md"
               src={playlist.picture_medium}
               alt={playlist.title}
             />
           </div>
           {/* Información de la playlist */}
-          <div className="playlist-info desc mt-3 mx-1 md:mx-2 text-center">
+          <div className="playlist-info desc mt-3">
             {" "}
-            <p className="playlist-titulo font-semibold text-onNeutralBg truncate">
+            <p className="playlist-titulo font-semibold truncate">
               {playlist.title}
             </p>
             <p className="playlist-creador text-sm text-neutral-400 truncate">
