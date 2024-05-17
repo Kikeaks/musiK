@@ -215,11 +215,11 @@ const ProveedorUsuarios = ({ children }) => {
 
   useEffect(() => {
     const { data: authListener } = supabaseConexion.auth.onAuthStateChange(
-      async (e, sesion) => {
+      (e, sesion) => {
         if (sesion) {
           setSesionIniciada(true);
-          await obtenerUsuario();
-          navigate(`/perfil/${usuario.id}`);
+          obtenerUsuario();
+          navigate("/explorar");
         } else {
           setSesionIniciada(false);
         }
