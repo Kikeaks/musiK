@@ -11,7 +11,7 @@ const PerfilCard = ({ perfil }) => {
         {/* Foto de perfil */}
         <div className="flex flex-col justify-center items-center mt-1">
           <img
-            className="object-cover aspect-square rounded-full size-44 sm:size-36 md:size-52 lg:size-40 xl:size-52 shadow-lg"
+            className="object-cover aspect-square rounded-full size-36 md:size-40 xl:size-44 2xl:size-48 shadow-lg"
             src={
               perfil.avatar
                 ? perfil.avatar
