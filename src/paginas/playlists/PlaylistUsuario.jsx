@@ -73,7 +73,7 @@ const PlaylistUsuario = () => {
           <p className="text-sm">
             Creada por ·{" "}
             <Link
-              className="duration-300 ease-in cursor-pointer group"
+              className="duration-300 ease-in cursor-pointer group font-semibold"
               to={`/perfil/${playlist.usuario}`}
             >
               {autorPlaylist}
