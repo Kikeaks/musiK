@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import logo from "../../assets/musik.png";
+import avatarDefault from "../../assets/usuario.jpg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,9 +16,28 @@ import { useUsuarios } from "../../hooks/useUsuarios";
 
 const Navegacion = () => {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [mostrarMenu, setMostrarMenu] = useState(false);
+  const [perfilMenuAbierto, setPerfilMenuAbierto] = useState(false);
+  const [mostrarPerfilMenu, setMostrarPerfilMenu] = useState(false);
 
   const toggleMenu = () => {
-    setMenuAbierto(!menuAbierto);
+    if (!menuAbierto) {
+      setMostrarMenu(true);
+      setTimeout(() => setMenuAbierto(true), 10);
+    } else {
+      setMenuAbierto(false);
+      setTimeout(() => setMostrarMenu(false), 300);
+    }
+  };
+
+  const togglePerfilMenu = () => {
+    if (!perfilMenuAbierto) {
+      setMostrarPerfilMenu(true);
+      setTimeout(() => setPerfilMenuAbierto(true), 10);
+    } else {
+      setPerfilMenuAbierto(false);
+      setTimeout(() => setMostrarPerfilMenu(false), 300);
+    }
   };
 
   const { usuario, sesionIniciada, cerrarSesion } = useUsuarios();
@@ -74,30 +94,53 @@ const Navegacion = () => {
           ) : (
             <>
               <li>
-                <Link
-                  to={`/perfil/${usuario.id}`}
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm focus:outline-none"
-                  onClick={toggleMenu}
-                >
-                  <FontAwesomeIcon icon={faUser} className="mr-2" />
-                  Perfil
-                </Link>
-              </li>
-              <li
-                className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none"
-                onClick={() => {
-                  cerrarSesion();
-                }}
-              >
-                <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
-                Cerrar sesión
+                <div className="relative">
+                  <img
+                    src={usuario.avatar ? usuario.avatar : avatarDefault}
+                    className="mr-2 size-6 rounded-full aspect-square ring-2 ring-white hover:ring-highlight duration-300 ease-in cursor-pointer"
+                    onClick={togglePerfilMenu}
+                  />
+                  {mostrarPerfilMenu && (
+                    <div
+                      className={`absolute right-0 mt-4 w-44 bg-cards rounded-md shadow-lg py-1 z-20 transition-opacity duration-300 ease-in-out ${
+                        perfilMenuAbierto ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      <Link
+                        to={`/perfil/${usuario.id}`}
+                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm my-2 focus:outline-none"
+                        onClick={togglePerfilMenu}
+                      >
+                        <FontAwesomeIcon icon={faUser} className="mr-2" />
+                        Ir al perfil
+                      </Link>
+                      <div
+                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm my-2 focus:outline-none"
+                        onClick={() => {
+                          cerrarSesion();
+                          togglePerfilMenu();
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faRightFromBracket}
+                          className="mr-2"
+                        />
+                        Cerrar sesión
+                      </div>
+                    </div>
+                  )}
+                </div>
               </li>
             </>
           )}
         </ul>
         {/* Desplegable */}
-        {menuAbierto && (
-          <div className="md:hidden z-10 divide-y divide-gray-100 rounded-lg shadow w-44 bg-cards absolute top-16 right-4 transition-opacity duration-300 ease-in-out opacity-100">
+        {mostrarMenu && (
+          <div
+            className={`md:hidden z-10 divide-y divide-gray-100 rounded-lg shadow w-44 bg-cards absolute top-16 right-4 transition-opacity duration-300 ease-in-out mt-4 ${
+              menuAbierto ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <ul
               className="py-2 text-sm text-white"
               aria-labelledby="dropdownDefaultButton"
@@ -159,7 +202,7 @@ const Navegacion = () => {
                     onClick={toggleMenu}
                   >
                     <FontAwesomeIcon icon={faUser} className="mr-2" />
-                    Perfil
+                    Ir al perfil
                   </Link>
                 </li>
                 <li
@@ -168,7 +211,10 @@ const Navegacion = () => {
                     cerrarSesion();
                   }}
                 >
-                  <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="mr-2 fa-sm"
+                  />
                   Cerrar sesión
                 </li>
               </ul>

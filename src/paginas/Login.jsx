@@ -72,7 +72,7 @@ const Login = () => {
             <p className="text-center text-sm">
               ¿Todavía no tienes cuenta? · {""}
               <Link
-                className="duration-300 ease-in cursor-pointer group"
+                className="duration-300 ease-in cursor-pointer group font-semibold"
                 to="/registro"
               >
                 Regístrate
