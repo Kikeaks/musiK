@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/musik.png";
 import { Link } from "react-router-dom";
 import { useUsuarios } from "../hooks/useUsuarios.js";
 
@@ -11,11 +12,7 @@ const Login = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center">
-      <img
-        src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
-        title="musik-w"
-        className="size-32 md:size-44 m-12"
-      />
+      <img src={logo} title="musik-w" className="size-32 md:size-44 m-12" />
       {!confirmacionLogin ? (
         <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl text-white">
           ¡Te echábamos de menos!
@@ -39,7 +36,7 @@ const Login = () => {
                 type="text"
                 name="nombre"
                 id="username-login"
-                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
+                className="border-cards text-sm rounded hover:border-white block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in focus:outline-none"
                 placeholder="Introduce tu nombre de usuario"
                 onChange={(e) => {
                   actualizarDato(e);

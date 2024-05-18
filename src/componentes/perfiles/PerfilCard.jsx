@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import avatarDefault from "../../assets/usuario.jpg";
 
 const PerfilCard = ({ perfil }) => {
   return (
@@ -13,11 +14,7 @@ const PerfilCard = ({ perfil }) => {
           <div className="w-full" style={{ maxWidth: "250px" }}>
             <img
               className="object-cover aspect-square rounded-full shadow-md w-full"
-              src={
-                perfil.avatar
-                  ? perfil.avatar
-                  : "https://static.vecteezy.com/system/resources/previews/023/465/688/original/contact-dark-mode-glyph-ui-icon-address-book-profile-page-user-interface-design-white-silhouette-symbol-on-black-space-solid-pictogram-for-web-mobile-isolated-illustration-vector.jpg"
-              }
+              src={perfil.avatar ? perfil.avatar : avatarDefault}
               alt={perfil.nombre}
             />
           </div>

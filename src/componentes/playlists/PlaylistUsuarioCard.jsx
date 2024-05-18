@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import portadaDefault from "../../assets/playlist.jpg";
 
 // Componente para mostrar los detalles de una playlist del usuario.
 const PlaylistUsuarioCard = ({ playlist }) => {
@@ -17,11 +18,7 @@ const PlaylistUsuarioCard = ({ playlist }) => {
         >
           <div className="w-full" style={{ maxWidth: "250px" }}>
             <img
-              src={
-                playlist.portada
-                  ? playlist.portada
-                  : "https://i.pinimg.com/originals/dd/53/31/dd5331bc3dd9fdffead6ed1bef96cd90.jpg"
-              }
+              src={playlist.portada ? playlist.portada : portadaDefault}
               className="object-cover aspect-square rounded shadow-md w-full"
             />
           </div>

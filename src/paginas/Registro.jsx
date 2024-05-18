@@ -100,7 +100,7 @@ const Registro = () => {
               />
             </div>
             <button
-              className="w-full text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
+              className="w-full text-white font-medium rounded-lg hover:border-white hover:bg-neutral-400 text-center text-base duration-300 ease-in cursor-pointer group bg-highlight focus:outline-none"
               onClick={(e) => manejoRegistro(e)}
             >
               Registrar

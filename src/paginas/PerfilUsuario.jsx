@@ -106,7 +106,7 @@ const PerfilUsuario = () => {
           sesionIniciada &&
           (sigueAlUsuario ? (
             <button
-              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-neutral-800 ml-4 mt-2"
+              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mt-2 focus:outline-none"
               style={{ width: 180 }}
               onClick={handleDejarDeSeguir}
             >
@@ -115,7 +115,7 @@ const PerfilUsuario = () => {
             </button>
           ) : (
             <button
-              className="text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-2"
+              className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-2 focus:outline-none"
               style={{ width: 180 }}
               onClick={handleSeguir}
             >
@@ -124,16 +124,27 @@ const PerfilUsuario = () => {
             </button>
           ))}
         {/* Muestra la cuadrícula de seguidores */}
-        <h2 className="font-bold text-xl mt-4 ml-4">Seguidores</h2>
-        <PerfilesCuadricula perfiles={seguidores} />
+        {perfil.seguidores.length > 0 && (
+          <>
+            <h2 className="font-bold text-xl mt-4 ml-4">Seguidores</h2>
+            <PerfilesCuadricula perfiles={seguidores} />
+          </>
+        )}
+
         {/* Muestra la cuadrícula de seguidos */}
-        <h2 className="font-bold text-xl mt-4 ml-4">Siguiendo</h2>
-        <PerfilesCuadricula perfiles={seguidos} />
+        {perfil.seguidos.length > 0 && (
+          <>
+            <h2 className="font-bold text-xl mt-4 ml-4">Siguiendo</h2>
+            <PerfilesCuadricula perfiles={seguidos} />
+          </>
+        )}
+
+        {/* Muestra la cuadrícula de playlists */}
         {playlistsPerfil && playlistsPerfil.length > 0 && (
-          <div>
+          <>
             <h2 className="font-bold text-xl mt-4 ml-4">Playlists</h2>
             <PlaylistsCuadricula playlists={playlistsPerfil} origen="bbdd" />
-          </div>
+          </>
         )}
       </div>
     </Fragment>

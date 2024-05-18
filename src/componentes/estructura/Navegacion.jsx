@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
+import logo from "../../assets/musik.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,29 +26,28 @@ const Navegacion = () => {
     <Fragment>
       <nav className="flex justify-between items-center px-4 py-2 h-24">
         <div>
-          <img
-            src="https://i.ibb.co/PwxgML7/bitmap-bl.png"
-            title="musik-w"
-            className="size-12"
-          />
+          <img src={logo} title="musik-w" className="size-12" />
         </div>
         <div className="md:hidden">
           <FontAwesomeIcon
             icon={faBars}
-            className="fa-xl duration-300 ease-in cursor-pointer group hover:text-highlight"
+            className="fa-xl duration-300 ease-in cursor-pointer group hover:text-highlight focus:outline-none md:focus:outline"
             onClick={toggleMenu}
           />
         </div>
         <ul className="hidden md:flex space-x-6 items-center flex-grow justify-end h-full">
           <li>
-            <Link to="/" className="duration-300 ease-in cursor-pointer group">
+            <Link
+              to="/"
+              className="duration-300 ease-in cursor-pointer group focus:outline-none"
+            >
               <FontAwesomeIcon icon={faHouse} className="fa-xl" />
             </Link>
           </li>
           <li>
             <Link
               to="/explorar"
-              className="duration-300 ease-in cursor-pointer group"
+              className="duration-300 ease-in cursor-pointer group focus:outline-none"
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-xl" />
             </Link>
@@ -55,7 +55,7 @@ const Navegacion = () => {
           <li>
             <Link
               to="/playlists"
-              className="duration-300 ease-in cursor-pointer group"
+              className="duration-300 ease-in cursor-pointer group focus:outline-none"
             >
               <FontAwesomeIcon icon={faMusic} className="fa-xl" />
             </Link>
@@ -65,7 +65,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/login"
-                  className="duration-300 ease-in cursor-pointer group"
+                  className="duration-300 ease-in cursor-pointer group focus:outline-none md:focus:outline"
                 >
                   <FontAwesomeIcon icon={faUser} className="fa-xl mr-2" />
                 </Link>
@@ -76,7 +76,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to={`/perfil/${usuario.id}`}
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -84,7 +84,7 @@ const Navegacion = () => {
                 </Link>
               </li>
               <li
-                className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm"
+                className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none"
                 onClick={() => {
                   cerrarSesion();
                 }}
@@ -105,7 +105,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faHouse} className="mr-2" />
@@ -115,7 +115,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/explorar"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-2" />
@@ -125,7 +125,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/playlists"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faMusic} className="mr-2" />
@@ -139,7 +139,7 @@ const Navegacion = () => {
                   <li>
                     <Link
                       to="/login"
-                      className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm my-2"
+                      className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm my-2 focus:outline-none"
                     >
                       <FontAwesomeIcon
                         icon={faPersonRunning}
@@ -155,7 +155,7 @@ const Navegacion = () => {
                 <li>
                   <Link
                     to={`/perfil/${usuario.id}`}
-                    className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm"
+                    className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 text-sm focus:outline-none mt-2"
                     onClick={toggleMenu}
                   >
                     <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -163,7 +163,7 @@ const Navegacion = () => {
                   </Link>
                 </li>
                 <li
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none mb-2"
                   onClick={() => {
                     cerrarSesion();
                   }}
