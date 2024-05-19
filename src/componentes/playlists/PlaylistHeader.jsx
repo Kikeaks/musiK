@@ -11,7 +11,7 @@ const PlaylistHeader = ({ portada, fondo, titulo, descripcion, creador }) => {
         <img className="rounded shadow-2xl mb-4 sm:mb-0 sm:mr-4" src={portada} />
         {/* Muestra la información de la playlist */}
         <div className="playlist-info desc text-left">
-          <h1 className="mb-2 font-bold">{titulo}</h1>{" "}
+          <h1 className="mb-2 font-bold text-4xl md:text-5xl">{titulo}</h1>{" "}
           {/* Título de la playlist */}
           <p className="mb-2">{descripcion}</p>{" "}
           {/* Descripción de la playlist */}

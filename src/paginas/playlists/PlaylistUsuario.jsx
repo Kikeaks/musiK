@@ -14,7 +14,7 @@ const PlaylistUsuario = () => {
   const [playlistData, setPlaylistData] = useState(null); // Estado para almacenar los datos de la playlist.
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false); // Estado para controlar la visibilidad del modal de edición.
   const [autorPlaylist, setAutorPlaylist] = useState(null);
-  const { obtenerDatosUsuarioPorId } = useUsuarios();
+  const { usuario, obtenerDatosUsuarioPorId } = useUsuarios();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,8 +22,6 @@ const PlaylistUsuario = () => {
         // Obtiene los datos de la playlist del usuario.
         const data = await obtenerDatosPlaylistUsuario(id);
         setPlaylistData(data); // Actualiza el estado con los datos de la playlist.
-
-        console.log(data);
 
         // Obtiene el autor de la playlist
         if (data && data.playlist && data.playlist.usuario) {
@@ -61,13 +59,16 @@ const PlaylistUsuario = () => {
       <div className="flex items-center shadow-lg p-3 rounded group mb-3">
         <div className="playlist-info desc ml-4 text-left">
           <div className="flex items-center">
-            <h1 className="mb-2 font-semibold">{playlist.nombre}</h1>
-            {/* Icono de edición para abrir el modal */}
-            <FontAwesomeIcon
-              icon={faEdit}
-              onClick={abrirModalEditar}
-              className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer"
-            />
+            <h1 className="mb-2 font-semibold text-4xl md:text-5xl">
+              {playlist.nombre}
+            </h1>
+            {usuario.id === playlist.usuario && (
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={abrirModalEditar}
+                className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer"
+              />
+            )}
           </div>
           <p className="mb-2">{playlist.descripcion}</p>
           <p className="text-sm">

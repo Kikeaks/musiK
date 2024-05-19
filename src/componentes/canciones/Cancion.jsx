@@ -11,19 +11,12 @@ const Cancion = ({ cancion }) => (
       alt={cancion.title}
     />
     {/* Información de la canción. */}
-    <div className="cancion-info">
+    <div className="cancion-info flex-1 min-w-0">
       {/* Título de la canción. */}
-      <p className="cancion-titulo font-semibold">{cancion.title}</p>
+      <p className="cancion-titulo font-semibold text-sm">{cancion.title}</p>
       {/* Nombre del artista. */}
-      <p className="cancion-artista text-sm text-neutral-400">{cancion.artist.name}</p>
+      <p className="cancion-artista text-sm text-neutral-400 truncate">{cancion.artist.name}</p>
     </div>
-    {/* Duración de la canción. */}
-    <p className="cancion-duracion ml-auto font-semibold">
-      {/* Se calcula la duración en minutos y segundos. */}
-      {Math.floor(cancion.duration / 60)}:
-      {/* Asegura que el formato de los segundos tenga dos dígitos. */}
-      {(cancion.duration % 60).toString().padStart(2, "0")}
-    </p>
   </div>
 );
 

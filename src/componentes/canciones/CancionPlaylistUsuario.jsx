@@ -1,4 +1,4 @@
-import { faCircleXmark, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faPlay, faX, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import ModalQuitarDePlaylist from "../modales/ModalQuitarDePlaylist.jsx";
@@ -39,22 +39,16 @@ const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
       {/* Información de la canción */}
       <div className="cancion-info">
         {/* Título de la canción */}
-        <p className="cancion-titulo font-semibold">{cancion.nombre}</p>
+        <p className="cancion-titulo font-semibold text-sm">{cancion.nombre}</p>
         {/* Nombre del artista */}
         <p className="cancion-artista text-sm text-neutral-400">
           {cancion.artista}
         </p>
       </div>
-      {/* Duración de la canción */}
-      <p className="cancion-duracion ml-auto font-semibold">
-        {/* Se muestra la duración en minutos y segundos */}
-        {Math.floor(cancion.duracion / 60)}:
-        {(cancion.duracion % 60).toString().padStart(2, "0")}
-      </p>
       {/* Icono para quitar la canción de la playlist */}
       <FontAwesomeIcon
-        icon={faCircleXmark}
-        className="ml-3 hover:text-red-500 duration-300 ease-in cursor-pointer group"
+        icon={faXmark}
+        className="ml-auto hover:text-red-500 duration-300 ease-in cursor-pointer group"
         onClick={abrirModal}
       />
       {/* Modal para quitar la canción de la playlist */}
