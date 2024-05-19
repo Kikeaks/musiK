@@ -257,33 +257,53 @@ const ProveedorPlaylists = ({ children }) => {
   };
 
   // Función para eliminar una playlist.
-  const eliminarPlaylist = async (idPlaylist) => {
-    try {
-      // Elimina las relaciones de canciones de la playlist en la tabla de playlists_canciones.
-      await supabaseConexion
-        .from("playlists_canciones")
-        .delete()
-        .eq("id_playlist", idPlaylist);
+const eliminarPlaylist = async (idPlaylist) => {
+  try {
+    // Obtener todas las canciones de la playlist
+    const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(idPlaylist);
 
-      // Elimina la playlist de la tabla de playlists.
-      const { error } = await supabaseConexion
-        .from("playlists")
-        .delete()
-        .eq("id", idPlaylist);
+    // Eliminar las relaciones de canciones de la playlist en la tabla de playlists_canciones.
+    await supabaseConexion
+      .from("playlists_canciones")
+      .delete()
+      .eq("id_playlist", idPlaylist);
 
-      if (error) {
-        throw error;
+    // Verificar y eliminar canciones que no estén en otras playlists
+    for (const cancion of cancionesPlaylist) {
+      const { data: relacionOtrasPlaylists, error: errorRelacion } =
+        await supabaseConexion
+          .from("playlists_canciones")
+          .select("*")
+          .eq("id_cancion", cancion.id);
+
+      if (!relacionOtrasPlaylists || relacionOtrasPlaylists.length === 0) {
+        await supabaseConexion
+          .from("canciones")
+          .delete()
+          .eq("id_deezer", cancion.id);
       }
+    }
 
-      // Actualiza el estado local de las playlists del usuario eliminando la playlist.
-      setPlaylistsUsuario(
-        playlistsUsuario.filter((playlist) => playlist.id !== idPlaylist)
-      );
-    } catch (error) {
-      console.error("Error al eliminar la playlist:", error.message);
+    // Eliminar la playlist de la tabla de playlists.
+    const { error } = await supabaseConexion
+      .from("playlists")
+      .delete()
+      .eq("id", idPlaylist);
+
+    if (error) {
       throw error;
     }
-  };
+
+    // Actualizar el estado local de las playlists del usuario eliminando la playlist.
+    setPlaylistsUsuario(
+      playlistsUsuario.filter((playlist) => playlist.id !== idPlaylist)
+    );
+  } catch (error) {
+    console.error("Error al eliminar la playlist:", error.message);
+    throw error;
+  }
+};
+
 
   // Función para editar el nombre de una playlist.
   const editarNombrePlaylist = async (idPlaylist, nuevoNombre) => {

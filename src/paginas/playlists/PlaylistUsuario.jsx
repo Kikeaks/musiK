@@ -83,7 +83,7 @@ const PlaylistUsuario = () => {
         </div>
       </div>
       {/* Listado de canciones de la playlist */}
-      <ListadoCancionesUsuario canciones={canciones} playlistId={id} />
+      <ListadoCancionesUsuario canciones={canciones} playlist={playlist} />
       {/* Modal de edición de la playlist */}
       <ModalEditarPlaylist
         mostrar={mostrarModalEditar}

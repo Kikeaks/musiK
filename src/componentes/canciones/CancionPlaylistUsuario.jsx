@@ -1,10 +1,11 @@
-import { faCircleXmark, faPlay, faX, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { useUsuarios } from "../../hooks/useUsuarios.js";
+import { faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalQuitarDePlaylist from "../modales/ModalQuitarDePlaylist.jsx";
 
 // Componente para mostrar los detalles de una canción en la playlist del usuario.
-const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
+const CancionPlaylistUsuario = ({ cancion, playlist }) => {
   // Estado para controlar la apertura y cierre del modal.
   const [modalAbierto, setModalAbierto] = useState(false);
 
@@ -17,6 +18,10 @@ const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
   const cerrarModal = () => {
     setModalAbierto(false);
   };
+
+  const { usuario } = useUsuarios();
+
+  console.log(playlist);
 
   return (
     <div className="cancion flex items-center shadow-lg p-3 rounded group mb-3 bg-cards">
@@ -46,17 +51,20 @@ const CancionPlaylistUsuario = ({ cancion, playlistId }) => {
         </p>
       </div>
       {/* Icono para quitar la canción de la playlist */}
-      <FontAwesomeIcon
-        icon={faXmark}
-        className="ml-auto hover:text-red-500 duration-300 ease-in cursor-pointer group"
-        onClick={abrirModal}
-      />
+      {usuario.id === playlist.usuario && (
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="ml-auto hover:text-red-500 duration-300 ease-in cursor-pointer group"
+          onClick={abrirModal}
+        />
+      )}
+
       {/* Modal para quitar la canción de la playlist */}
       <ModalQuitarDePlaylist
         mostrar={modalAbierto}
         manejarCerrado={cerrarModal}
         cancion={cancion}
-        playlistId={playlistId}
+        playlist={playlist.id}
       />
     </div>
   );
