@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faGear } from "@fortawesome/free-solid-svg-icons";
+import playlistDefault from "../../assets/playlist.jpg";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
+import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
 import { useUsuarios } from "../../hooks/useUsuarios";
 
 // Componente para la página de una playlist de usuario.
@@ -13,7 +15,7 @@ const PlaylistUsuario = () => {
   const { obtenerDatosPlaylistUsuario } = usePlaylists(); // Obtiene la función para obtener los datos de la playlist del usuario desde el hook usePlaylists.
   const [playlistData, setPlaylistData] = useState(null); // Estado para almacenar los datos de la playlist.
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false); // Estado para controlar la visibilidad del modal de edición.
-  const [autorPlaylist, setAutorPlaylist] = useState(null);
+  const [autorPlaylist, setAutorPlaylist] = useState([]);
   const { usuario, obtenerDatosUsuarioPorId } = useUsuarios();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const PlaylistUsuario = () => {
             data.playlist.usuario
           );
           if (autorData && autorData.nombre) {
-            setAutorPlaylist(autorData.nombre);
+            setAutorPlaylist(autorData);
           }
         }
       } catch (error) {
@@ -54,34 +56,29 @@ const PlaylistUsuario = () => {
   };
 
   return (
-    <div className="p-2">
+    <div>
       {/* Información de la playlist */}
-      <div className="flex items-center shadow-lg p-3 rounded group mb-3">
-        <div className="playlist-info desc ml-4 text-left">
-          <div className="flex items-center">
-            <h1 className="mb-2 font-semibold text-4xl md:text-5xl">
-              {playlist.nombre}
-            </h1>
-            {usuario.id === playlist.usuario && (
-              <FontAwesomeIcon
-                icon={faEdit}
-                onClick={abrirModalEditar}
-                className="ml-3 hover:text-yellow-300 duration-300 ease-in cursor-pointer"
-              />
-            )}
-          </div>
-          <p className="mb-2">{playlist.descripcion}</p>
-          <p className="text-sm">
-            Creada por ·{" "}
-            <Link
-              className="duration-300 ease-in cursor-pointer group font-semibold"
-              to={`/perfil/${playlist.usuario}`}
-            >
-              {autorPlaylist}
-            </Link>
-          </p>
-        </div>
-      </div>
+      <PlaylistHeader
+        playlist={playlist}
+        portada={playlist.portada ? playlist.portada : playlistDefault}
+        titulo={playlist.nombre}
+        descripcion={playlist.descripcion ? playlist.descripcion : null}
+        creador={autorPlaylist.nombre}
+      />
+      {usuario.id === playlist.usuario && (
+        <button
+          className="text-white font-medium rounded-lg hover:border-highlight text-center text-base duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 focus:outline-none"
+          onClick={abrirModalEditar}
+        >
+          <FontAwesomeIcon
+            icon={faGear}
+            onClick={abrirModalEditar}
+            className="mr-2"
+          />
+          Opciones
+        </button>
+      )}
+
       {/* Listado de canciones de la playlist */}
       <ListadoCancionesUsuario canciones={canciones} playlist={playlist} />
       {/* Modal de edición de la playlist */}

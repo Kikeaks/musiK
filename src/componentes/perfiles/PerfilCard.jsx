@@ -4,11 +4,11 @@ import avatarDefault from "../../assets/usuario.jpg";
 
 const PerfilCard = ({ perfil }) => {
   return (
-    <div className="perfil shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards">
-      <Link
-        to={`/perfil/${perfil.id}`}
-        className="duration-300 ease-in cursor-pointer group"
-      >
+    <Link
+      to={`/perfil/${perfil.id}`}
+      className="duration-300 ease-in cursor-pointer group"
+    >
+      <div className="perfil shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards">
         {/* Foto de perfil */}
         <div className="flex flex-col justify-center items-center mt-1">
           <div className="w-full" style={{ maxWidth: "250px" }}>
@@ -31,8 +31,8 @@ const PerfilCard = ({ perfil }) => {
             {perfil.seguidores.length === 1 ? "seguidor" : "seguidores"}
           </p>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

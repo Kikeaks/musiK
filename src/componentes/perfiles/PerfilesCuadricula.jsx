@@ -6,7 +6,7 @@ const PerfilesCuadricula = ({ perfiles }) => {
   return (
     <Fragment>
       {/* Contenedor de la cuadrícula de perfiles */}
-      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-7 gap-8">
+      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-7 gap-8">
         {/* Mapeo de los perfiles para crear las tarjetas */}
         {perfiles ? (
           perfiles.map((perfil, index) => (

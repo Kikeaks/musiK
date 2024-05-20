@@ -37,7 +37,7 @@ const Playlist = () => {
   const { playlist, canciones } = playlistData;
 
   return (
-    <div className="p-2">
+    <div>
       {/* Muestra los detalles de la playlist */}
       <PlaylistHeader
         portada={playlist.picture_medium}
