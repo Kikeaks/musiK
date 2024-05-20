@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalQuitarDePlaylist from "../modales/ModalQuitarDePlaylist.jsx";
 
 // Componente para mostrar los detalles de una canción en la playlist del usuario.
-const CancionPlaylistUsuario = ({ cancion, playlist }) => {
+const CancionPlaylistUsuario = ({ cancion, playlist, index, reproducirCancion }) => {
   // Estado para controlar la apertura y cierre del modal.
   const [modalAbierto, setModalAbierto] = useState(false);
 
@@ -31,7 +31,10 @@ const CancionPlaylistUsuario = ({ cancion, playlist }) => {
           alt={cancion.nombre}
         />
         {/* Overlay con el ícono */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded">
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"
+          onClick={() => reproducirCancion(index)} // Reproducir canción al hacer clic en el overlay
+        >
           <FontAwesomeIcon
             icon={faPlay}
             className="text-white hover:text-highlight cursor-pointer fa-lg duration-300 ease-in-out group"

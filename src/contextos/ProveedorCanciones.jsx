@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { supabaseConexion } from "../config/supabase.js";
 import { deezerAPI } from "../config/deezer.js";
+import { useReproductor } from "../hooks/useReproductor.js";
 
 // Creación de un contexto para las canciones.
 const CtxCanciones = createContext();
@@ -9,6 +10,7 @@ const CtxCanciones = createContext();
 const ProveedorCanciones = ({ children }) => {
   // Estado local para almacenar la lista de canciones.
   const [canciones, setCanciones] = useState([]);
+  const { setPlaylist, setCurrentTrackIndex } = useReproductor();
 
   // Función para cargar las canciones desde la API de Deezer según un término de búsqueda.
   const cargarCanciones = async (terminoBusqueda) => {
@@ -80,6 +82,10 @@ const ProveedorCanciones = ({ children }) => {
     cargarCancionesDestacadas(); // Cargar las canciones destacadas al montar el componente
   }, []);
 
+  const iniciarReproduccion = (index) => {
+    setCurrentTrackIndex(index); // Configura la canción actual a reproducir
+  };
+
   // Renderiza el proveedor con el contexto y sus hijos.
   return (
     <CtxCanciones.Provider
@@ -87,6 +93,7 @@ const ProveedorCanciones = ({ children }) => {
         canciones,
         cargarCanciones,
         addCancionABaseDatos,
+        iniciarReproduccion
       }}
     >
       {children}
