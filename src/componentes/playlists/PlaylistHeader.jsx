@@ -12,8 +12,7 @@ const PlaylistHeader = ({ portada, titulo, descripcion, creador }) => {
       <div className="flex flex-col sm:flex-row p-3 items-center backdrop-blur-md group mb-2">
         {/* Muestra la imagen de la playlist */}
         <img
-          className="rounded shadow-2xl sm:mb-0 mb-4 sm:mr-4"
-          style={{ maxWidth: "250px" }}
+          className="rounded shadow-2xl sm:mb-0 mb-4 sm:mr-4 size-auto" style={{ maxWidth: "250px" }}
           src={portada}
         />
         {/* Muestra la información de la playlist */}

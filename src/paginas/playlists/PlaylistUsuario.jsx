@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 import playlistDefault from "../../assets/playlist.jpg";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
