@@ -42,39 +42,39 @@ const ProveedorCanciones = ({ children }) => {
   };
 
   // Función para introducir las canciones de Deezer a la BBDD cuando se añaden a una playlist.
-const addCancionABaseDatos = async (cancion) => {
-  try {
-    // Comprueba si la canción ya existe en la tabla de canciones de Supabase
-    const { data, error } = await supabaseConexion
-      .from("canciones")
-      .select("*")
-      .eq("id_deezer", cancion.id);
+  const addCancionABaseDatos = async (cancion) => {
+    try {
+      // Comprueba si la canción ya existe en la tabla de canciones de Supabase
+      const { data, error } = await supabaseConexion
+        .from("canciones")
+        .select("*")
+        .eq("id_deezer", cancion.id);
 
-    if (error) {
+      if (error) {
+        throw error;
+      }
+
+      // Si la canción no existe en la base de datos, la inserta
+      if (!data || data.length === 0) {
+        await supabaseConexion.from("canciones").insert([
+          {
+            id_deezer: cancion.id,
+            nombre: cancion.title,
+            artista: cancion.artist.name,
+            portada: cancion.album.cover_small,
+            duracion: cancion.duration,
+            url: cancion.preview,
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error(
+        "Error al añadir la canción a la base de datos:",
+        error.message
+      );
       throw error;
     }
-
-    // Si la canción no existe en la base de datos, la inserta
-    if (!data || data.length === 0) {
-      await supabaseConexion.from("canciones").insert([
-        {
-          id_deezer: cancion.id,
-          nombre: cancion.title,
-          artista: cancion.artist.name,
-          portada: cancion.album.cover_small,
-          duracion: cancion.duration,
-        },
-      ]);
-    }
-  } catch (error) {
-    console.error(
-      "Error al añadir la canción a la base de datos:",
-      error.message
-    );
-    throw error;
-  }
-};
-
+  };
 
   useEffect(() => {
     cargarCancionesDestacadas(); // Cargar las canciones destacadas al montar el componente
@@ -86,7 +86,7 @@ const addCancionABaseDatos = async (cancion) => {
       value={{
         canciones,
         cargarCanciones,
-        addCancionABaseDatos
+        addCancionABaseDatos,
       }}
     >
       {children}

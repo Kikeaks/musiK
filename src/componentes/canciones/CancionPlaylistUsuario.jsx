@@ -21,8 +21,6 @@ const CancionPlaylistUsuario = ({ cancion, playlist }) => {
 
   const { usuario } = useUsuarios();
 
-  console.log(playlist);
-
   return (
     <div className="cancion flex items-center shadow-lg p-3 rounded group mb-2 mx-4 bg-cards">
       {/* Imagen de la portada del álbum */}

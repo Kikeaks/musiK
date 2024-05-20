@@ -85,7 +85,7 @@ const PlaylistUsuario = () => {
       <ModalEditarPlaylist
         mostrar={mostrarModalEditar}
         manejarCerrado={() => setMostrarModalEditar(false)}
-        playlistId={id}
+        playlist={id}
       />
     </div>
   );

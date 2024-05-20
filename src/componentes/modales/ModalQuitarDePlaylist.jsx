@@ -6,7 +6,7 @@ const ModalQuitarDePlaylist = ({
   mostrar,
   manejarCerrado,
   cancion,
-  playlistId,
+  playlist,
 }) => {
   const { quitarCancionDePlaylist } = usePlaylists();
   const [mensajeExito, setMensajeExito] = useState(false);
@@ -14,7 +14,7 @@ const ModalQuitarDePlaylist = ({
   // Función para quitar la canción de la playlist
   const handleQuitarCancion = async () => {
     try {
-      await quitarCancionDePlaylist(playlistId, cancion.id_deezer);
+      await quitarCancionDePlaylist(playlist, cancion.id_deezer);
       setMensajeExito(true);
       setTimeout(() => {
         setMensajeExito(false);
