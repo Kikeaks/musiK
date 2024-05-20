@@ -1,5 +1,3 @@
-// Rutas.jsx
-
 import React, { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import Inicio from "../../paginas/Inicio.jsx";
@@ -8,7 +6,7 @@ import Playlists from "../../paginas/playlists/Playlists.jsx";
 import Playlist from "../../paginas/playlists/Playlist.jsx";
 import PlaylistUsuario from "../../paginas/playlists/PlaylistUsuario.jsx";
 import PerfilUsuario from "../../paginas/PerfilUsuario.jsx";
-import Encabezado from "../../componentes/estructura/Encabezado.jsx"; // Importa el encabezado
+import Encabezado from "../../componentes/estructura/Encabezado.jsx";
 import Login from "../../paginas/Login.jsx";
 import Registro from "../../paginas/Registro.jsx";
 

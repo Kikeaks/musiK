@@ -325,6 +325,23 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
+  const actualizarFotoPerfilUsuario = async (userId, nuevaFotoPerfilUrl) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from('usuarios')
+        .update({ avatar: nuevaFotoPerfilUrl })
+        .eq('id', userId);
+  
+      if (error) {
+        throw error;
+      }
+  
+      console.log("Foto de perfil actualizada correctamente");
+    } catch (error) {
+      console.error("Error al actualizar la foto de perfil:", error.message);
+    }
+  };
+
   useEffect(() => {
     const { data: authListener } = supabaseConexion.auth.onAuthStateChange(
       (e, sesion) => {
@@ -361,6 +378,7 @@ const ProveedorUsuarios = ({ children }) => {
     verificarSeguimiento,
     obtenerSeguidores,
     obtenerSeguidos,
+    actualizarFotoPerfilUsuario
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.

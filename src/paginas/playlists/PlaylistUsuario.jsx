@@ -67,7 +67,7 @@ const PlaylistUsuario = () => {
       />
       {usuario.id === playlist.usuario && (
         <button
-          className="text-white font-medium rounded-lg hover:border-highlight text-center text-base duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 focus:outline-none"
+          className="text-white font-medium rounded-lg hover:border-highlight text-center text-base duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 mt-4 focus:outline-none"
           onClick={abrirModalEditar}
         >
           <FontAwesomeIcon

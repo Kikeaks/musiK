@@ -96,6 +96,7 @@ const PerfilUsuario = () => {
     <Fragment>
       <div>
         <PerfilHeader
+        perfil={perfil.id}
           nombre={perfil.nombre}
           fotoPerfil={perfil.avatar}
           numListas={perfil.playlists.length}
