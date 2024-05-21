@@ -55,3 +55,28 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade {
+  animation: fade 1s infinite;
+}
+
+.delay-0 {
+  animation-delay: 0.16s;
+}
+
+.delay-500 {
+  animation-delay: 0.32s;
+}
+
+.delay-1000 {
+  animation-delay: 0.49s;
+}

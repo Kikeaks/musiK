@@ -320,7 +320,6 @@ const ProveedorUsuarios = ({ children }) => {
 
       return !!data; // Devuelve true si sigue al usuario, false en caso contrario
     } catch (error) {
-      console.error("Error al verificar el seguimiento:", error.message);
       return false;
     }
   };

@@ -33,12 +33,15 @@ const PlaylistHeader = ({ portada, titulo, descripcion, creador }) => {
           alt={titulo}
         />
         {/* Muestra la información de la playlist */}
-        <div className="playlist-info desc text-center sm:text-left">
+        <div className="playlist-info desc text-center sm:text-left w-full min-w-0">
           {/* Título de la playlist */}
-          <h1 className="mb-2 font-bold text-4xl sm:text-5xl">{titulo}</h1>{" "}
+          <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
+            {titulo}
+          </h1>{" "}
           {/* Descripción de la playlist */}
-          <p className="mb-2">{descripcion}</p> {/* Creador de la playlist */}
-          <p className="text-sm">Creada por · {creador}</p>{" "}
+          {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
+          {/* Creador de la playlist */}
+          <p className="text-sm truncate">Creada por · {creador}</p>{" "}
         </div>
       </div>
     </div>

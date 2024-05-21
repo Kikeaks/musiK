@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import ListadoCanciones from "../../componentes/canciones/ListadoCanciones";
 import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
+import Carga from "../../componentes/interfaz/Carga";
 
 // Componente para la página de una playlist de Deezer.
 const Playlist = () => {
@@ -28,9 +29,7 @@ const Playlist = () => {
 
   // Si no se han cargado los datos de la playlist, muestra un mensaje de carga.
   if (!playlistData) {
-    return (
-      <div className="text-center font-semibold mb-3">Cargando datos...</div>
-    );
+    return <Carga/>
   }
 
   // Desestructura los datos de la playlist y las canciones desde playlistData.

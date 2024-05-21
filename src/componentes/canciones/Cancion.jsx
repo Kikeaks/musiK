@@ -11,9 +11,9 @@ const Cancion = ({ cancion }) => (
       alt={cancion.title}
     />
     {/* Información de la canción. */}
-    <div className="cancion-info flex-1 min-w-0">
+    <div className="cancion-info w-full min-w-0">
       {/* Título de la canción. */}
-      <p className="cancion-titulo font-semibold text-sm">{cancion.title}</p>
+      <p className="cancion-titulo font-semibold text-sm truncate">{cancion.title}</p>
       {/* Nombre del artista. */}
       <p className="cancion-artista text-sm text-neutral-400 truncate">{cancion.artist.name}</p>
     </div>

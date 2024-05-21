@@ -8,6 +8,7 @@ import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
 import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
 import { useUsuarios } from "../../hooks/useUsuarios";
+import Carga from "../../componentes/interfaz/Carga";
 
 // Componente para la página de una playlist de usuario.
 const PlaylistUsuario = () => {
@@ -43,9 +44,7 @@ const PlaylistUsuario = () => {
   }, [id]); // Se ejecuta cada vez que cambia el ID de la playlist.
 
   if (!playlistData) {
-    return (
-      <div className="text-center font-semibold mb-3">Cargando datos...</div>
-    );
+    return <Carga />;
   }
 
   const { playlist, canciones } = playlistData;

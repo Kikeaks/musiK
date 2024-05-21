@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import PerfilesCuadricula from "../componentes/perfiles/PerfilesCuadricula";
 import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
+import Carga from "../componentes/interfaz/Carga";
 
 const PerfilUsuario = () => {
   const { id } = useParams();
@@ -42,15 +43,15 @@ const PerfilUsuario = () => {
   }, [id, obtenerDatosUsuarioPorId]);
 
   useEffect(() => {
-    const verificar = async () => {
-      if (sesionIniciada && id) {
-        const sigue = await verificarSeguimiento(id);
-        setSigueAlUsuario(sigue);
-      }
-    };
+    if (usuario?.id !== id) {
+      const verificar = async () => {
+          const sigue = await verificarSeguimiento(id);
+          setSigueAlUsuario(sigue);
+      };
 
-    verificar();
-  }, [sesionIniciada, id, verificarSeguimiento]);
+      verificar();
+    }
+  }, [sesionIniciada, id, verificarSeguimiento, usuario]);
 
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -85,7 +86,7 @@ const PerfilUsuario = () => {
   };
 
   if (carga) {
-    return <div>Cargando...</div>;
+    return <Carga/>;
   }
 
   if (!perfil) {

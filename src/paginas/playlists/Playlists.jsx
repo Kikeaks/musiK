@@ -8,7 +8,7 @@ import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
 // Componente para la página de playlists.
 const Playlists = () => {
-  const { playlistsDestacadas, playlistsUsuario, cargarPlaylistsUsuario } =
+  const { playlistsDestacadas, cargarPlaylistsUsuario } =
     usePlaylists(); // Obtiene las playlists destacadas y del usuario desde el hook usePlaylists.
   const { sesionIniciada } = useUsuarios(); // Obtiene el estado de la sesión desde el hook useUsuarios.
   const [mostrarModal, setMostrarModal] = useState(false); // Define el estado para controlar la visibilidad del modal de creación de playlist.
@@ -23,11 +23,6 @@ const Playlists = () => {
     setMostrarModal(false);
     cargarPlaylistsUsuario(); // Recarga las playlists del usuario después de cerrar el modal.
   };
-
-  useEffect(() => {
-    // Efecto para cargar las playlists del usuario cuando cambia el estado de la sesión.
-    cargarPlaylistsUsuario();
-  }, [sesionIniciada]); // Se ejecuta cada vez que cambia el estado de la sesión.
 
   return (
     <Fragment>

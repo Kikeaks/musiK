@@ -48,9 +48,9 @@ const CancionPlaylistUsuario = ({
       </div>
 
       {/* Información de la canción */}
-      <div className="cancion-info truncate">
+      <div className="cancion-info w-full min-w-0">
         {/* Título de la canción */}
-        <p className="cancion-titulo font-semibold text-sm">{cancion.nombre}</p>
+        <p className="cancion-titulo font-semibold text-sm truncate">{cancion.nombre}</p>
         {/* Nombre del artista */}
         <p className="cancion-artista text-sm text-neutral-400">
           {cancion.artista}
@@ -61,7 +61,7 @@ const CancionPlaylistUsuario = ({
         <div className="ml-auto">
           <FontAwesomeIcon
             icon={faXmark}
-            className="ml-3 hover:text-red-500 duration-300 ease-in cursor-pointer group"
+            className="ml-2 hover:text-red-500 duration-300 ease-in cursor-pointer group"
             onClick={abrirModal}
           />
         </div>

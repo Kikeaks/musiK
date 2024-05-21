@@ -147,11 +147,11 @@ const Reproductor = () => {
       />
       <div className="hidden md:flex items-center w-1/3">
         <img className="mr-2" src={playlist[currentTrackIndex]?.portada} />
-        <div className="text-sm truncate">
-          <p className="font-semibold">
+        <div className="text-sm w-full min-w-0">
+          <p className="font-semibold truncate">
             {playlist[currentTrackIndex]?.nombre}
           </p>
-          <p className="text-neutral-400">
+          <p className="text-neutral-400 truncate">
             {playlist[currentTrackIndex]?.artista}
           </p>
         </div>
@@ -191,7 +191,7 @@ const Reproductor = () => {
             icon={faRepeat}
           />
         </div>
-        <div className="flex flex-row items-center justify-between text-sm w-full text-neutral-400">
+        <div className="flex flex-row items-center justify-between text-xs sm:text-sm w-full text-neutral-400">
           <span className="mr-2">{formatTime(currentTime)}</span>
           <input
             className="w-full h-0.5 rounded-full"
@@ -204,11 +204,11 @@ const Reproductor = () => {
               setCurrentTime(e.target.value);
             }}
           />
-          <span className="ml-2">{formatTime(duration - currentTime)}</span>
+          <span className="ml-2">{formatTime(duration)}</span>
         </div>
-        <div className="md:hidden text-sm truncate text-center mt-3">
-          <p className="font-semibold">{playlist[currentTrackIndex]?.nombre}</p>
-          <p className="text-neutral-400">
+        <div className="md:hidden w-full min-w-0 text-sm text-center mt-3">
+          <p className="font-semibold truncate">{playlist[currentTrackIndex]?.nombre}</p>
+          <p className="text-neutral-400 truncate">
             {playlist[currentTrackIndex]?.artista}
           </p>
         </div>
