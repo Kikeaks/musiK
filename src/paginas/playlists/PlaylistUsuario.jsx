@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
-import playlistDefault from "../../assets/playlist.jpg";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
 import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
@@ -59,10 +58,10 @@ const PlaylistUsuario = () => {
       {/* Información de la playlist */}
       <PlaylistHeader
         playlist={playlist}
-        portada={playlist.portada ? playlist.portada : playlistDefault}
+        portada={playlist.portada ? playlist.portada : null}
         titulo={playlist.nombre}
         descripcion={playlist.descripcion ? playlist.descripcion : null}
-        creador={autorPlaylist.nombre}
+        creador={autorPlaylist}
       />
       {usuario.id === playlist.usuario && (
         <button

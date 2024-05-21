@@ -315,6 +315,23 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  const actualizarPortadaPlaylist = async (playlistId, nuevaPortada) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from('playlists')
+        .update({ portada: nuevaPortada })
+        .eq('id', playlistId);
+  
+      if (error) {
+        throw error;
+      }
+  
+      console.log("Portada actualizada correctamente");
+    } catch (error) {
+      console.error("Error al actualizar la foto de perfil:", error.message);
+    }
+  };
+
   useEffect(() => {
     cargarPlaylistsDestacadas();
     if (usuario.id) {
@@ -338,6 +355,7 @@ const ProveedorPlaylists = ({ children }) => {
     quitarCancionDePlaylist,
     eliminarPlaylist,
     cargarPlaylistsPorIdUsuario,
+    actualizarPortadaPlaylist
   };
 
   return (

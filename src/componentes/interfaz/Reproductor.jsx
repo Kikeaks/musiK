@@ -124,18 +124,18 @@ const Reproductor = () => {
   useEffect(() => {
     const volumeControl = volumeRef.current;
     if (volumeControl) {
-      volumeControl.addEventListener("wheel", adjustVolumeWithScroll, {
-        passive: false,
-      });
-    }
+      const handleWheel = (e) => {
+        adjustVolumeWithScroll(e);
+        e.preventDefault();
+      };
 
-    // Cleanup event listener on unmount
-    return () => {
-      if (volumeControl) {
-        volumeControl.removeEventListener("wheel", adjustVolumeWithScroll);
-      }
-    };
-  }, [volumeRef]);
+      volumeControl.addEventListener("wheel", handleWheel, { passive: false });
+
+      return () => {
+        volumeControl.removeEventListener("wheel", handleWheel);
+      };
+    }
+  }, [volumeRef, volume]);
 
   return (
     <div className="flex flex-row w-full bg-fondo sticky bottom-0 p-4 items-center justify-between mt-auto">
@@ -204,10 +204,14 @@ const Reproductor = () => {
               setCurrentTime(e.target.value);
             }}
           />
-          <span className="ml-2">{formatTime(duration)}</span>
+          <span className="ml-2">
+            {formatTime(playlist[currentTrackIndex]?.duracion)}
+          </span>
         </div>
         <div className="md:hidden w-full min-w-0 text-sm text-center mt-3">
-          <p className="font-semibold truncate">{playlist[currentTrackIndex]?.nombre}</p>
+          <p className="font-semibold truncate">
+            {playlist[currentTrackIndex]?.nombre}
+          </p>
           <p className="text-neutral-400 truncate">
             {playlist[currentTrackIndex]?.artista}
           </p>
@@ -228,7 +232,6 @@ const Reproductor = () => {
           min="0"
           step="0.05"
           onChange={changeVolumeHandler}
-          onWheel={adjustVolumeWithScroll}
         />
       </div>
     </div>

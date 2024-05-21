@@ -14,7 +14,6 @@ const PerfilHeader = ({
 }) => {
   const [backgroundGradient, setBackgroundGradient] = useState("");
   const [avatar, setAvatar] = useState(null);
-  const [newAvatar, setNewAvatar] = useState(null);
   const { usuario, actualizarFotoPerfilUsuario } = useUsuarios();
 
   useEffect(() => {
@@ -55,7 +54,6 @@ const PerfilHeader = ({
         const publicUrl = supabaseConexion.storage
           .from("avatar")
           .getPublicUrl(data.path).data.publicUrl;
-        setNewAvatar(publicUrl);
         setAvatar(publicUrl);
 
         actualizarFotoPerfilUsuario(usuario.id, publicUrl);
