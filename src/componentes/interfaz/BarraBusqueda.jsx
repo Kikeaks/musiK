@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useCanciones } from "../../hooks/useCanciones.js";
 
-// Componente para la barra de búsqueda de canciones.
-const BarraBusqueda = () => {
+// Componente para la barra de búsqueda de canciones y álbumes.
+const BarraBusqueda = ({ onSearch }) => {
   // Estado para almacenar el término de búsqueda.
   const [busqueda, setBusqueda] = useState("");
   // Hook personalizado para cargar canciones.
@@ -23,15 +23,16 @@ const BarraBusqueda = () => {
     };
 
     cargarCancionesPorBusqueda();
-  }, [busqueda, cargarCanciones]);
+    onSearch(busqueda); // Llama a la función de búsqueda de álbumes
+  }, [busqueda]);
 
   return (
     <Fragment>
       <div>
-        {/* Input para la búsqueda de canciones */}
+        {/* Input para la búsqueda de canciones y álbumes */}
         <input
           type="text"
-          placeholder="Buscar canciones..."
+          placeholder="Buscar canciones y álbumes..."
           className="px-4 text-md bg-slate-900 rounded outline-0 text-onNeutralBg border-onNeutralBg focus:bg-card"
           value={busqueda}
           onChange={handleChange}
