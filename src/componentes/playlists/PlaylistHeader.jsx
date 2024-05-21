@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ColorThief from "colorthief";
 import playlistDefault from "../../assets/playlist.jpg";
-import avatarDefault from "../../assets/usuario.jpg"
+import avatarDefault from "../../assets/usuario.jpg";
 import { supabaseConexion } from "../../config/supabase";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { useUsuarios } from "../../hooks/useUsuarios";
@@ -18,7 +18,7 @@ const PlaylistHeader = ({
   const [imagen, setImagen] = useState(null);
   const [cantidad, setCantidad] = useState(0);
 
-  const { usuario } = useUsuarios();
+  const { usuario, sesionIniciada } = useUsuarios();
   const { actualizarPortadaPlaylist, contarCancionesEnPlaylist } =
     usePlaylists();
 
@@ -44,11 +44,10 @@ const PlaylistHeader = ({
           );
         }
       };
-  
+
       obtenerCantidadCanciones();
     }
   }, [creador.nombre, contarCancionesEnPlaylist, playlist.id]);
-  
 
   // Crea un degradado con el color predominante de la portada y lo pone de fondo (ChatGPT).
   useEffect(() => {
@@ -102,7 +101,7 @@ const PlaylistHeader = ({
             src={imagen}
             alt={titulo}
           />
-          {usuario.id === creador.id && (
+          {sesionIniciada && usuario.id === creador.id && (
             <label className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer">
               <input
                 type="file"
@@ -115,7 +114,7 @@ const PlaylistHeader = ({
           )}
         </div>
         {/* Muestra la información de la playlist */}
-        <div className="playlist-info desc w-full min-w-0">
+        <div className="playlist-info desc w-full min-w-0 text-center sm:text-left">
           {/* Título de la playlist */}
           <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
             {titulo}
@@ -127,9 +126,12 @@ const PlaylistHeader = ({
             <div className="flex flex-row w-full min-w-0 items-center">
               <img
                 className="mr-2 size-4 aspect-square rounded-full ring-2 ring-white"
-                src={creador.avatar?creador.avatar:avatarDefault}
+                src={creador.avatar ? creador.avatar : avatarDefault}
               />{" "}
-              <Link className="duration-300 ease-in cursor-pointer group text-sm truncate font-semibold" to={`/perfil/${creador.id}`}>
+              <Link
+                className="duration-300 ease-in cursor-pointer group text-sm truncate font-semibold"
+                to={`/perfil/${creador.id}`}
+              >
                 {creador.nombre}
               </Link>
               <span className="text-sm">&nbsp;· {cantidad} canciones</span>
