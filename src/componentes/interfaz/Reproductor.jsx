@@ -6,6 +6,7 @@ import {
   faShuffle,
   faRepeat,
   faVolumeOff,
+  faVolumeHigh,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef, useEffect } from "react";
@@ -205,7 +206,7 @@ const Reproductor = () => {
             }}
           />
           <span className="ml-2">
-            {formatTime(playlist[currentTrackIndex]?.duracion)}
+            {playlist[currentTrackIndex]?.duracion?formatTime(playlist[currentTrackIndex]?.duracion):"-:-"}
           </span>
         </div>
         <div className="md:hidden w-full min-w-0 text-sm text-center mt-3">
@@ -220,7 +221,7 @@ const Reproductor = () => {
       <div className="w-1/3 hidden md:flex flex-row items-center justify-end">
         <FontAwesomeIcon
           className="mr-2"
-          icon={faVolumeOff}
+          icon={isMuted?faVolumeOff:faVolumeHigh}
           onClick={toggleMute}
         />
         <input

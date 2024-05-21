@@ -36,7 +36,7 @@ const Login = () => {
                 type="text"
                 name="nombre"
                 id="username-login"
-                className="border-cards text-sm rounded hover:border-white block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in focus:outline-none"
+                className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in"
                 placeholder="Introduce tu nombre de usuario"
                 onChange={(e) => {
                   actualizarDato(e);

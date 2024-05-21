@@ -102,7 +102,7 @@ const Navegacion = () => {
                   />
                   {mostrarPerfilMenu && (
                     <div
-                      className={`absolute right-0 mt-4 w-40 bg-cards rounded-md shadow-lg p-2 z-20 transition-opacity duration-300 ease-in ${
+                      className={`absolute right-0 mt-4 w-40 bg-cards rounded-md shadow-lg z-20 transition-opacity duration-300 ease-in ${
                         perfilMenuAbierto ? "opacity-100" : "opacity-0"
                       }`}
                     >
@@ -137,7 +137,7 @@ const Navegacion = () => {
         {/* Desplegable */}
         {mostrarMenu && (
           <div
-            className={`md:hidden z-10 divide-y divide-neutral-600 rounded-lg shadow w-40 bg-cards absolute top-16 right-4 transition-opacity duration-300 ease-in-out mt-4 p-2 ${
+            className={`md:hidden z-10 divide-y divide-neutral-600 rounded-lg shadow w-40 bg-cards absolute top-16 right-4 transition-opacity duration-300 ease-in-out mt-4 ${
               menuAbierto ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -168,7 +168,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/playlists"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none mb-2"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faMusic} className="mr-2" />
@@ -198,7 +198,7 @@ const Navegacion = () => {
                 <li>
                   <Link
                     to={`/perfil/${usuario.id}`}
-                    className="duration-300 ease-in cursor-pointer group flex mt-2 items-center px-4 py-2 hover:bg-neutral-800 text-sm focus:outline-none"
+                    className="duration-300 ease-in cursor-pointer group flex items-center px-4 py-2 hover:bg-neutral-800 text-sm focus:outline-none"
                     onClick={toggleMenu}
                   >
                     <img

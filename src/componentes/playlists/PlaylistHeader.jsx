@@ -115,7 +115,7 @@ const PlaylistHeader = ({
           )}
         </div>
         {/* Muestra la información de la playlist */}
-        <div className="playlist-info desc text-center sm:text-left w-full min-w-0">
+        <div className="playlist-info desc w-full min-w-0">
           {/* Título de la playlist */}
           <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
             {titulo}
@@ -124,15 +124,15 @@ const PlaylistHeader = ({
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
           {/* Creador de la playlist */}
           {creador.id ? (
-            <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">
+            <div className="flex flex-row w-full min-w-0 items-center">
               <img
                 className="mr-2 size-4 aspect-square rounded-full ring-2 ring-white"
                 src={creador.avatar?creador.avatar:avatarDefault}
               />{" "}
               <Link className="duration-300 ease-in cursor-pointer group text-sm truncate font-semibold" to={`/perfil/${creador.id}`}>
-                {creador.nombre} ·&nbsp;
+                {creador.nombre}
               </Link>
-              <span className="text-sm">{cantidad} canciones</span>
+              <span className="text-sm">&nbsp;· {cantidad} canciones</span>
             </div>
           ) : (
             <p className="text-sm truncate">

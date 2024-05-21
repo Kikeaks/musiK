@@ -8,6 +8,7 @@ import ProveedorPlaylists from "./contextos/ProveedorPlaylists.jsx";
 import Reproductor from "./componentes/interfaz/Reproductor.jsx";
 import ProveedorReproductor from "./contextos/ProveedorReproductor.jsx";
 import ProveedorAlbumes from "./contextos/ProveedorAlbumes.jsx";
+import ProveedorArtistas from "./contextos/ProveedorArtistas.jsx";
 
 const App = () => {
   return (
@@ -15,17 +16,19 @@ const App = () => {
       <BrowserRouter>
         <ProveedorUsuarios>
           <ProveedorReproductor>
-            <ProveedorAlbumes>
-            <ProveedorCanciones>
-              <ProveedorPlaylists>
-                <main className="flex flex-col min-h-screen">
-                  <Principal />
-                  <Reproductor />
-                  {/*                 <Pie /> */}
-                </main>
-              </ProveedorPlaylists>
-            </ProveedorCanciones>
-            </ProveedorAlbumes>
+            <ProveedorArtistas>
+              <ProveedorAlbumes>
+                <ProveedorCanciones>
+                  <ProveedorPlaylists>
+                    <main className="flex flex-col min-h-screen">
+                      <Principal />
+                      <Reproductor />
+                      {/*                 <Pie /> */}
+                    </main>
+                  </ProveedorPlaylists>
+                </ProveedorCanciones>
+              </ProveedorAlbumes>
+            </ProveedorArtistas>
           </ProveedorReproductor>
         </ProveedorUsuarios>
       </BrowserRouter>

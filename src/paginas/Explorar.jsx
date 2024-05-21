@@ -22,35 +22,40 @@ const Explorar = () => {
 
   return (
     <Fragment>
-      <div>
-        {/* Título de la sección de canciones destacadas */}
-        <h2 className="font-bold text-2xl text-center mt-3">
-          Canciones destacadas
-        </h2>
-        {/* Barra de búsqueda */}
-        <div className="flex justify-center items-center mt-3 w-full">
-          <BarraBusqueda onSearch={handleSearch} />
-        </div>
-        {/* Cuadrícula de canciones */}
-        <CancionesCuadricula canciones={canciones} />
+      {/* Barra de búsqueda */}
+      <div className="flex justify-center items-center mt-3 w-full">
+        <BarraBusqueda onSearch={handleSearch} />
       </div>
-      <div>
-        {/* Título de la sección de álbumes destacados */}
-        <h2 className="font-bold text-2xl text-center mt-3">
-          Álbumes destacados
-        </h2>
-        {/* Cuadrícula de álbumes */}
-        <AlbumesCuadricula albums={albumesDestacados} />
-      </div>
-      {busqueda && (
+      {busqueda ? (
         <div>
           {/* Título de la sección de resultados de búsqueda */}
-          <h2 className="font-bold text-2xl text-center mt-3">
-            Resultados de búsqueda para "{busqueda}"
+          <h2 className="font-bold text-xl mx-4 sm:text-2xl mt-3 truncate">
+            Resultados para "{busqueda}"
           </h2>
+          <h3>Canciones</h3>
+          <CancionesCuadricula canciones={canciones} />
+          <h3>Álbumes</h3>
           {/* Cuadrícula de álbumes buscados */}
           <AlbumesCuadricula albums={albumesBuscados} />
         </div>
+      ) : (
+        <>
+          <div>
+            <h2 className="font-bold text-xl mt-4 mx-4">
+              Canciones destacadas
+            </h2>
+            {/* Cuadrícula de canciones */}
+            <CancionesCuadricula canciones={canciones} />
+          </div>
+          <div>
+            {/* Título de la sección de álbumes destacados */}
+            <h2 className="font-bold text-xl mt-4 mx-4">
+              Álbumes destacados
+            </h2>
+            {/* Cuadrícula de álbumes */}
+            <AlbumesCuadricula albums={albumesDestacados} />
+          </div>
+        </>
       )}
     </Fragment>
   );

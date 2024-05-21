@@ -33,7 +33,7 @@ const ProveedorCanciones = ({ children }) => {
     try {
       const response = await deezerAPI.get("/chart/0/tracks", {
         params: {
-          limit: 25,
+          limit: 10,
         },
       });
 
