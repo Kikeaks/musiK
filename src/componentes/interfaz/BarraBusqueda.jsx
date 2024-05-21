@@ -28,12 +28,12 @@ const BarraBusqueda = ({ onSearch }) => {
 
   return (
     <Fragment>
-      <div>
+      <div className="mx-4 w-full">
         {/* Input para la búsqueda de canciones y álbumes */}
         <input
           type="text"
           placeholder="Buscar canciones y álbumes..."
-          className="px-4 text-md bg-slate-900 rounded outline-0 text-onNeutralBg border-onNeutralBg focus:bg-card"
+          className="border-cards text-sm rounded hover:border-white block w-full p-2.5 bg-cards placeholder-neutral-600 text-white duration-300 ease-in focus:outline-none"
           value={busqueda}
           onChange={handleChange}
         />

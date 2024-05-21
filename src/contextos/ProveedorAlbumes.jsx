@@ -33,6 +33,19 @@ const ProveedorAlbumes = ({ children }) => {
     }
   };
 
+  const obtenerDatosAlbum = async (idAlbum) => {
+    try {
+      const response = await deezerAPI.get(`/album/${idAlbum}`);
+      const album = response.data;
+      const cancionesResponse = await deezerAPI.get(`/album/${idAlbum}/tracks`);
+      const canciones = cancionesResponse.data.data;
+      return { album, canciones };
+    } catch (error) {
+      console.error("Error al obtener datos del álbum:", error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     cargarAlbumesDestacados();
   }, []);
@@ -41,6 +54,7 @@ const ProveedorAlbumes = ({ children }) => {
     albumesDestacados,
     albumesBuscados,
     buscarAlbumes,
+    obtenerDatosAlbum,
   };
 
   return <CtxAlbumes.Provider value={exports}>{children}</CtxAlbumes.Provider>;

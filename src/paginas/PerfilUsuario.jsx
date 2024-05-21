@@ -22,7 +22,7 @@ const PerfilUsuario = () => {
     obtenerSeguidos,
   } = useUsuarios();
 
-  const { playlistsUsuario, cargarPlaylistsPorIdUsuario } = usePlaylists();
+  const { cargarPlaylistsPorIdUsuario } = usePlaylists();
 
   const [perfil, setPerfil] = useState(null);
   const [carga, setCarga] = useState(true);

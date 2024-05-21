@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ColorThief from "colorthief";
 import playlistDefault from "../../assets/playlist.jpg";
+import avatarDefault from "../../assets/usuario.jpg"
 import { supabaseConexion } from "../../config/supabase";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { useUsuarios } from "../../hooks/useUsuarios";
+import { Link } from "react-router-dom";
 
 const PlaylistHeader = ({
   playlist,
@@ -14,9 +16,11 @@ const PlaylistHeader = ({
 }) => {
   const [backgroundGradient, setBackgroundGradient] = useState("");
   const [imagen, setImagen] = useState(null);
+  const [cantidad, setCantidad] = useState(0);
 
   const { usuario } = useUsuarios();
-  const { actualizarPortadaPlaylist } = usePlaylists();
+  const { actualizarPortadaPlaylist, contarCancionesEnPlaylist } =
+    usePlaylists();
 
   useEffect(() => {
     if (!portada) {
@@ -25,6 +29,26 @@ const PlaylistHeader = ({
       setImagen(portada);
     }
   }, [portada]);
+
+  useEffect(() => {
+    // Verifica si creador.nombre está definido, lo que indica que es una playlist creada por un usuario
+    if (creador.nombre) {
+      const obtenerCantidadCanciones = async () => {
+        try {
+          const count = await contarCancionesEnPlaylist(playlist.id);
+          setCantidad(count);
+        } catch (error) {
+          console.error(
+            "Error al obtener la cantidad de canciones:",
+            error.message
+          );
+        }
+      };
+  
+      obtenerCantidadCanciones();
+    }
+  }, [creador.nombre, contarCancionesEnPlaylist, playlist.id]);
+  
 
   // Crea un degradado con el color predominante de la portada y lo pone de fondo (ChatGPT).
   useEffect(() => {
@@ -73,7 +97,7 @@ const PlaylistHeader = ({
         <div className="relative">
           {/* Muestra la imagen de la playlist */}
           <img
-            className="rounded aspect-square shadow-2xl sm:mb-0 mb-4 sm:mr-4 size-auto"
+            className="rounded aspect-square shadow-2xl mb-2 sm:mb-0 sm:mr-4 size-44 sm:size-52"
             style={{ maxWidth: "250px" }}
             src={imagen}
             alt={titulo}
@@ -99,7 +123,22 @@ const PlaylistHeader = ({
           {/* Descripción de la playlist */}
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
           {/* Creador de la playlist */}
-          <p className="text-sm truncate">Creada por · {creador.nombre}</p>{" "}
+          {creador.id ? (
+            <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">
+              <img
+                className="mr-2 size-4 aspect-square rounded-full ring-2 ring-white"
+                src={creador.avatar?creador.avatar:avatarDefault}
+              />{" "}
+              <Link className="duration-300 ease-in cursor-pointer group text-sm truncate font-semibold" to={`/perfil/${creador.id}`}>
+                {creador.nombre} ·&nbsp;
+              </Link>
+              <span className="text-sm">{cantidad} canciones</span>
+            </div>
+          ) : (
+            <p className="text-sm truncate">
+              {creador} · {playlist.nb_tracks} canciones
+            </p>
+          )}
         </div>
       </div>
     </div>

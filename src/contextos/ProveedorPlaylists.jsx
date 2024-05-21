@@ -105,6 +105,25 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  const contarCancionesEnPlaylist = async (idPlaylist) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("playlists_canciones")
+        .select("*", { count: "exact" })
+        .eq("id_playlist", idPlaylist);
+  
+      if (error) {
+        throw error;
+      }
+  
+      return data.length;
+    } catch (error) {
+      console.error(`Error al contar las canciones de la playlist: ${error.message}`);
+      throw error;
+    }
+  };
+  
+
   const addCancionAPlaylist = async (idPlaylist, cancion) => {
     try {
       await addCancionABaseDatos(cancion);
@@ -355,7 +374,8 @@ const ProveedorPlaylists = ({ children }) => {
     quitarCancionDePlaylist,
     eliminarPlaylist,
     cargarPlaylistsPorIdUsuario,
-    actualizarPortadaPlaylist
+    actualizarPortadaPlaylist,
+    contarCancionesEnPlaylist
   };
 
   return (

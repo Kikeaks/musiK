@@ -39,6 +39,7 @@ const Playlist = () => {
     <div>
       {/* Muestra los detalles de la playlist */}
       <PlaylistHeader
+      playlist={playlist}
         portada={playlist.picture_medium}
         fondo={playlist.picture_xl}
         titulo={playlist.title}

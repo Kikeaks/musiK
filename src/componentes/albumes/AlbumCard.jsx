@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AlbumCard = ({ album }) => {
   return (
     <Fragment>
-      <Link to={`/albums/deezer/${album.id}`}>
+      <Link to={`/album/${album.id}`}>
         <div
           id={album.id}
           className="album shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards"

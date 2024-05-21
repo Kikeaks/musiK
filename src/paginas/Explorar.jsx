@@ -28,7 +28,7 @@ const Explorar = () => {
           Canciones destacadas
         </h2>
         {/* Barra de búsqueda */}
-        <div className="flex justify-center items-center mt-3">
+        <div className="flex justify-center items-center mt-3 w-full">
           <BarraBusqueda onSearch={handleSearch} />
         </div>
         {/* Cuadrícula de canciones */}
