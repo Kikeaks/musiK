@@ -10,6 +10,7 @@ import Encabezado from "../../componentes/estructura/Encabezado.jsx";
 import Login from "../../paginas/Login.jsx";
 import Registro from "../../paginas/Registro.jsx";
 import Album from "../../paginas/Album.jsx";
+import PerfilArtista from "../../paginas/PerfilArtista.jsx";
 
 // Componente para definir las rutas de la aplicación.
 const Rutas = () => {
@@ -34,6 +35,7 @@ const Rutas = () => {
                 />
                 <Route path="/perfil/:id" element={<PerfilUsuario />} />
                 <Route path="/album/:id" element={<Album />} />
+                <Route path="/artista/:id" element={<PerfilArtista />} />
               </Routes>
             </Fragment>
           }

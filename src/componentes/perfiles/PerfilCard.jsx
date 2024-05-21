@@ -4,10 +4,7 @@ import avatarDefault from "../../assets/usuario.jpg";
 
 const PerfilCard = ({ perfil }) => {
   return (
-    <Link
-      to={`/perfil/${perfil.id}`}
-      className="duration-300 ease-in cursor-pointer group"
-    >
+    <Link to={`/perfil/${perfil.id}`}>
       <div className="perfil shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards">
         {/* Foto de perfil */}
         <div className="flex flex-col justify-center items-center mt-1">

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-const AlbumCard = ({ album }) => {
+const AlbumCard = ({ album, artista }) => {
   return (
     <Fragment>
       <Link to={`/album/${album.id}`}>
@@ -17,11 +17,9 @@ const AlbumCard = ({ album }) => {
             />
           </div>
           <div className="album-info desc mt-3">
-            <p className="album-titulo font-semibold truncate">
-              {album.title}
-            </p>
+            <p className="album-titulo font-semibold truncate">{album.title}</p>
             <p className="album-artista text-sm text-neutral-400 truncate">
-              {album.artist.name}
+              {artista ? artista : album.artist.name}
             </p>
           </div>
         </div>

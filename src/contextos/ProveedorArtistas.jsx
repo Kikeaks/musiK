@@ -1,17 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
 import { deezerAPI } from "../config/deezer.js";
 
-// Crear el contexto para los artistas
 const CtxArtistas = createContext();
 
-// Proveedor que utiliza el contexto para proporcionar datos de artistas a sus hijos.
 const ProveedorArtistas = ({ children }) => {
-  // Estado local para almacenar la lista de artistas destacados
   const [artistasDestacados, setArtistasDestacados] = useState([]);
-  // Estado local para almacenar la lista de artistas buscados
   const [artistasBuscados, setArtistasBuscados] = useState([]);
 
-  // Función para cargar artistas destacados desde la API de Deezer
   const cargarArtistasDestacados = async () => {
     try {
       const response = await deezerAPI.get("/chart/0/artists", {
@@ -23,7 +18,6 @@ const ProveedorArtistas = ({ children }) => {
     }
   };
 
-  // Función para buscar artistas según un término de búsqueda
   const buscarArtistas = async (termino) => {
     if (!termino) {
       setArtistasBuscados([]);
@@ -31,7 +25,7 @@ const ProveedorArtistas = ({ children }) => {
     }
     try {
       const response = await deezerAPI.get("/search/artist", {
-        params: { q: termino },
+        params: { q: termino, limit: 10 },
       });
       setArtistasBuscados(response.data.data);
     } catch (error) {
@@ -39,23 +33,34 @@ const ProveedorArtistas = ({ children }) => {
     }
   };
 
-  // Efecto para cargar los artistas destacados al montar el componente
+  const obtenerDatosArtistaPorId = async (idArtista) => {
+    try {
+      const response = await deezerAPI.get(`/artist/${idArtista}`);
+      const artista = response.data;
+      const cancionesResponse = await deezerAPI.get(
+        `/artist/${idArtista}/top?limit=5`
+      );
+      const canciones = cancionesResponse.data.data;
+      return { ...artista, canciones };
+    } catch (error) {
+      console.error("Error al obtener datos del artista:", error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     cargarArtistasDestacados();
   }, []);
 
-  // Valores proporcionados por el contexto
   const exports = {
     artistasDestacados,
     artistasBuscados,
     buscarArtistas,
+    obtenerDatosArtistaPorId,
   };
 
-  // Renderizar el proveedor con el contexto y sus hijos
   return (
-    <CtxArtistas.Provider value={exports}>
-      {children}
-    </CtxArtistas.Provider>
+    <CtxArtistas.Provider value={exports}>{children}</CtxArtistas.Provider>
   );
 };
 

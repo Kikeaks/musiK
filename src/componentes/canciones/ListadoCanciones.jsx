@@ -4,7 +4,7 @@ import Cancion from "./Cancion.jsx";
 // Componente para mostrar el listado de canciones.
 const ListadoCanciones = ({ canciones }) => {
   return (
-    <Fragment>
+    <div className="p-2">
       {/* Verifica si hay canciones antes de mapear sobre ellas. */}
       {canciones.length ? (
         canciones.map((cancion) => (
@@ -20,7 +20,7 @@ const ListadoCanciones = ({ canciones }) => {
           playlist de Deezer.
         </p>
       )}
-    </Fragment>
+    </div>
   );
 };
 

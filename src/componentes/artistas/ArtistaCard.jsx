@@ -1,0 +1,24 @@
+import React from "react";
+import { Link } from "react-router-dom";
+const ArtistaCard = ({ artista }) => {
+  return (
+    <Link to={`/artista/${artista.id}`}>
+      <div className="perfil shadow-lg p-3 rounded hover:bg-neutral-800 duration-300 ease-in cursor-pointer group bg-cards">
+        <img
+          className="object-cover aspect-square rounded-full shadow-md w-full"
+          src={artista.picture_medium}
+          alt={artista.name}
+        />
+        <div className="perfil-info mt-2">
+          {/* Nombre del usuario */}
+          <p className="perfil-nombre font-semibold truncate">{artista.name}</p>
+          <p className="perfil-nombre truncate text-sm text-neutral-400">
+            Artista
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+export default ArtistaCard;
