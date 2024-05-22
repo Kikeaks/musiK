@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGear,
+  faHeart,
+  faHeartBroken,
+} from "@fortawesome/free-solid-svg-icons";
 import ModalEditarPlaylist from "../../componentes/modales/ModalEditarPlaylist";
 import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancionesUsuario";
 import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
@@ -16,7 +20,15 @@ const PlaylistUsuario = () => {
   const [playlistData, setPlaylistData] = useState(null); // Estado para almacenar los datos de la playlist.
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false); // Estado para controlar la visibilidad del modal de edición.
   const [autorPlaylist, setAutorPlaylist] = useState([]);
-  const { usuario, obtenerDatosUsuarioPorId } = useUsuarios();
+  const {
+    usuario,
+    sesionIniciada,
+    obtenerDatosUsuarioPorId,
+    likePlaylist,
+    unlikePlaylist,
+    verificarLike,
+  } = useUsuarios();
+  const [tieneLike, setTieneLike] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,13 +46,18 @@ const PlaylistUsuario = () => {
             setAutorPlaylist(autorData);
           }
         }
+
+        if (sesionIniciada) {
+          const likeStatus = await verificarLike(id);
+          setTieneLike(likeStatus);
+        }
       } catch (error) {
         console.error("Error al obtener datos de la playlist:", error.message);
       }
     };
 
     fetchData(); // Ejecuta la función para obtener los datos cuando cambia el ID de la playlist.
-  }, [id]); // Se ejecuta cada vez que cambia el ID de la playlist.
+  }, [id, obtenerDatosUsuarioPorId, verificarLike]); // Se ejecuta cada vez que cambia el ID de la playlist.
 
   if (!playlistData) {
     return <Carga />;
@@ -53,6 +70,16 @@ const PlaylistUsuario = () => {
     setMostrarModalEditar(true);
   };
 
+  const toggleLike = async () => {
+    if (tieneLike) {
+      await unlikePlaylist(id);
+    } else {
+      await likePlaylist(id);
+    }
+
+    setTieneLike(!tieneLike);
+  };
+
   return (
     <div className="min-w-0 w-full">
       {/* Información de la playlist */}
@@ -63,7 +90,8 @@ const PlaylistUsuario = () => {
         descripcion={playlist.descripcion ? playlist.descripcion : null}
         creador={autorPlaylist}
       />
-      {usuario.id === playlist.usuario && (
+
+      {usuario.id === playlist.usuario ? (
         <button
           className="text-white font-medium rounded-lg hover:bg-neutral-800 text-center text-base duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 mt-4 focus:outline-none"
           onClick={abrirModalEditar}
@@ -74,6 +102,18 @@ const PlaylistUsuario = () => {
             className="mr-2"
           />
           Opciones
+        </button>
+      ) : (
+        <button onClick={toggleLike}>
+          {tieneLike ? (
+            <>
+              <FontAwesomeIcon icon={faHeartBroken} /> No me gusta
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faHeart} /> Me gusta
+            </>
+          )}
         </button>
       )}
 

@@ -270,6 +270,29 @@ const ProveedorUsuarios = ({ children }) => {
     setInfoSesion(datosSesionInicial);
   };
 
+  const actualizarNombreUsuario = async (userId, nuevoNombre) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from('usuarios')
+        .update({ nombre: nuevoNombre })
+        .eq('id', userId);
+  
+      if (error) {
+        throw error;
+      }
+  
+      // Actualiza el estado del usuario localmente
+      setUsuario((prevState) => ({
+        ...prevState,
+        nombre: nuevoNombre,
+      }));
+  
+      console.log("Nombre actualizado correctamente");
+    } catch (error) {
+      console.error("Error al actualizar el nombre:", error.message);
+    }
+  };
+
   // Función para seguir a un usuario.
   const seguirUsuario = async (usuarioId) => {
     try {
@@ -319,6 +342,54 @@ const ProveedorUsuarios = ({ children }) => {
       }
 
       return !!data; // Devuelve true si sigue al usuario, false en caso contrario
+    } catch (error) {
+      return false;
+    }
+  };
+
+  // Función para dar like a una playlist
+  const likePlaylist = async (playlistId) => {
+    try {
+      await supabaseConexion
+        .from("likes")
+        .insert([{ usuario: usuario.id, playlist: playlistId }]);
+    } catch (error) {
+      console.error("Error al dar like a la playlist:", error.message);
+    }
+  };
+
+  // Función para quitar like a una playlist
+  const unlikePlaylist = async (playlistId) => {
+    try {
+      await supabaseConexion
+        .from("likes")
+        .delete()
+        .eq("usuario", usuario.id)
+        .eq("playlist", playlistId);
+    } catch (error) {
+      console.error("Error al quitar like a la playlist:", error.message);
+    }
+  };
+
+  // Verifica si la playlist tiene un like del usuario
+  const verificarLike = async (playlistId) => {
+    if (!sesionIniciada) {
+      return false;
+    }
+
+    try {
+      const { data, error } = await supabaseConexion
+        .from("likes")
+        .select("*")
+        .eq("usuario", usuario.id)
+        .eq("playlist", playlistId)
+        .single();
+
+      if (error && error.details !== "No rows found") {
+        throw error;
+      }
+
+      return !!data;
     } catch (error) {
       return false;
     }
@@ -377,7 +448,11 @@ const ProveedorUsuarios = ({ children }) => {
     verificarSeguimiento,
     obtenerSeguidores,
     obtenerSeguidos,
-    actualizarFotoPerfilUsuario
+    actualizarFotoPerfilUsuario,
+    actualizarNombreUsuario,
+    likePlaylist,
+    unlikePlaylist,
+    verificarLike
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.
