@@ -124,9 +124,9 @@ const PlaylistHeader = ({
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
           {/* Creador de la playlist */}
           {creador.id ? (
-            <div className="flex flex-row w-full min-w-0 items-center text-center sm:text-left">
+            <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">
               <img
-                className="mr-2 size-4 aspect-square rounded-full ring-2 ring-white"
+                className="mr-2 size-4 aspect-square rounded-full ring-1 ring-white"
                 src={creador.avatar ? creador.avatar : avatarDefault}
               />{" "}
               <Link

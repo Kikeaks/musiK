@@ -113,6 +113,7 @@ const PlaylistUsuario = () => {
       ) : tieneLike ? (
         <button
           className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 mt-4 focus:outline-none"
+          style={{ width: 180 }}
           onClick={toggleLike}
         >
           <FontAwesomeIcon className="mr-2" icon={faHeartBroken} /> No me gusta
@@ -120,6 +121,7 @@ const PlaylistUsuario = () => {
       ) : (
         <button
           className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mb-4 mt-4 focus:outline-none"
+          style={{ width: 180 }}
           onClick={toggleLike}
         >
           <FontAwesomeIcon className="mr-2" icon={faHeart} /> Me gusta

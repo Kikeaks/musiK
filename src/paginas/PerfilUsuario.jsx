@@ -114,7 +114,7 @@ const PerfilUsuario = () => {
           sesionIniciada &&
           (sigueAlUsuario ? (
             <button
-              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mt-2 focus:outline-none"
+              className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mt-4 mb-4 focus:outline-none"
               style={{ width: 180 }}
               onClick={handleDejarDeSeguir}
             >
@@ -123,7 +123,7 @@ const PerfilUsuario = () => {
             </button>
           ) : (
             <button
-              className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-2 focus:outline-none"
+              className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-4 mb-4 focus:outline-none"
               style={{ width: 180 }}
               onClick={handleSeguir}
             >
