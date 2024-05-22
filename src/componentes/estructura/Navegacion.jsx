@@ -11,6 +11,7 @@ import {
   faRightFromBracket,
   faPersonRunning,
   faUser,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUsuarios } from "../../hooks/useUsuarios";
 
@@ -108,14 +109,14 @@ const Navegacion = () => {
                     >
                       <Link
                         to={`/perfil/${usuario.id}`}
-                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-t"
+                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-t-lg"
                         onClick={togglePerfilMenu}
                       >
                         <FontAwesomeIcon icon={faUser} className="mr-2" />
                         Ir al perfil
                       </Link>
                       <div
-                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b"
+                        className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b-lg"
                         onClick={() => {
                           cerrarSesion();
                           togglePerfilMenu();
@@ -148,7 +149,7 @@ const Navegacion = () => {
               <li>
                 <Link
                   to="/"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none rounded-t"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none rounded-t-lg"
                   onClick={toggleMenu}
                 >
                   <FontAwesomeIcon icon={faHouse} className="mr-2" />
@@ -182,10 +183,10 @@ const Navegacion = () => {
                   <li>
                     <Link
                       to="/login"
-                      className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm mt-2 focus:outline-none"
+                      className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b-lg"
                     >
                       <FontAwesomeIcon
-                        icon={faPersonRunning}
+                        icon={faKey}
                         className="mr-2"
                       />
                       Iniciar sesión
@@ -209,7 +210,7 @@ const Navegacion = () => {
                   </Link>
                 </li>
                 <li
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b"
+                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b-lg"
                   onClick={() => {
                     cerrarSesion();
                   }}
