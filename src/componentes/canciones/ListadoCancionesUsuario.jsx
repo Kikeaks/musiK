@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import CancionPlaylistUsuario from "./CancionPlaylistUsuario.jsx";
 import { useCanciones } from "../../hooks/useCanciones.js";
 import { useReproductor } from "../../hooks/useReproductor.js";
@@ -6,10 +6,12 @@ import { useReproductor } from "../../hooks/useReproductor.js";
 // Componente para mostrar el listado de canciones.
 const ListadoCancionesUsuario = ({ canciones, playlist }) => {
   const { iniciarReproduccion } = useCanciones();
-  const { setPlaylist } = useReproductor();
+  const { setPlaylist, setCurrentTrackIndex } = useReproductor();
 
   const reproducirCancion = (index) => {
-    setPlaylist(canciones); // Configura la lista de reproducción
+    // Configura la lista de reproducción y el índice de la canción actual en el reproductor
+    setPlaylist(canciones);
+    setCurrentTrackIndex(index);
     iniciarReproduccion(index); // Inicia la reproducción de la canción seleccionada
   };
 

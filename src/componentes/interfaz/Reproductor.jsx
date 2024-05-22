@@ -45,10 +45,8 @@ const Reproductor = () => {
   }, [volume]);
 
   useEffect(() => {
-    // Reproducir automáticamente la canción cuando se cambia
-    if (isPlaying) {
-      audioRef.current.play();
-    }
+    setIsPlaying(true);
+    audioRef.current.play();
   }, [currentTrackIndex]);
 
   const playPauseHandler = () => {
@@ -206,7 +204,9 @@ const Reproductor = () => {
             }}
           />
           <span className="ml-2">
-            {playlist[currentTrackIndex]?.duracion?formatTime(playlist[currentTrackIndex]?.duracion):"-:-"}
+            {playlist[currentTrackIndex]?.duracion
+              ? formatTime(playlist[currentTrackIndex]?.duracion)
+              : "-:-"}
           </span>
         </div>
         <div className="md:hidden w-full min-w-0 text-sm text-center mt-3">
@@ -221,7 +221,7 @@ const Reproductor = () => {
       <div className="w-1/3 hidden md:flex flex-row items-center justify-end">
         <FontAwesomeIcon
           className="mr-2"
-          icon={isMuted?faVolumeOff:faVolumeHigh}
+          icon={isMuted ? faVolumeOff : faVolumeHigh}
           onClick={toggleMute}
         />
         <input

@@ -212,9 +212,6 @@ const ProveedorPlaylists = ({ children }) => {
       const playlistData = await obtenerPlaylistDeezerPorId(idPlaylist);
       const cancionesPlaylist = await obtenerCancionesPlaylist(idPlaylist);
   
-      // Carga las canciones en el reproductor de audio.
-      setPlaylist(cancionesPlaylist);
-      setCurrentTrackIndex(0);
   
       return {
         playlist: playlistData,
@@ -229,13 +226,8 @@ const ProveedorPlaylists = ({ children }) => {
   const obtenerDatosPlaylistUsuario = async (idPlaylist) => {
     try {
       const playlistData = await obtenerPlaylistUsuarioPorId(idPlaylist);
-      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(
-        idPlaylist
-      );
-
-      setPlaylist(cancionesPlaylist);
-      setCurrentTrackIndex(0);
-
+      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(idPlaylist);
+  
       return {
         playlist: playlistData,
         canciones: cancionesPlaylist,
@@ -245,6 +237,7 @@ const ProveedorPlaylists = ({ children }) => {
       throw error;
     }
   };
+  
 
   const eliminarPlaylist = async (idPlaylist) => {
     try {
