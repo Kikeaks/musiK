@@ -16,7 +16,7 @@ const ListadoCancionesUsuario = ({ canciones, playlist }) => {
   };
 
   return (
-    <div className="p-2">
+    <div className="p-2 w-full md:w-3/4">
       {/* Verifica si hay canciones antes de mapear sobre ellas. */}
       {canciones.length ? (
         canciones.map((cancion, index) => (

@@ -11,7 +11,7 @@ const ProveedorPlaylists = ({ children }) => {
   const { usuario, sesionIniciada } = useUsuarios();
   const { addCancionABaseDatos } = useCanciones();
   const { setPlaylist, setCurrentTrackIndex } = useReproductor();
-  const [likesPlaylist, setLikesPlaylist] = useState(0)
+  const [likesPlaylist, setLikesPlaylist] = useState(0);
   const [playlistsUsuario, setPlaylistsUsuario] = useState([]);
   const [playlistsDestacadas, setPlaylistsDestacadas] = useState([]);
 
@@ -111,18 +111,19 @@ const ProveedorPlaylists = ({ children }) => {
         .from("playlists_canciones")
         .select("*", { count: "exact" })
         .eq("id_playlist", idPlaylist);
-  
+
       if (error) {
         throw error;
       }
-  
+
       return data.length;
     } catch (error) {
-      console.error(`Error al contar las canciones de la playlist: ${error.message}`);
+      console.error(
+        `Error al contar las canciones de la playlist: ${error.message}`
+      );
       throw error;
     }
   };
-  
 
   const addCancionAPlaylist = async (idPlaylist, cancion) => {
     try {
@@ -211,23 +212,7 @@ const ProveedorPlaylists = ({ children }) => {
     try {
       const playlistData = await obtenerPlaylistDeezerPorId(idPlaylist);
       const cancionesPlaylist = await obtenerCancionesPlaylist(idPlaylist);
-  
-  
-      return {
-        playlist: playlistData,
-        canciones: cancionesPlaylist,
-      };
-    } catch (error) {
-      console.error("Error al obtener datos de la playlist:", error.message);
-      throw error;
-    }
-  };  
 
-  const obtenerDatosPlaylistUsuario = async (idPlaylist) => {
-    try {
-      const playlistData = await obtenerPlaylistUsuarioPorId(idPlaylist);
-      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(idPlaylist);
-  
       return {
         playlist: playlistData,
         canciones: cancionesPlaylist,
@@ -237,11 +222,29 @@ const ProveedorPlaylists = ({ children }) => {
       throw error;
     }
   };
-  
+
+  const obtenerDatosPlaylistUsuario = async (idPlaylist) => {
+    try {
+      const playlistData = await obtenerPlaylistUsuarioPorId(idPlaylist);
+      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(
+        idPlaylist
+      );
+
+      return {
+        playlist: playlistData,
+        canciones: cancionesPlaylist,
+      };
+    } catch (error) {
+      console.error("Error al obtener datos de la playlist:", error.message);
+      throw error;
+    }
+  };
 
   const eliminarPlaylist = async (idPlaylist) => {
     try {
-      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(idPlaylist);
+      const cancionesPlaylist = await obtenerCancionesPlaylistUsuario(
+        idPlaylist
+      );
 
       await supabaseConexion
         .from("playlists_canciones")
@@ -330,14 +333,14 @@ const ProveedorPlaylists = ({ children }) => {
   const actualizarPortadaPlaylist = async (playlistId, nuevaPortada) => {
     try {
       const { data, error } = await supabaseConexion
-        .from('playlists')
+        .from("playlists")
         .update({ portada: nuevaPortada })
-        .eq('id', playlistId);
-  
+        .eq("id", playlistId);
+
       if (error) {
         throw error;
       }
-  
+
       console.log("Portada actualizada correctamente");
     } catch (error) {
       console.error("Error al actualizar la foto de perfil:", error.message);
@@ -345,23 +348,82 @@ const ProveedorPlaylists = ({ children }) => {
   };
 
   // Función para contar los likes de una playlist
-const contarLikesPlaylist = async (playlistId) => {
-  try {
-    const { data, error } = await supabaseConexion
-      .from("likes")
-      .select("id")
-      .eq("playlist", playlistId);
+  const contarLikesPlaylist = async (playlistId) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("likes")
+        .select("id")
+        .eq("playlist", playlistId);
 
-    if (error) {
+      if (error) {
+        throw error;
+      }
+
+      return data.length;
+    } catch (error) {
+      console.error("Error al contar los likes de la playlist:", error.message);
+      return 0;
+    }
+  };
+
+  const agregarComentarioAPlaylist = async (idPlaylist, comentario) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("comentarios")
+        .insert({
+          playlist: idPlaylist,
+          usuario: usuario.id,
+          comentario: comentario,
+        });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
       throw error;
     }
+  };
 
-    return data.length;
-  } catch (error) {
-    console.error("Error al contar los likes de la playlist:", error.message);
-    return 0;
-  }
-};
+  const obtenerComentariosPlaylist = async (idPlaylist) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("comentarios")
+        .select("*, usuarios (*)")
+        .eq("playlist", idPlaylist);
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error(
+        "Error al obtener comentarios de la playlist:",
+        error.message
+      );
+      throw error;
+    }
+  };
+
+  // Función para eliminar un comentario de una playlist
+  const eliminarComentarioDePlaylist = async (idComentario) => {
+    try {
+      const { error } = await supabaseConexion
+        .from("comentarios")
+        .delete()
+        .eq("id", idComentario);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(
+        "Error al eliminar comentario de la playlist:",
+        error.message
+      );
+      throw error;
+    }
+  };
 
   useEffect(() => {
     cargarPlaylistsDestacadas();
@@ -389,7 +451,10 @@ const contarLikesPlaylist = async (playlistId) => {
     actualizarPortadaPlaylist,
     contarCancionesEnPlaylist,
     contarLikesPlaylist,
-    likesPlaylist
+    likesPlaylist,
+    agregarComentarioAPlaylist,
+    obtenerComentariosPlaylist,
+    eliminarComentarioDePlaylist,
   };
 
   return (

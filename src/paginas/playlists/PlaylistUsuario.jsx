@@ -12,6 +12,7 @@ import ListadoCancionesUsuario from "../../componentes/canciones/ListadoCancione
 import PlaylistHeader from "../../componentes/playlists/PlaylistHeader";
 import { useUsuarios } from "../../hooks/useUsuarios";
 import Carga from "../../componentes/interfaz/Carga";
+import Comentarios from "../../componentes/playlists/Comentarios";
 
 // Componente para la página de una playlist de usuario.
 const PlaylistUsuario = () => {
@@ -127,9 +128,12 @@ const PlaylistUsuario = () => {
           <FontAwesomeIcon className="mr-2" icon={faHeart} /> Me gusta
         </button>
       )}
+      <div className="flex flex-col md:flex-row w-full">
+        {/* Listado de canciones de la playlist */}
+        <ListadoCancionesUsuario canciones={canciones} playlist={playlist} />
+        <Comentarios playlist={playlist.id} />
+      </div>
 
-      {/* Listado de canciones de la playlist */}
-      <ListadoCancionesUsuario canciones={canciones} playlist={playlist} />
       {/* Modal de edición de la playlist */}
       <ModalEditarPlaylist
         mostrar={mostrarModalEditar}
