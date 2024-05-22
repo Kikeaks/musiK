@@ -52,7 +52,7 @@ const PlaylistUsuario = () => {
         const likes = await contarLikesPlaylist(id);
         setNumLikes(likes);
 
-        if (sesionIniciada) {
+        if (usuario.id !== data.playlist.usuario) {
           const likeStatus = await verificarLike(id);
           setTieneLike(likeStatus);
         }

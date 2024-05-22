@@ -11,8 +11,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef, useEffect } from "react";
 import { useReproductor } from "../../hooks/useReproductor";
+import { useUsuarios } from "../../hooks/useUsuarios";
 
 const Reproductor = () => {
+  const { sesionIniciada } = useUsuarios();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
@@ -23,7 +25,7 @@ const Reproductor = () => {
   const volumeRef = useRef(null);
   const lastBackwardPressRef = useRef(0);
 
-  const { playlist, currentTrackIndex, setCurrentTrackIndex } =
+  const { playlist, setPlaylist, currentTrackIndex, setCurrentTrackIndex } =
     useReproductor();
 
   useEffect(() => {
@@ -45,9 +47,11 @@ const Reproductor = () => {
   }, [volume]);
 
   useEffect(() => {
-    setIsPlaying(true);
-    audioRef.current.play();
-  }, [currentTrackIndex]);
+    if (currentTrackIndex !== null) {
+      setIsPlaying(true);
+      audioRef.current.play();
+    }
+  }, [playlist[currentTrackIndex]]);
 
   const playPauseHandler = () => {
     if (isPlaying) {
@@ -136,6 +140,14 @@ const Reproductor = () => {
     }
   }, [volumeRef, volume]);
 
+  useEffect(() => {
+    if (!sesionIniciada) {
+      setPlaylist(0);
+      setCurrentTrackIndex(0);
+      audioRef.current.pause();
+    }
+  }, [sesionIniciada]);
+
   return (
     <div className="flex flex-row w-full bg-fondo sticky bottom-0 p-4 items-center justify-between mt-auto">
       <audio
@@ -158,7 +170,7 @@ const Reproductor = () => {
       <div className="flex flex-col w-full md:w-1/3 justify-center items-center">
         <div className="flex flex-row justify-center items-center mb-3">
           <FontAwesomeIcon
-            className="fa-xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
+            className="hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
             icon={faShuffle}
             onClick={toggleShuffle}
           />
@@ -167,26 +179,18 @@ const Reproductor = () => {
             icon={faBackwardStep}
             onClick={prevSongHandler}
           />
-          {!isPlaying ? (
-            <FontAwesomeIcon
-              className="fa-2xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
-              icon={faCirclePlay}
-              onClick={playPauseHandler}
-            />
-          ) : (
-            <FontAwesomeIcon
-              className="fa-2xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
-              icon={faCirclePause}
-              onClick={playPauseHandler}
-            />
-          )}
+          <FontAwesomeIcon
+            className="fa-2xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
+            icon={!isPlaying ? faCirclePlay : faCirclePause}
+            onClick={playPauseHandler}
+          />
           <FontAwesomeIcon
             className="fa-xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
             icon={faForwardStep}
             onClick={nextSongHandler}
           />
           <FontAwesomeIcon
-            className="fa-xl hover:text-highlight duration-300 ease-in cursor-pointer group"
+            className="hover:text-highlight duration-300 ease-in cursor-pointer group"
             icon={faRepeat}
           />
         </div>

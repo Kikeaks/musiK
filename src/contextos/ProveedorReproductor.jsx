@@ -4,7 +4,7 @@ const CtxReproductor = createContext();
 
 const ProveedorReproductor = ({ children }) => {
   const [playlist, setPlaylist] = useState([]);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
 
   const exports = {
     playlist,
