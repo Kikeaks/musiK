@@ -9,22 +9,23 @@ const CtxCanciones = createContext();
 // Componente proveedor que utiliza el contexto para proporcionar datos de canciones a sus hijos.
 const ProveedorCanciones = ({ children }) => {
   // Estado local para almacenar la lista de canciones.
-  const [canciones, setCanciones] = useState([]);
   const { setPlaylist, setCurrentTrackIndex } = useReproductor();
+  const [cancionesDestacadas, setCancionesDestacadas] = useState([]);
+  const [cancionesBuscadas, setCancionesBuscadas] = useState([]);
 
   // Función para cargar las canciones desde la API de Deezer según un término de búsqueda.
-  const cargarCanciones = async (terminoBusqueda) => {
+  const buscarCanciones = async (termino) => {
+    if (!termino) {
+      setCancionesBuscadas([]);
+      return;
+    }
     try {
       const response = await deezerAPI.get("/search", {
-        params: {
-          q: terminoBusqueda,
-          limit: 10,
-        },
+        params: { q: termino, limit: 10 },
       });
-
-      setCanciones(response.data.data);
+      setCancionesBuscadas(response.data.data);
     } catch (error) {
-      console.error("Error al cargar canciones:", error.message);
+      console.error("Error al buscar canciones:", error.message);
     }
   };
 
@@ -37,7 +38,7 @@ const ProveedorCanciones = ({ children }) => {
         },
       });
 
-      setCanciones(response.data.data);
+      setCancionesDestacadas(response.data.data);
     } catch (error) {
       console.error("Error al cargar canciones por defecto:", error.message);
     }
@@ -90,8 +91,10 @@ const ProveedorCanciones = ({ children }) => {
   return (
     <CtxCanciones.Provider
       value={{
-        canciones,
-        cargarCanciones,
+        cancionesBuscadas,
+        cancionesDestacadas,
+        buscarCanciones,
+        cargarCancionesDestacadas,
         addCancionABaseDatos,
         iniciarReproduccion
       }}

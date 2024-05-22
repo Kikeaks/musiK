@@ -9,21 +9,23 @@ import { useArtistas } from "../hooks/useArtistas.js";
 
 // Componente para la página "Explorar".
 const Explorar = () => {
-  const { canciones } = useCanciones();
+  const { cancionesDestacadas, cancionesBuscadas, buscarCanciones } =
+    useCanciones();
   const { albumesDestacados, buscarAlbumes, albumesBuscados } = useAlbumes();
   const { artistasDestacados, buscarArtistas, artistasBuscados } =
     useArtistas();
   const [busqueda, setBusqueda] = useState("");
 
-  // Efecto para buscar álbumes y artistas cuando cambia la búsqueda
-  useEffect(() => {
-    buscarAlbumes(busqueda);
-    buscarArtistas(busqueda);
-  }, [busqueda]);
-
   const handleSearch = (termino) => {
     setBusqueda(termino);
   };
+
+  // Efecto para buscar álbumes y artistas cuando cambia la búsqueda
+  useEffect(() => {
+    buscarCanciones(busqueda);
+    buscarAlbumes(busqueda);
+    buscarArtistas(busqueda);
+  }, [busqueda]);
 
   return (
     <Fragment>
@@ -38,8 +40,8 @@ const Explorar = () => {
             Resultados para "{busqueda}"
           </h2>
           <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Canciones</h3>
-          <CancionesCuadricula canciones={canciones} />
-          <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Álbumes</h3>
+          <CancionesCuadricula canciones={cancionesBuscadas} />
+          <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Álbumes - Singles - E.P.</h3>
           <AlbumesCuadricula albums={albumesBuscados} />
           <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Artistas</h3>
           <ArtistasCuadricula artistas={artistasBuscados} />
@@ -50,11 +52,11 @@ const Explorar = () => {
             <h2 className="font-bold text-xl mt-6 mx-4 sm:text-2xl">
               Canciones destacadas
             </h2>
-            <CancionesCuadricula canciones={canciones} />
+            <CancionesCuadricula canciones={cancionesDestacadas} />
           </div>
           <div>
             <h2 className="font-bold text-xl mt-4 mx-4 sm:text-2xl">
-              Álbumes destacados
+            Álbumes - Singles - E.P. destacados
             </h2>
             <AlbumesCuadricula albums={albumesDestacados} />
           </div>

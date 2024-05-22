@@ -39,13 +39,17 @@ const Album = () => {
     <div>
       {/* Muestra los detalles del álbum */}
       <AlbumHeader
+        album={album}
         portada={album.cover_medium}
         titulo={album.title}
         artista={album.artist.name}
         lanzamiento={album.release_date}
       />
       {/* Renderiza el componente ListadoCanciones con las canciones del álbum */}
-      <ListadoCancionesAlbum canciones={canciones} portada={album.cover_small} />
+      <ListadoCancionesAlbum
+        canciones={canciones}
+        portada={album.cover_small}
+      />
     </div>
   );
 };

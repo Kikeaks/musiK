@@ -10,7 +10,7 @@ const ProveedorAlbumes = ({ children }) => {
   const cargarAlbumesDestacados = async () => {
     try {
       const response = await deezerAPI.get("/chart/0/albums", {
-        params: { limit: 25 },
+        params: { limit: 10 },
       });
       setAlbumesDestacados(response.data.data);
     } catch (error) {
@@ -25,7 +25,7 @@ const ProveedorAlbumes = ({ children }) => {
     }
     try {
       const response = await deezerAPI.get("/search/album", {
-        params: { q: termino },
+        params: { q: termino, limit: 10 },
       });
       setAlbumesBuscados(response.data.data);
     } catch (error) {

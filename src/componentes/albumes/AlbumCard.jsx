@@ -19,7 +19,7 @@ const AlbumCard = ({ album, artista }) => {
           <div className="album-info desc mt-3">
             <p className="album-titulo font-semibold truncate">{album.title}</p>
             <p className="album-artista text-sm text-neutral-400 truncate">
-              {artista ? artista : album.artist.name}
+              <span>{artista ? artista : album.artist.name}</span>
             </p>
           </div>
         </div>

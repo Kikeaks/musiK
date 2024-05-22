@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import logo from "../../assets/musik.png";
 import avatarDefault from "../../assets/usuario.jpg";
 import { Link } from "react-router-dom";
@@ -9,7 +9,6 @@ import {
   faMusic,
   faBars,
   faRightFromBracket,
-  faPersonRunning,
   faUser,
   faKey,
 } from "@fortawesome/free-solid-svg-icons";
@@ -98,7 +97,7 @@ const Navegacion = () => {
                 <div className="relative">
                   <img
                     src={usuario.avatar ? usuario.avatar : avatarDefault}
-                    className="mr-2 size-6 rounded-full aspect-square ring-2 ring-white hover:ring-highlight duration-300 ease-in cursor-pointer"
+                    className="mr-2 size-6 rounded-full aspect-square ring-1 ring-white hover:ring-highlight duration-300 ease-in cursor-pointer"
                     onClick={togglePerfilMenu}
                   />
                   {mostrarPerfilMenu && (
