@@ -7,6 +7,9 @@ import {
   faRepeat,
   faVolumeOff,
   faVolumeHigh,
+  faDiceOne,
+  faVolumeLow,
+  faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef, useEffect } from "react";
@@ -21,6 +24,7 @@ const Reproductor = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isShuffleOn, setIsShuffleOn] = useState(false);
+  const [repeatMode, setRepeatMode] = useState(false);
   const audioRef = useRef(null);
   const volumeRef = useRef(null);
   const lastBackwardPressRef = useRef(0);
@@ -88,7 +92,12 @@ const Reproductor = () => {
   const nextSongHandler = () => {
     if (isShuffleOn) {
       const randomIndex = Math.floor(Math.random() * playlist.length);
-      setCurrentTrackIndex(randomIndex);
+      if (currentTrackIndex === randomIndex) {
+        audioRef.current.currentTime=0;
+      } else {
+        setCurrentTrackIndex(randomIndex);
+      }
+      
     } else {
       setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
     }
@@ -124,6 +133,10 @@ const Reproductor = () => {
     setIsShuffleOn(!isShuffleOn);
   };
 
+  const toggleRepeat = () => {
+    setRepeatMode(!repeatMode);
+  };
+
   useEffect(() => {
     const volumeControl = volumeRef.current;
     if (volumeControl) {
@@ -142,8 +155,8 @@ const Reproductor = () => {
 
   useEffect(() => {
     if (!sesionIniciada) {
-      setPlaylist(0);
-      setCurrentTrackIndex(0);
+      setPlaylist([]);
+      setCurrentTrackIndex(null);
       audioRef.current.pause();
     }
   }, [sesionIniciada]);
@@ -154,7 +167,14 @@ const Reproductor = () => {
         ref={audioRef}
         src={playlist[currentTrackIndex]?.url}
         onTimeUpdate={timeUpdateHandler}
-        onEnded={nextSongHandler}
+        onEnded={() => {
+          if (repeatMode) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+          } else {
+            nextSongHandler();
+          }
+        }}
       />
       <div className="hidden md:flex items-center w-1/3">
         <img className="mr-2" src={playlist[currentTrackIndex]?.portada} />
@@ -170,7 +190,9 @@ const Reproductor = () => {
       <div className="flex flex-col w-full md:w-1/3 justify-center items-center">
         <div className="flex flex-row justify-center items-center mb-3">
           <FontAwesomeIcon
-            className="hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
+            className={`hover:text-highlight duration-300 ease-in cursor-pointer group mr-4 ${
+              isShuffleOn ? "text-highlight" : "text-neutral-600"
+            }`}
             icon={faShuffle}
             onClick={toggleShuffle}
           />
@@ -190,8 +212,11 @@ const Reproductor = () => {
             onClick={nextSongHandler}
           />
           <FontAwesomeIcon
-            className="hover:text-highlight duration-300 ease-in cursor-pointer group"
+            className={`hover:text-highlight duration-300 ease-in cursor-pointer group ${
+              repeatMode ? "text-highlight" : "text-neutral-600"
+            }`}
             icon={faRepeat}
+            onClick={toggleRepeat}
           />
         </div>
         <div className="flex flex-row items-center justify-between text-xs sm:text-sm w-full text-neutral-400">
@@ -223,22 +248,23 @@ const Reproductor = () => {
         </div>
       </div>
       <div className="w-1/3 hidden md:flex flex-row items-center justify-end">
-        <FontAwesomeIcon
-          className="mr-2"
-          icon={isMuted ? faVolumeOff : faVolumeHigh}
-          onClick={toggleMute}
-        />
-        <input
-          className="h-0.5"
-          ref={volumeRef}
-          type="range"
-          value={isMuted ? 0 : volume}
-          max="1"
-          min="0"
-          step="0.05"
-          onChange={changeVolumeHandler}
-        />
-      </div>
+  <FontAwesomeIcon
+    className="mr-2 hover:text-highlight duration-300 ease-in cursor-pointer group"
+    icon={isMuted ? faVolumeXmark : volume === 0 ? faVolumeOff : volume < 0.5 ? faVolumeLow : faVolumeHigh}
+    onClick={toggleMute}
+  />
+  <input
+    className="h-0.5"
+    ref={volumeRef}
+    type="range"
+    value={isMuted ? 0 : volume}
+    max="1"
+    min="0"
+    step="0.05"
+    onChange={changeVolumeHandler}
+  />
+</div>
+
     </div>
   );
 };
