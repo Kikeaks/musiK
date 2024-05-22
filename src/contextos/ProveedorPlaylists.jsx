@@ -10,8 +10,8 @@ const CtxPlaylists = createContext();
 const ProveedorPlaylists = ({ children }) => {
   const { usuario, sesionIniciada } = useUsuarios();
   const { addCancionABaseDatos } = useCanciones();
-  const { setPlaylist, setCurrentTrackIndex } = useReproductor(); // Usa el contexto del reproductor de audio
-
+  const { setPlaylist, setCurrentTrackIndex } = useReproductor();
+  const [likesPlaylist, setLikesPlaylist] = useState(0)
   const [playlistsUsuario, setPlaylistsUsuario] = useState([]);
   const [playlistsDestacadas, setPlaylistsDestacadas] = useState([]);
 
@@ -351,6 +351,25 @@ const ProveedorPlaylists = ({ children }) => {
     }
   };
 
+  // Función para contar los likes de una playlist
+const contarLikesPlaylist = async (playlistId) => {
+  try {
+    const { data, error } = await supabaseConexion
+      .from("likes")
+      .select("id")
+      .eq("playlist", playlistId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data.length;
+  } catch (error) {
+    console.error("Error al contar los likes de la playlist:", error.message);
+    return 0;
+  }
+};
+
   useEffect(() => {
     cargarPlaylistsDestacadas();
     if (usuario.id) {
@@ -375,7 +394,9 @@ const ProveedorPlaylists = ({ children }) => {
     eliminarPlaylist,
     cargarPlaylistsPorIdUsuario,
     actualizarPortadaPlaylist,
-    contarCancionesEnPlaylist
+    contarCancionesEnPlaylist,
+    contarLikesPlaylist,
+    likesPlaylist
   };
 
   return (

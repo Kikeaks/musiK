@@ -14,7 +14,7 @@ const ListadoCancionesUsuario = ({ canciones, playlist }) => {
   };
 
   return (
-    <Fragment>
+    <div className="p-2">
       {/* Verifica si hay canciones antes de mapear sobre ellas. */}
       {canciones.length ? (
         canciones.map((cancion, index) => (
@@ -33,7 +33,7 @@ const ListadoCancionesUsuario = ({ canciones, playlist }) => {
           ¡Vaya, la playlist está vacía! :(
         </p>
       )}
-    </Fragment>
+    </div>
   );
 };
 

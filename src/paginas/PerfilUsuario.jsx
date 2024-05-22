@@ -28,7 +28,9 @@ const PerfilUsuario = () => {
   const [carga, setCarga] = useState(true);
   const [sigueAlUsuario, setSigueAlUsuario] = useState(false);
   const [seguidores, setSeguidores] = useState([]);
+  const [numSeguidores, setNumSeguidores] = useState(0);
   const [seguidos, setSeguidos] = useState([]);
+  const [numSeguidos, setNumSeguidos] = useState(0);
   const [playlistsPerfil, setPlaylistsPerfil] = useState([]);
 
   useEffect(() => {
@@ -45,8 +47,8 @@ const PerfilUsuario = () => {
   useEffect(() => {
     if (usuario?.id !== id) {
       const verificar = async () => {
-          const sigue = await verificarSeguimiento(id);
-          setSigueAlUsuario(sigue);
+        const sigue = await verificarSeguimiento(id);
+        setSigueAlUsuario(sigue);
       };
 
       verificar();
@@ -58,7 +60,9 @@ const PerfilUsuario = () => {
       const seguidores = await obtenerSeguidores(id);
       const seguidos = await obtenerSeguidos(id);
       setSeguidores(seguidores);
+      setNumSeguidores(seguidores.length);
       setSeguidos(seguidos);
+      setNumSeguidos(seguidos.length);
     };
 
     obtenerDatos();
@@ -78,15 +82,17 @@ const PerfilUsuario = () => {
   const handleSeguir = async () => {
     await seguirUsuario(id);
     setSigueAlUsuario(true);
+    setNumSeguidores(numSeguidores + 1);
   };
 
   const handleDejarDeSeguir = async () => {
     await dejarDeSeguirUsuario(id);
     setSigueAlUsuario(false);
+    setNumSeguidores(numSeguidores - 1);
   };
 
   if (carga) {
-    return <Carga/>;
+    return <Carga />;
   }
 
   if (!perfil) {
@@ -97,12 +103,12 @@ const PerfilUsuario = () => {
     <Fragment>
       <div>
         <PerfilHeader
-        perfil={perfil.id}
+          perfil={perfil.id}
           nombre={perfil.nombre}
           fotoPerfil={perfil.avatar}
           numListas={perfil.playlists.length}
-          seguidores={perfil.seguidores.length}
-          seguidos={perfil.seguidos.length}
+          seguidores={numSeguidores}
+          seguidos={numSeguidos}
         />
         {!esMiPerfil &&
           sesionIniciada &&

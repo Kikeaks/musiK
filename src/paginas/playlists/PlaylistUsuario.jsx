@@ -16,8 +16,9 @@ import Carga from "../../componentes/interfaz/Carga";
 // Componente para la página de una playlist de usuario.
 const PlaylistUsuario = () => {
   const { id } = useParams(); // Obtiene el ID de la playlist desde los parámetros de la URL.
-  const { obtenerDatosPlaylistUsuario } = usePlaylists(); // Obtiene la función para obtener los datos de la playlist del usuario desde el hook usePlaylists.
+  const { obtenerDatosPlaylistUsuario, contarLikesPlaylist } = usePlaylists(); // Obtiene la función para obtener los datos de la playlist del usuario desde el hook usePlaylists.
   const [playlistData, setPlaylistData] = useState(null); // Estado para almacenar los datos de la playlist.
+  const [numLikes, setNumLikes] = useState(0);
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false); // Estado para controlar la visibilidad del modal de edición.
   const [autorPlaylist, setAutorPlaylist] = useState([]);
   const {
@@ -28,6 +29,7 @@ const PlaylistUsuario = () => {
     unlikePlaylist,
     verificarLike,
   } = useUsuarios();
+
   const [tieneLike, setTieneLike] = useState(false);
 
   useEffect(() => {
@@ -47,6 +49,9 @@ const PlaylistUsuario = () => {
           }
         }
 
+        const likes = await contarLikesPlaylist(id);
+        setNumLikes(likes);
+
         if (sesionIniciada) {
           const likeStatus = await verificarLike(id);
           setTieneLike(likeStatus);
@@ -57,7 +62,7 @@ const PlaylistUsuario = () => {
     };
 
     fetchData(); // Ejecuta la función para obtener los datos cuando cambia el ID de la playlist.
-  }, [id, obtenerDatosUsuarioPorId, verificarLike]); // Se ejecuta cada vez que cambia el ID de la playlist.
+  }, [id, verificarLike]); // Se ejecuta cada vez que cambia el ID de la playlist.
 
   if (!playlistData) {
     return <Carga />;
@@ -78,6 +83,7 @@ const PlaylistUsuario = () => {
     }
 
     setTieneLike(!tieneLike);
+    setNumLikes(tieneLike ? numLikes - 1 : numLikes + 1);
   };
 
   return (
@@ -89,6 +95,7 @@ const PlaylistUsuario = () => {
         titulo={playlist.nombre}
         descripcion={playlist.descripcion ? playlist.descripcion : null}
         creador={autorPlaylist}
+        likes={numLikes} // Pasa el número de likes como prop
       />
 
       {usuario.id === playlist.usuario ? (
@@ -103,17 +110,19 @@ const PlaylistUsuario = () => {
           />
           Opciones
         </button>
+      ) : tieneLike ? (
+        <button
+          className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mb-4 mt-4 focus:outline-none"
+          onClick={toggleLike}
+        >
+          <FontAwesomeIcon className="mr-2" icon={faHeartBroken} /> No me gusta
+        </button>
       ) : (
-        <button onClick={toggleLike}>
-          {tieneLike ? (
-            <>
-              <FontAwesomeIcon icon={faHeartBroken} /> No me gusta
-            </>
-          ) : (
-            <>
-              <FontAwesomeIcon icon={faHeart} /> Me gusta
-            </>
-          )}
+        <button
+          className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mb-4 mt-4 focus:outline-none"
+          onClick={toggleLike}
+        >
+          <FontAwesomeIcon className="mr-2" icon={faHeart} /> Me gusta
         </button>
       )}
 

@@ -13,6 +13,7 @@ const PlaylistHeader = ({
   titulo,
   descripcion,
   creador,
+  likes,
 }) => {
   const [backgroundGradient, setBackgroundGradient] = useState("");
   const [imagen, setImagen] = useState(null);
@@ -123,7 +124,7 @@ const PlaylistHeader = ({
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
           {/* Creador de la playlist */}
           {creador.id ? (
-            <div className="flex flex-row w-full min-w-0 items-center">
+            <div className="flex flex-row w-full min-w-0 items-center text-center sm:text-left">
               <img
                 className="mr-2 size-4 aspect-square rounded-full ring-2 ring-white"
                 src={creador.avatar ? creador.avatar : avatarDefault}
@@ -134,7 +135,12 @@ const PlaylistHeader = ({
               >
                 {creador.nombre}
               </Link>
-              <span className="text-sm">&nbsp;· {cantidad} canciones</span>
+              <span className="text-sm">
+                &nbsp;· {cantidad} {cantidad === 1 ? "canción" : "canciones"}
+              </span>
+              <span className="text-sm">
+                &nbsp;· {likes} {likes === 1 ? "like" : "likes"}
+              </span>
             </div>
           ) : (
             <p className="text-sm truncate">
