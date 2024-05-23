@@ -254,10 +254,11 @@ const Reproductor = () => {
         </div>
         <div className="md:hidden w-full min-w-0 text-sm text-center mt-3">
           <p className="font-semibold truncate">
-            {playlist[currentTrackIndex]?.nombre}
+            {playlist[currentTrackIndex]?.nombre ||
+              playlist[currentTrackIndex]?.title}
           </p>
           <p className="text-neutral-400 truncate">
-            {playlist[currentTrackIndex]?.artista}
+            {playlist[currentTrackIndex]?.artist.name}
           </p>
         </div>
       </div>
