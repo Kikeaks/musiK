@@ -180,7 +180,7 @@ const Reproductor = () => {
       />
       <div className="hidden md:flex items-center w-1/3">
         <img
-          className="mr-2"
+          className="mr-2 rounded"
           src={
             playlist[currentTrackIndex]?.portada ||
             playlist[currentTrackIndex]?.album.cover_small

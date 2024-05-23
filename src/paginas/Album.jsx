@@ -32,8 +32,8 @@ const Album = () => {
     return <Carga />;
   }
 
-  // Desestructura los datos del álbum y las canciones desde albumData.
-  const { album, canciones } = albumData;
+  // Desestructura los datos del álbum
+  const { album } = albumData;
 
   return (
     <div>
@@ -46,10 +46,7 @@ const Album = () => {
         lanzamiento={album.release_date}
       />
       {/* Renderiza el componente ListadoCanciones con las canciones del álbum */}
-      <ListadoCancionesAlbum
-        canciones={canciones}
-        portada={album.cover_small}
-      />
+      <ListadoCancionesAlbum canciones={album.tracks.data} album={album} />
     </div>
   );
 };
