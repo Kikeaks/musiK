@@ -32,7 +32,7 @@ const AlbumHeader = ({ album }) => {
           alt={album.title}
         />
         <div className="album-info desc text-center sm:text-left w-full min-w-0">
-          <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
+          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">
             {album.title}
           </h1>
           <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">

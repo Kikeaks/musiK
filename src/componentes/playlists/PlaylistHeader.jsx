@@ -127,7 +127,7 @@ const PlaylistHeader = ({
           )}
         </div>
         <div className="playlist-info desc w-full min-w-0 text-center sm:text-left">
-          <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
+          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">
             {titulo}
           </h1>
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}

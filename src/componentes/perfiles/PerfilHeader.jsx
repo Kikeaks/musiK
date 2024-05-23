@@ -86,7 +86,7 @@ const PerfilHeader = ({
           )}
         </div>
         <div className="usuario-info desc text-center sm:text-left">
-          <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">{nombre}</h1>{" "}
+          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">{nombre}</h1>{" "}
           <p className="mb-2">
             {numListas}{" "}
             {numListas === 1

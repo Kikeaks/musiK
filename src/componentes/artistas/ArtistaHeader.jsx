@@ -31,7 +31,7 @@ const ArtistaHeader = ({ nombre, foto, fans }) => {
           />
         </div>
         <div className="artista-info text-center sm:text-left">
-          <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
+          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">
             {nombre}
           </h1>
           <p className="text-sm">
