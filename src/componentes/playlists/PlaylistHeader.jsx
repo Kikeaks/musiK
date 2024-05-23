@@ -4,8 +4,9 @@ import playlistDefault from "../../assets/playlist.jpg";
 import avatarDefault from "../../assets/usuario.jpg";
 import { supabaseConexion } from "../../config/supabase";
 import { usePlaylists } from "../../hooks/usePlaylists";
-import { useUsuarios } from "../../hooks/useUsuarios";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const PlaylistHeader = ({
   playlist,
@@ -14,12 +15,17 @@ const PlaylistHeader = ({
   descripcion,
   creador,
   likes,
+  toggleLike,
+  tieneLike,
+  usuario,
+  sesionIniciada,
 }) => {
   const [backgroundGradient, setBackgroundGradient] = useState("");
   const [imagen, setImagen] = useState(null);
-  const [cantidad, setCantidad] = useState(0);
+  const [cantidadCanciones, setCantidadCanciones] = useState(0);
+  const [cantidadComentarios, setCantidadComentarios] = useState(0);
 
-  const { usuario, sesionIniciada } = useUsuarios();
+  const { obtenerComentariosPlaylist } = usePlaylists();
   const { actualizarPortadaPlaylist, contarCancionesEnPlaylist } =
     usePlaylists();
 
@@ -31,13 +37,22 @@ const PlaylistHeader = ({
     }
   }, [portada]);
 
+  useEffect(()=>{
+    if (creador.nombre) {
+      const obtenerCantidadComentarios = async()=>{
+        const comentarios = await obtenerComentariosPlaylist(playlist.id);
+        setCantidadComentarios(comentarios.length);
+      }
+      obtenerCantidadComentarios();
+    }
+  }, [creador.nombre, obtenerComentariosPlaylist, playlist.id])
+
   useEffect(() => {
-    // Verifica si creador.nombre está definido, lo que indica que es una playlist creada por un usuario
     if (creador.nombre) {
       const obtenerCantidadCanciones = async () => {
         try {
           const count = await contarCancionesEnPlaylist(playlist.id);
-          setCantidad(count);
+          setCantidadCanciones(count);
         } catch (error) {
           console.error(
             "Error al obtener la cantidad de canciones:",
@@ -50,7 +65,6 @@ const PlaylistHeader = ({
     }
   }, [creador.nombre, contarCancionesEnPlaylist, playlist.id]);
 
-  // Crea un degradado con el color predominante de la portada y lo pone de fondo (ChatGPT).
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -92,10 +106,8 @@ const PlaylistHeader = ({
       className="relative bg-center bg-cover"
       style={{ backgroundImage: `${backgroundGradient}, url(${imagen})` }}
     >
-      {/* Se le aplica "backdrop-blur" para desenfocar el fondo */}
       <div className="flex flex-col sm:flex-row p-3 items-center backdrop-blur-md group mb-2">
         <div className="relative">
-          {/* Muestra la imagen de la playlist */}
           <img
             className="rounded aspect-square shadow-2xl mb-2 sm:mb-0 sm:mr-4 size-44 sm:size-52"
             style={{ maxWidth: "250px" }}
@@ -114,21 +126,17 @@ const PlaylistHeader = ({
             </label>
           )}
         </div>
-        {/* Muestra la información de la playlist */}
         <div className="playlist-info desc w-full min-w-0 text-center sm:text-left">
-          {/* Título de la playlist */}
           <h1 className="mb-2 font-bold text-4xl sm:text-5xl truncate">
             {titulo}
-          </h1>{" "}
-          {/* Descripción de la playlist */}
+          </h1>
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
-          {/* Creador de la playlist */}
           {creador.id ? (
             <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">
               <img
                 className="mr-2 size-4 aspect-square rounded-full ring-1 ring-white"
                 src={creador.avatar ? creador.avatar : avatarDefault}
-              />{" "}
+              />
               <Link
                 className="duration-300 ease-in cursor-pointer group text-sm truncate font-semibold"
                 to={`/perfil/${creador.id}`}
@@ -136,10 +144,7 @@ const PlaylistHeader = ({
                 {creador.nombre}
               </Link>
               <span className="text-sm">
-                &nbsp;· {cantidad} {cantidad === 1 ? "canción" : "canciones"}
-              </span>
-              <span className="text-sm">
-                &nbsp;· {likes} {likes === 1 ? "like" : "likes"}
+                &nbsp;· {cantidadCanciones} {cantidadCanciones === 1 ? "canción" : "canciones"}
               </span>
             </div>
           ) : (
@@ -147,6 +152,28 @@ const PlaylistHeader = ({
               {creador} · {playlist.nb_tracks} canciones
             </p>
           )}
+          {creador.nombre && (
+            <div className="mt-2">
+            <FontAwesomeIcon
+                onClick={
+                  sesionIniciada && usuario.id !== playlist.usuario ? toggleLike : null
+                }
+              className={`mr-1 duration-300 ease-in group ${
+                tieneLike ? "text-highlight" : "text-white"
+              } ${
+                sesionIniciada &&
+                usuario.id !== playlist.usuario &&
+                "cursor-pointer"
+              }
+              `}
+              icon={faHeart}
+            />
+            <span className="text-sm mr-3">{likes}</span>
+            <FontAwesomeIcon className="mr-1" icon={faComment}/>
+            <span className="text-sm">{cantidadComentarios}</span>
+          </div>
+          )}
+          
         </div>
       </div>
     </div>
