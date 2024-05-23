@@ -42,6 +42,10 @@ const Navegacion = () => {
 
   const { usuario, sesionIniciada, cerrarSesion } = useUsuarios();
 
+  if (!sesionIniciada) {
+    return null;
+  }
+
   return (
     <Fragment>
       <nav className="flex justify-between items-center px-4 py-2 h-24">
@@ -56,14 +60,6 @@ const Navegacion = () => {
           />
         </div>
         <ul className="hidden md:flex space-x-6 items-center flex-grow justify-end h-full">
-          <li>
-            <Link
-              to="/"
-              className="duration-300 ease-in cursor-pointer group focus:outline-none"
-            >
-              <FontAwesomeIcon icon={faHouse} className="fa-xl" />
-            </Link>
-          </li>
           <li>
             <Link
               to="/explorar"
@@ -137,16 +133,6 @@ const Navegacion = () => {
               className="text-sm text-white"
               aria-labelledby="dropdownDefaultButton"
             >
-              <li>
-                <Link
-                  to="/"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none rounded-t-lg"
-                  onClick={toggleMenu}
-                >
-                  <FontAwesomeIcon icon={faHouse} className="mr-2" />
-                  Inicio
-                </Link>
-              </li>
               <li>
                 <Link
                   to="/explorar"

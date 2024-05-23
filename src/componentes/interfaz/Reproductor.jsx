@@ -157,6 +157,7 @@ const Reproductor = () => {
       setPlaylist([]);
       setCurrentTrackIndex(null);
       audioRef.current.pause();
+
     }
   }, [sesionIniciada]);
 
@@ -258,7 +259,8 @@ const Reproductor = () => {
               playlist[currentTrackIndex]?.title}
           </p>
           <p className="text-neutral-400 truncate">
-            {playlist[currentTrackIndex]?.artist.name}
+            {playlist[currentTrackIndex]?.artista ||
+              playlist[currentTrackIndex]?.artist.name}
           </p>
         </div>
       </div>
@@ -268,9 +270,9 @@ const Reproductor = () => {
           icon={
             isMuted
               ? faVolumeXmark
-              : volume === 0
+              : volume < 0.33
               ? faVolumeOff
-              : volume < 0.5
+              : volume < 0.66
               ? faVolumeLow
               : faVolumeHigh
           }
