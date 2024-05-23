@@ -70,7 +70,7 @@ const Comentarios = ({ playlist }) => {
                   src={comentario.usuarios.avatar}
                 />
                 <Link to={`/perfil/${comentario.usuario}`}>
-                  <span className="text-neutral-400 font-semibold">
+                  <span className="text-neutral-400 font-semibold duration-300 ease-in cursor-pointer group hover:text-highlight">
                     {comentario.usuarios.nombre}:&nbsp;
                   </span>
                 </Link>

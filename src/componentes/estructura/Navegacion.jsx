@@ -72,14 +72,6 @@ const Navegacion = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-xl" />
             </Link>
           </li>
-          <li>
-            <Link
-              to="/playlists"
-              className="duration-300 ease-in cursor-pointer group focus:outline-none"
-            >
-              <FontAwesomeIcon icon={faMusic} className="fa-xl" />
-            </Link>
-          </li>
           {!sesionIniciada ? (
             <>
               <li>
@@ -163,16 +155,6 @@ const Navegacion = () => {
                 >
                   <FontAwesomeIcon icon={faMagnifyingGlass} className="mr-2" />
                   Explorar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/playlists"
-                  className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 focus:outline-none"
-                  onClick={toggleMenu}
-                >
-                  <FontAwesomeIcon icon={faMusic} className="mr-2" />
-                  Playlists
                 </Link>
               </li>
             </ul>

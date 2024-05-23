@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { usePlaylists } from "../../hooks/usePlaylists";
-import PlaylistsCuadricula from "../../componentes/playlists/PlaylistsCuadricula";
 import { useUsuarios } from "../../hooks/useUsuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -8,8 +7,7 @@ import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
 // Componente para la página de playlists.
 const Playlists = () => {
-  const { playlistsDestacadas, cargarPlaylistsUsuario } =
-    usePlaylists(); // Obtiene las playlists destacadas y del usuario desde el hook usePlaylists.
+  const { cargarPlaylistsUsuario } = usePlaylists(); // Cargar playlists del usuario
   const { sesionIniciada } = useUsuarios(); // Obtiene el estado de la sesión desde el hook useUsuarios.
   const [mostrarModal, setMostrarModal] = useState(false); // Define el estado para controlar la visibilidad del modal de creación de playlist.
 
@@ -39,13 +37,7 @@ const Playlists = () => {
             </p>
           )}
         </div>
-        {/* Título y cuadrícula de playlists destacadas */}
-        <h2 className="font-bold text-2xl text-center mt-3">
-          Playlists destacadas
-        </h2>
-        <PlaylistsCuadricula playlists={playlistsDestacadas} origen="deezer" />
       </div>
-
       {/* Modal para crear playlist */}
       <ModalCrearPlaylist mostrar={mostrarModal} manejarCerrado={cerrarModal} />
     </Fragment>

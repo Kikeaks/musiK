@@ -27,7 +27,6 @@ const Rutas = () => {
               <Routes>
                 <Route path="/" exact element={<Inicio />} />
                 <Route path="/explorar" element={<Explorar />} />
-                <Route path="/playlists" element={<Playlists />} />
                 <Route path="/playlists/deezer/:id" element={<Playlist />} />
                 <Route
                   path="/playlists/bbdd/:id"

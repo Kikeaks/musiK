@@ -14,6 +14,7 @@ const ProveedorPlaylists = ({ children }) => {
   const [likesPlaylist, setLikesPlaylist] = useState(0);
   const [playlistsUsuario, setPlaylistsUsuario] = useState([]);
   const [playlistsDestacadas, setPlaylistsDestacadas] = useState([]);
+  const [playlistsBuscadas, setPlaylistsBuscadas] = useState([]);
 
   const cargarPlaylistsUsuario = async () => {
     if (sesionIniciada) {
@@ -39,11 +40,26 @@ const ProveedorPlaylists = ({ children }) => {
   const cargarPlaylistsDestacadas = async () => {
     try {
       const response = await deezerAPI.get("/chart/0/playlists", {
-        params: { limit: 25 },
+        params: { limit: 10 },
       });
       setPlaylistsDestacadas(response.data.data);
     } catch (error) {
       console.error("Error al cargar playlists destacadas:", error.message);
+    }
+  };
+
+  const buscarPlaylists = async (termino) => {
+    if (!termino) {
+      setPlaylistsBuscadas([]);
+      return;
+    }
+    try {
+      const response = await deezerAPI.get("/search/playlist", {
+        params: { q: termino, limit: 10 },
+      });
+      setPlaylistsBuscadas(response.data.data);
+    } catch (error) {
+      console.error("Error al buscar playlists:", error.message);
     }
   };
 
@@ -455,6 +471,8 @@ const ProveedorPlaylists = ({ children }) => {
     agregarComentarioAPlaylist,
     obtenerComentariosPlaylist,
     eliminarComentarioDePlaylist,
+    playlistsBuscadas,
+    buscarPlaylists,
   };
 
   return (
