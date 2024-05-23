@@ -1,23 +1,27 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Cancion from "./Cancion.jsx";
+import { useReproductor } from "../../hooks/useReproductor.js";
 
-// Componente para mostrar el listado de canciones.
 const ListadoCanciones = ({ canciones }) => {
+  const { setPlaylist, setCurrentTrackIndex, iniciarReproduccion } = useReproductor();
+
+  const reproducirCancion = (index) => {
+    setPlaylist(canciones);
+    setCurrentTrackIndex(index);
+    iniciarReproduccion(index);
+  };
+
   return (
     <div className="p-2">
-      {/* Verifica si hay canciones antes de mapear sobre ellas. */}
       {canciones.length ? (
-        canciones.map((cancion) => (
-          // Componente para mostrar detalles de cada canción.
-          <Cancion key={cancion.id} id={cancion.id} cancion={cancion} />
+        canciones.map((cancion, index) => (
+          <div key={cancion.id}>
+            <Cancion cancion={cancion} index={index} reproducirCancion={reproducirCancion} />
+          </div>
         ))
       ) : (
-        // Mensaje si no se encuentran canciones.
         <p className="text-center font-semibold">
           ¡Vaya, la playlist está vacía!
-          <br />
-          Para añadir canciones, accede a la página "Explorar" o bien a una
-          playlist de Deezer.
         </p>
       )}
     </div>

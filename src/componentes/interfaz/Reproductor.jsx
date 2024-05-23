@@ -93,11 +93,10 @@ const Reproductor = () => {
     if (isShuffleOn) {
       const randomIndex = Math.floor(Math.random() * playlist.length);
       if (currentTrackIndex === randomIndex) {
-        audioRef.current.currentTime=0;
+        audioRef.current.currentTime = 0;
       } else {
         setCurrentTrackIndex(randomIndex);
       }
-      
     } else {
       setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
     }
@@ -165,7 +164,10 @@ const Reproductor = () => {
     <div className="flex flex-row w-full bg-fondo sticky bottom-0 p-4 items-center justify-between mt-auto">
       <audio
         ref={audioRef}
-        src={playlist[currentTrackIndex]?.url}
+        src={
+          playlist[currentTrackIndex]?.url ||
+          playlist[currentTrackIndex]?.preview
+        }
         onTimeUpdate={timeUpdateHandler}
         onEnded={() => {
           if (repeatMode) {
@@ -177,13 +179,21 @@ const Reproductor = () => {
         }}
       />
       <div className="hidden md:flex items-center w-1/3">
-        <img className="mr-2" src={playlist[currentTrackIndex]?.portada} />
+        <img
+          className="mr-2"
+          src={
+            playlist[currentTrackIndex]?.portada ||
+            playlist[currentTrackIndex]?.album.cover_small
+          }
+        />
         <div className="text-sm w-full min-w-0">
           <p className="font-semibold truncate">
-            {playlist[currentTrackIndex]?.nombre}
+            {playlist[currentTrackIndex]?.nombre ||
+              playlist[currentTrackIndex]?.title}
           </p>
           <p className="text-neutral-400 truncate">
-            {playlist[currentTrackIndex]?.artista}
+            {playlist[currentTrackIndex]?.artista ||
+              playlist[currentTrackIndex]?.artist.name}
           </p>
         </div>
       </div>
@@ -233,8 +243,12 @@ const Reproductor = () => {
             }}
           />
           <span className="ml-2">
-            {playlist[currentTrackIndex]?.duracion
-              ? formatTime(playlist[currentTrackIndex]?.duracion)
+            {playlist[currentTrackIndex]?.duracion ||
+            playlist[currentTrackIndex]?.duration
+              ? formatTime(
+                  playlist[currentTrackIndex]?.duracion ||
+                    playlist[currentTrackIndex]?.duration
+                )
               : "-:-"}
           </span>
         </div>
@@ -248,23 +262,30 @@ const Reproductor = () => {
         </div>
       </div>
       <div className="w-1/3 hidden md:flex flex-row items-center justify-end">
-  <FontAwesomeIcon
-    className="mr-2 hover:text-highlight duration-300 ease-in cursor-pointer group"
-    icon={isMuted ? faVolumeXmark : volume === 0 ? faVolumeOff : volume < 0.5 ? faVolumeLow : faVolumeHigh}
-    onClick={toggleMute}
-  />
-  <input
-    className="h-0.5"
-    ref={volumeRef}
-    type="range"
-    value={isMuted ? 0 : volume}
-    max="1"
-    min="0"
-    step="0.05"
-    onChange={changeVolumeHandler}
-  />
-</div>
-
+        <FontAwesomeIcon
+          className="mr-2 hover:text-highlight duration-300 ease-in cursor-pointer group"
+          icon={
+            isMuted
+              ? faVolumeXmark
+              : volume === 0
+              ? faVolumeOff
+              : volume < 0.5
+              ? faVolumeLow
+              : faVolumeHigh
+          }
+          onClick={toggleMute}
+        />
+        <input
+          className="h-0.5"
+          ref={volumeRef}
+          type="range"
+          value={isMuted ? 0 : volume}
+          max="1"
+          min="0"
+          step="0.05"
+          onChange={changeVolumeHandler}
+        />
+      </div>
     </div>
   );
 };
