@@ -37,15 +37,15 @@ const PlaylistHeader = ({
     }
   }, [portada]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (creador.nombre) {
-      const obtenerCantidadComentarios = async()=>{
+      const obtenerCantidadComentarios = async () => {
         const comentarios = await obtenerComentariosPlaylist(playlist.id);
         setCantidadComentarios(comentarios.length);
-      }
+      };
       obtenerCantidadComentarios();
     }
-  }, [creador.nombre, obtenerComentariosPlaylist, playlist.id])
+  }, [creador.nombre, obtenerComentariosPlaylist, playlist.id]);
 
   useEffect(() => {
     if (creador.nombre) {
@@ -144,7 +144,8 @@ const PlaylistHeader = ({
                 {creador.nombre}
               </Link>
               <span className="text-sm">
-                &nbsp;· {cantidadCanciones} {cantidadCanciones === 1 ? "canción" : "canciones"}
+                &nbsp;· {cantidadCanciones}{" "}
+                {cantidadCanciones === 1 ? "canción" : "canciones"}
               </span>
             </div>
           ) : (
@@ -154,26 +155,27 @@ const PlaylistHeader = ({
           )}
           {creador.nombre && (
             <div className="mt-2">
-            <FontAwesomeIcon
+              <FontAwesomeIcon
                 onClick={
-                  sesionIniciada && usuario.id !== playlist.usuario ? toggleLike : null
+                  sesionIniciada && usuario.id !== playlist.usuario
+                    ? toggleLike
+                    : null
                 }
-              className={`mr-1 duration-300 ease-in group ${
-                tieneLike ? "text-highlight" : "text-white"
-              } ${
-                sesionIniciada &&
-                usuario.id !== playlist.usuario &&
-                "cursor-pointer"
-              }
+                className={`mr-1 duration-300 ease-in group ${
+                  tieneLike ? "text-highlight" : "text-white"
+                } ${
+                  sesionIniciada &&
+                  usuario.id !== playlist.usuario &&
+                  "cursor-pointer"
+                }
               `}
-              icon={faHeart}
-            />
-            <span className="text-sm mr-3">{likes}</span>
-            <FontAwesomeIcon className="mr-1" icon={faComment}/>
-            <span className="text-sm">{cantidadComentarios}</span>
-          </div>
+                icon={faHeart}
+              />
+              <span className="text-sm mr-3">{likes}</span>
+              <FontAwesomeIcon className="mr-1" icon={faComment} />
+              <span className="text-sm">{cantidadComentarios}</span>
+            </div>
           )}
-          
         </div>
       </div>
     </div>

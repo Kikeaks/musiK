@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useCanciones } from "../hooks/useCanciones.js";
-import CancionesCuadricula from "../componentes/canciones/CancionesCuadricula.jsx";
-import BarraBusqueda from "../componentes/interfaz/BarraBusqueda.jsx";
-import AlbumesCuadricula from "../componentes/albumes/AlbumesCuadricula.jsx";
-import ArtistasCuadricula from "../componentes/artistas/ArtistasCuadricula.jsx";
 import { useAlbumes } from "../hooks/useAlbumes.js";
 import { useArtistas } from "../hooks/useArtistas.js";
-import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
 import { usePlaylists } from "../hooks/usePlaylists.js";
+import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
+import CancionesCuadricula from "../componentes/canciones/CancionesCuadricula.jsx";
+import AlbumesCuadricula from "../componentes/albumes/AlbumesCuadricula.jsx";
+import ArtistasCuadricula from "../componentes/artistas/ArtistasCuadricula.jsx";
+import BarraBusqueda from "../componentes/interfaz/BarraBusqueda.jsx";
 
 const Explorar = () => {
   const { cancionesDestacadas, cancionesBuscadas, buscarCanciones } =
@@ -19,10 +19,12 @@ const Explorar = () => {
     usePlaylists();
   const [busqueda, setBusqueda] = useState("");
 
+  // Maneja el término de búsqueda ingresado por el usuario
   const handleSearch = (termino) => {
     setBusqueda(termino);
   };
 
+  // Efecto para buscar contenido basado en el término de búsqueda
   useEffect(() => {
     buscarCanciones(busqueda);
     buscarAlbumes(busqueda);
@@ -32,11 +34,13 @@ const Explorar = () => {
 
   return (
     <Fragment>
+      {/* Barra de búsqueda */}
       <div className="flex justify-center items-center mt-3 w-full">
         <BarraBusqueda onSearch={handleSearch} />
       </div>
       {busqueda ? (
         <div>
+          {/* Resultados de la búsqueda */}
           <h2 className="font-bold text-xl mx-4 sm:text-2xl mt-3 truncate">
             Resultados para "{busqueda}"
           </h2>
@@ -48,18 +52,12 @@ const Explorar = () => {
           <AlbumesCuadricula albums={albumesBuscados} />
           <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Artistas</h3>
           <ArtistasCuadricula artistas={artistasBuscados} />
-          <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">
-            Playlists
-          </h3>{" "}
-          {/* Agregado */}
-          <PlaylistsCuadricula
-            playlists={playlistsBuscadas}
-            origen="deezer"
-          />{" "}
-          {/* Agregado */}
+          <h3 className="font-bold text-lg sm:text-xl mt-4 mx-4">Playlists</h3>
+          <PlaylistsCuadricula playlists={playlistsBuscadas} origen="deezer" />
         </div>
       ) : (
         <>
+          {/* Contenido destacado */}
           <div>
             <h2 className="font-bold text-xl mt-6 mx-4 sm:text-2xl">
               Canciones destacadas
@@ -79,8 +77,6 @@ const Explorar = () => {
             <ArtistasCuadricula artistas={artistasDestacados} />
           </div>
           <div>
-            {" "}
-            {/* Agregado */}
             <h2 className="font-bold text-xl mt-4 mx-4 sm:text-2xl">
               Playlists destacadas
             </h2>
