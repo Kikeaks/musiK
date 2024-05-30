@@ -76,7 +76,7 @@ const ProveedorPlaylists = ({ children }) => {
       setPlaylistsUsuario([...playlistsUsuario, data[0]]);
       cargarPlaylistsUsuario();
     } catch (error) {
-      console.error(`Error al crear la lista: ${error.message}`);
+      return;
     }
   };
 

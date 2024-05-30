@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import logo from "../assets/musik.png";
+import logo from "../../assets/musik.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useUsuarios } from "../hooks/useUsuarios.js";
+import { useUsuarios } from "../../hooks/useUsuarios";
 
 const Registro = () => {
   const { actualizarDato, registrarUsuario } = useUsuarios();
@@ -45,11 +45,7 @@ const Registro = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <img
-        src={logo}
-        title="musik-w"
-        className="size-32 md:size-44 m-12"
-      />
+      <img src={logo} title="musik-w" className="size-32 md:size-44 m-12" />
       {!registroCorrecto ? (
         <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl text-white">
           Bienvenid@ a musiK :)
@@ -62,7 +58,10 @@ const Registro = () => {
 
       {registroCorrecto ? (
         <div className="text-center">
-          <p className="font-bold">Se ha enviado un correo de confirmación a la dirección proporcionada.</p>
+          <p className="font-bold">
+            Se ha enviado un correo de confirmación a la dirección
+            proporcionada.
+          </p>
           <p className="mt-2">Redigiriendo a la página principal...</p>
           <p className="mt-2 font-bold">Gracias por usar musiK :)</p>
         </div>

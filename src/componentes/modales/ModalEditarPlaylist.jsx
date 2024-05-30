@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePlaylists } from "../../hooks/usePlaylists.js";
+import { useUsuarios } from "../../hooks/useUsuarios.js";
 
 // Componente para el modal de editar una playlist.
-const ModalEditarPlaylist = ({ mostrar, manejarCerrado, playlistId }) => {
+const ModalEditarPlaylist = ({ mostrar, manejarCerrado, playlist }) => {
   // Hook personalizado para editar y eliminar playlists.
   const { editarNombrePlaylist, eliminarPlaylist } = usePlaylists();
   // Estado para almacenar el nuevo nombre de la playlist.
   const [nuevoNombrePlaylist, setNuevoNombrePlaylist] = useState("");
   // Estado para mostrar el mensaje de éxito al editar la playlist.
   const [mensajeExito, setMensajeExito] = useState(false);
+  const { usuario } = useUsuarios();
   // Hook para navegar a la página de playlists después de editar o eliminar.
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const ModalEditarPlaylist = ({ mostrar, manejarCerrado, playlistId }) => {
     // Verifica que el nuevo nombre no esté vacío.
     if (nuevoNombrePlaylist.trim() !== "") {
       // Llama a la función para editar el nombre de la playlist.
-      await editarNombrePlaylist(playlistId, nuevoNombrePlaylist);
+      await editarNombrePlaylist(playlist, nuevoNombrePlaylist);
       // Muestra el mensaje de éxito durante 3 segundos.
       setMensajeExito(true);
       setTimeout(() => {
@@ -34,13 +36,13 @@ const ModalEditarPlaylist = ({ mostrar, manejarCerrado, playlistId }) => {
   const handleEliminarPlaylist = async () => {
     try {
       // Llama a la función para eliminar la playlist.
-      await eliminarPlaylist(playlistId);
+      await eliminarPlaylist(playlist);
       // Muestra el mensaje de éxito durante 3 segundos.
       setMensajeExito(true);
       setTimeout(() => {
         setMensajeExito(false);
         // Navega a la página de playlists después de eliminar.
-        navigate("/playlists");
+        navigate(`/perfil/${usuario.id}`);
         manejarCerrado();
       }, 3000);
     } catch (error) {

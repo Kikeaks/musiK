@@ -35,7 +35,9 @@ const PlaylistUsuario = () => {
         setPlaylistData(data);
 
         if (data && data.playlist && data.playlist.usuario) {
-          const autorData = await obtenerDatosUsuarioPorId(data.playlist.usuario);
+          const autorData = await obtenerDatosUsuarioPorId(
+            data.playlist.usuario
+          );
           if (autorData && autorData.nombre) {
             setAutorPlaylist(autorData);
           }

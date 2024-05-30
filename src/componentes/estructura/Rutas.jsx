@@ -2,15 +2,14 @@ import React, { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import Inicio from "../../paginas/Inicio.jsx";
 import Explorar from "../../paginas/Explorar.jsx";
-import Playlists from "../../paginas/playlists/Playlists.jsx";
 import Playlist from "../../paginas/playlists/Playlist.jsx";
 import PlaylistUsuario from "../../paginas/playlists/PlaylistUsuario.jsx";
-import PerfilUsuario from "../../paginas/PerfilUsuario.jsx";
+import PerfilUsuario from "../../paginas/perfiles/PerfilUsuario.jsx";
 import Encabezado from "../../componentes/estructura/Encabezado.jsx";
-import Login from "../../paginas/Login.jsx";
-import Registro from "../../paginas/Registro.jsx";
+import Login from "../../paginas/auth/Login.jsx";
+import Registro from "../../paginas/auth/Registro.jsx";
 import Album from "../../paginas/Album.jsx";
-import PerfilArtista from "../../paginas/PerfilArtista.jsx";
+import PerfilArtista from "../../paginas/perfiles/PerfilArtista.jsx";
 
 // Componente para definir las rutas de la aplicación.
 const Rutas = () => {

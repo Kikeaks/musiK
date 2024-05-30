@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ListadoCancionesArtista from "../componentes/canciones/ListadoCancionesArtista.jsx";
-import Carga from "../componentes/interfaz/Carga.jsx";
-import { useArtistas } from "../hooks/useArtistas.js";
-import ArtistaHeader from "../componentes/artistas/ArtistaHeader.jsx";
-import AlbumesCuadricula from "../componentes/albumes/AlbumesCuadricula.jsx";
-import { useAlbumes } from "../hooks/useAlbumes.js";
+import ListadoCancionesArtista from "../../componentes/canciones/ListadoCancionesArtista.jsx";
+import Carga from "../../componentes/interfaz/Carga.jsx";
+import { useArtistas } from "../../hooks/useArtistas.js";
+import ArtistaHeader from "../../componentes/artistas/ArtistaHeader.jsx";
+import AlbumesCuadricula from "../../componentes/albumes/AlbumesCuadricula.jsx";
+import { useAlbumes } from "../../hooks/useAlbumes.js";
 
 const PerfilArtista = () => {
   const { id } = useParams();

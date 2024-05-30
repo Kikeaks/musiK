@@ -1,13 +1,18 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useUsuarios } from "../hooks/useUsuarios";
-import { usePlaylists } from "../hooks/usePlaylists";
-import PerfilHeader from "../componentes/perfiles/PerfilHeader";
+import { useUsuarios } from "../../hooks/useUsuarios";
+import { usePlaylists } from "../../hooks/usePlaylists";
+import PerfilHeader from "../../componentes/perfiles/PerfilHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import PerfilesCuadricula from "../componentes/perfiles/PerfilesCuadricula";
-import PlaylistsCuadricula from "../componentes/playlists/PlaylistsCuadricula";
-import Carga from "../componentes/interfaz/Carga";
+import {
+  faPlus,
+  faUserMinus,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import PerfilesCuadricula from "../../componentes/perfiles/PerfilesCuadricula";
+import PlaylistsCuadricula from "../../componentes/playlists/PlaylistsCuadricula";
+import Carga from "../../componentes/interfaz/Carga";
+import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
 const PerfilUsuario = () => {
   const { id } = useParams();
@@ -32,6 +37,7 @@ const PerfilUsuario = () => {
   const [seguidos, setSeguidos] = useState([]);
   const [numSeguidos, setNumSeguidos] = useState(0);
   const [playlistsPerfil, setPlaylistsPerfil] = useState([]);
+  const [mostrarModal, setMostrarModal] = useState(false);
 
   useEffect(() => {
     const cargarPerfil = async () => {
@@ -75,7 +81,7 @@ const PerfilUsuario = () => {
     };
 
     cargarPlaylists();
-  }, [id, cargarPlaylistsPorIdUsuario]);
+  }, [id, cargarPlaylistsPorIdUsuario, mostrarModal]);
 
   const esMiPerfil = usuario?.id === id;
 
@@ -89,6 +95,16 @@ const PerfilUsuario = () => {
     await dejarDeSeguirUsuario(id);
     setSigueAlUsuario(false);
     setNumSeguidores(numSeguidores - 1);
+  };
+
+  // Función para abrir el modal de creación de playlist
+  const abrirModal = () => {
+    setMostrarModal(true);
+  };
+
+  // Función para cerrar el modal de creación de playlist
+  const cerrarModal = () => {
+    setMostrarModal(false);
   };
 
   if (carga) {
@@ -110,9 +126,8 @@ const PerfilUsuario = () => {
           seguidores={numSeguidores}
           seguidos={numSeguidos}
         />
-        {!esMiPerfil &&
-          sesionIniciada &&
-          (sigueAlUsuario ? (
+        {!esMiPerfil && sesionIniciada ? (
+          sigueAlUsuario ? (
             <button
               className="text-white font-medium rounded-lg hover:border-highlight text-center text-base  duration-300 ease-in cursor-pointer group bg-cards ml-4 mt-4 mb-4 focus:outline-none"
               style={{ width: 180 }}
@@ -130,7 +145,19 @@ const PerfilUsuario = () => {
               <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
               Seguir
             </button>
-          ))}
+          )
+        ) : (
+          <button
+            className="text-white font-medium rounded-lg hover:border-white text-center text-base duration-300 ease-in cursor-pointer group bg-highlight ml-4 mt-4 mb-4 focus:outline-none"
+            style={{ width: 180 }}
+            onClick={() => {
+              abrirModal();
+            }}
+          >
+            <FontAwesomeIcon icon={faPlus} className="mr-2" />
+            Crear playlist
+          </button>
+        )}
         {/* Muestra la cuadrícula de seguidores */}
         {perfil.seguidores.length > 0 && (
           <>
@@ -157,6 +184,7 @@ const PerfilUsuario = () => {
           </>
         )}
       </div>
+      <ModalCrearPlaylist mostrar={mostrarModal} manejarCerrado={cerrarModal} />
     </Fragment>
   );
 };

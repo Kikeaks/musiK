@@ -85,7 +85,7 @@ const Navegacion = () => {
                 <div className="relative">
                   <img
                     src={usuario.avatar ? usuario.avatar : avatarDefault}
-                    className="mr-2 size-6 rounded-full aspect-square ring-1 ring-white hover:ring-highlight duration-300 ease-in cursor-pointer"
+                    className="mr-2 size-6 rounded-full aspect-square ring-2 ring-white hover:ring-highlight duration-300 ease-in cursor-pointer"
                     onClick={togglePerfilMenu}
                   />
                   {mostrarPerfilMenu && (

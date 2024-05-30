@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../assets/musik.png";
+import logo from "../../assets/musik.png";
 import { Link } from "react-router-dom";
-import { useUsuarios } from "../hooks/useUsuarios.js";
+import { useUsuarios } from "../../hooks/useUsuarios.js";
 
 const Login = () => {
   const { iniciarSesion, actualizarDato, confirmacionLogin } = useUsuarios();
