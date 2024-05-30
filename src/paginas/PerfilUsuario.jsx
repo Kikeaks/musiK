@@ -150,7 +150,9 @@ const PerfilUsuario = () => {
         {/* Muestra la cuadrícula de playlists */}
         {playlistsPerfil && playlistsPerfil.length > 0 && (
           <>
-            <h2 className="font-bold text-xl mt-4 ml-4">Playlists</h2>
+            <h2 className="font-bold text-xl mt-4 ml-4">
+              Listas de reproducción
+            </h2>
             <PlaylistsCuadricula playlists={playlistsPerfil} origen="bbdd" />
           </>
         )}

@@ -152,10 +152,7 @@ const Navegacion = () => {
                       to="/login"
                       className="duration-300 ease-in cursor-pointer group block px-4 py-2 hover:bg-neutral-800 hover:text-highlight text-sm focus:outline-none rounded-b-lg"
                     >
-                      <FontAwesomeIcon
-                        icon={faKey}
-                        className="mr-2"
-                      />
+                      <FontAwesomeIcon icon={faKey} className="mr-2" />
                       Iniciar sesión
                     </Link>
                   </li>
@@ -170,9 +167,9 @@ const Navegacion = () => {
                     onClick={toggleMenu}
                   >
                     <img
-                    src={usuario.avatar ? usuario.avatar : avatarDefault}
-                    className="mr-2 size-4 rounded-full aspect-square ring-2 ring-neutral-600"
-                  />
+                      src={usuario.avatar ? usuario.avatar : avatarDefault}
+                      className="mr-2 size-4 rounded-full aspect-square ring-2 ring-neutral-600"
+                    />
                     Ir al perfil
                   </Link>
                 </li>

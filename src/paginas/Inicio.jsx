@@ -5,12 +5,14 @@ import playlists from "../assets/playlists.png";
 import ritmo from "../assets/ritmo.png";
 import corazon from "../assets/corazon.png";
 import comentarios from "../assets/comentarios.png";
-import { useNavigate } from "react-router-dom";
 import Pie from "../componentes/estructura/Pie";
+import { useNavigate } from "react-router-dom";
+import { useUsuarios } from "../hooks/useUsuarios";
 
 // Componente para la página de inicio.
 const Inicio = () => {
   const navigate = useNavigate();
+  const { sesionIniciada } = useUsuarios();
   return (
     <div className="p-6 bg-fondo min-h-screen flex flex-col items-center">
       <img className="size-32 md:size-44 m-12" src={musiK} />
@@ -24,7 +26,7 @@ const Inicio = () => {
           <h2 className="text-2xl font-semibold text-white mb-4">
             Explora nuevos ritmos
           </h2>
-          <p className="text-neutral-300 my-4">
+          <p className="text-neutral-400 my-4">
             Imagina un lugar donde puedas sumergirte en un océano de sonidos,
             explorar nuevos ritmos y redescubrir tus canciones favoritas, todo
             ello con la facilidad de un clic.
@@ -82,7 +84,11 @@ const Inicio = () => {
           </h3>
           <button
             onClick={() => {
-              navigate("/login");
+              if (!sesionIniciada) {
+                navigate("/registro");
+              } else {
+                navigate("/explorar");
+              }
             }}
             className="text-white py-2 px-4 rounded hover:bg-pink-600 transition-colors duration-300"
           >

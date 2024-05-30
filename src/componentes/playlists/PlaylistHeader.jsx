@@ -115,7 +115,7 @@ const PlaylistHeader = ({
             alt={titulo}
           />
           {sesionIniciada && usuario.id === creador.id && (
-            <label className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer">
+            <label className="absolute bottom-0 right-0 bg-highlight hover:border-white text-white p-2 rounded-full cursor-pointer">
               <input
                 type="file"
                 accept="image/*"

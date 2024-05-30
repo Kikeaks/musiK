@@ -25,6 +25,7 @@ const ProveedorUsuarios = ({ children }) => {
   const [confirmacionLogin, setConfirmacionLogin] = useState(
     confirmacionLoginInicial
   );
+  const [usuariosBuscados, setUsuariosBuscados] = useState([]);
 
   // Función para crear una cuenta de usuario.
   const registrarUsuario = async () => {
@@ -273,20 +274,20 @@ const ProveedorUsuarios = ({ children }) => {
   const actualizarNombreUsuario = async (userId, nuevoNombre) => {
     try {
       const { data, error } = await supabaseConexion
-        .from('usuarios')
+        .from("usuarios")
         .update({ nombre: nuevoNombre })
-        .eq('id', userId);
-  
+        .eq("id", userId);
+
       if (error) {
         throw error;
       }
-  
+
       // Actualiza el estado del usuario localmente
       setUsuario((prevState) => ({
         ...prevState,
         nombre: nuevoNombre,
       }));
-  
+
       console.log("Nombre actualizado correctamente");
     } catch (error) {
       console.error("Error al actualizar el nombre:", error.message);
@@ -398,17 +399,36 @@ const ProveedorUsuarios = ({ children }) => {
   const actualizarFotoPerfilUsuario = async (userId, nuevaFotoPerfilUrl) => {
     try {
       const { data, error } = await supabaseConexion
-        .from('usuarios')
+        .from("usuarios")
         .update({ avatar: nuevaFotoPerfilUrl })
-        .eq('id', userId);
-  
+        .eq("id", userId);
+
       if (error) {
         throw error;
       }
-  
+
       console.log("Foto de perfil actualizada correctamente");
     } catch (error) {
       console.error("Error al actualizar la foto de perfil:", error.message);
+    }
+  };
+
+  // Función para buscar usuarios solo por nombre
+  const buscarUsuarios = async (termino) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("usuarios")
+        .select("*")
+        .ilike("nombre", `%${termino}%`);
+
+      if (error) {
+        throw error;
+      }
+
+      setUsuariosBuscados(data);
+    } catch (error) {
+      console.error("Error al buscar usuarios:", error.message);
+      return [];
     }
   };
 
@@ -452,7 +472,9 @@ const ProveedorUsuarios = ({ children }) => {
     actualizarNombreUsuario,
     likePlaylist,
     unlikePlaylist,
-    verificarLike
+    verificarLike,
+    buscarUsuarios,
+    usuariosBuscados,
   };
 
   // Renderiza el proveedor con el contexto y sus hijos.

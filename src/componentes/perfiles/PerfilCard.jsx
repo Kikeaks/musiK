@@ -24,8 +24,7 @@ const PerfilCard = ({ perfil }) => {
             {perfil.nombre}
           </p>
           <p className="perfil-nombre truncate text-sm text-neutral-400">
-            {perfil.seguidores.length}{" "}
-            {perfil.seguidores.length === 1 ? "seguidor" : "seguidores"}
+            Perfil
           </p>
         </div>
       </div>

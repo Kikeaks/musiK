@@ -74,7 +74,7 @@ const PerfilHeader = ({
             alt="Avatar"
           />
           {usuario.id === perfil && (
-            <label className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer">
+            <label className="absolute bottom-0 right-0 bg-highlight hover:border-white text-white p-2 rounded-full cursor-pointer">
               <input
                 type="file"
                 accept="image/*"
@@ -86,7 +86,9 @@ const PerfilHeader = ({
           )}
         </div>
         <div className="usuario-info desc text-center sm:text-left">
-          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">{nombre}</h1>{" "}
+          <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">
+            {nombre}
+          </h1>{" "}
           <p className="mb-2">
             {numListas}{" "}
             {numListas === 1
