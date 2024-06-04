@@ -29,7 +29,7 @@ const PlaylistUsuarioCard = ({ playlist }) => {
           <p className="playlist-titulo font-semibold truncate">
             {playlist.nombre}
           </p>
-          <p></p>
+          <p className="playlist-creador text-sm text-neutral-400 truncate">Lista</p>
         </div>
       </Link>
     </div>
