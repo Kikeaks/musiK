@@ -10,6 +10,7 @@ import { useUsuarios } from "../../hooks/useUsuarios";
 import Carga from "../../componentes/interfaz/Carga";
 import Comentarios from "../../componentes/playlists/Comentarios";
 
+// Página de playlist de usuario.
 const PlaylistUsuario = () => {
   const { id } = useParams();
   const { obtenerDatosPlaylistUsuario, contarLikesPlaylist } = usePlaylists();

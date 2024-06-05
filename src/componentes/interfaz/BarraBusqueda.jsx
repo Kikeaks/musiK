@@ -12,9 +12,7 @@ const BarraBusqueda = ({ onSearch }) => {
 
   // Función para cargar canciones cuando cambia la búsqueda.
   useEffect(() => {
-
-      onSearch(busqueda);
-
+    onSearch(busqueda);
   }, [busqueda]);
 
   return (

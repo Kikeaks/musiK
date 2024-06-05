@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import avatarDefault from "../../assets/usuario.jpg";
 
+// Tarjeta de perfil de usuario.
 const PerfilCard = ({ perfil }) => {
   return (
     <Link to={`/perfil/${perfil.id}`}>

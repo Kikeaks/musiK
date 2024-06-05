@@ -1,3 +1,5 @@
+import React, { useState, useRef, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBackwardStep,
   faForwardStep,
@@ -7,24 +9,22 @@ import {
   faRepeat,
   faVolumeOff,
   faVolumeHigh,
-  faDiceOne,
   faVolumeLow,
   faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useRef, useEffect } from "react";
 import { useReproductor } from "../../hooks/useReproductor";
 import { useUsuarios } from "../../hooks/useUsuarios";
 
+// Componente correspondiente al reproductor.
 const Reproductor = () => {
   const { sesionIniciada } = useUsuarios();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [isMuted, setIsMuted] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [isShuffleOn, setIsShuffleOn] = useState(false);
-  const [repeatMode, setRepeatMode] = useState(false);
+  const [reproduciendo, setReproduciendo] = useState(false);
+  const [volumen, setVolumen] = useState(0.5);
+  const [muteado, setMuteado] = useState(false);
+  const [tiempoActual, setTiempoActual] = useState(0);
+  const [duracion, setDuracion] = useState(0);
+  const [aleatorio, setAleatorio] = useState(false);
+  const [repeticion, setRepeticion] = useState(false);
   const audioRef = useRef(null);
   const volumeRef = useRef(null);
   const lastBackwardPressRef = useRef(0);
@@ -32,77 +32,67 @@ const Reproductor = () => {
   const { playlist, setPlaylist, currentTrackIndex, setCurrentTrackIndex } =
     useReproductor();
 
+  // Función para actualizar la duración de la canción cuando se carga
   useEffect(() => {
-    // Actualizar la duración de la canción cuando se carga
     const onLoadedMetadata = () => {
-      setDuration(audioRef.current.duration);
+      setDuracion(audioRef.current.duration);
     };
     audioRef.current.addEventListener("loadedmetadata", onLoadedMetadata);
-
-    // Limpiar el event listener cuando el componente se desmonte
     return () => {
       audioRef.current.removeEventListener("loadedmetadata", onLoadedMetadata);
     };
   }, [playlist]);
 
+  // Actualizar el volumen del audio al cambiar el volumen en el estado
   useEffect(() => {
-    // Actualizar el volumen del audio al cambiar el volumen en el estado
-    audioRef.current.volume = volume;
-  }, [volume]);
+    audioRef.current.volume = muteado ? 0 : volumen;
+  }, [volumen, muteado]);
 
+  // Reproducir la canción actual cuando cambia el índice de la pista actual
   useEffect(() => {
     if (currentTrackIndex !== null) {
-      setIsPlaying(true);
+      setReproduciendo(true);
       audioRef.current.play();
     }
   }, [playlist[currentTrackIndex]]);
 
-  const playPauseHandler = () => {
-    if (isPlaying) {
+  // Manejador para reproducir/pausar la canción actual
+  const playPausa = () => {
+    if (reproduciendo) {
       audioRef.current.pause();
     } else {
       audioRef.current.play();
     }
-    setIsPlaying(!isPlaying);
+    setReproduciendo(!reproduciendo);
   };
 
-  const changeVolumeHandler = (e) => {
-    setVolume(e.target.value);
-    setIsMuted(false);
+  // Manejador para ajustar el volumen
+  const cambiarVolumen = (e) => {
+    setVolumen(e.target.value);
+    setMuteado(false);
   };
 
-  const toggleMute = () => {
-    const newIsMuted = !isMuted;
-    setIsMuted(newIsMuted);
-    if (newIsMuted) {
-      audioRef.current.volume = 0;
-    } else {
-      audioRef.current.volume = volume;
-      volumeRef.current.value = volume;
+  // Alternar el estado de silencio
+  const mutear = () => {
+    setMuteado(!muteado);
+    if (!muteado) {
+      audioRef.current.volume = volumen;
+      volumeRef.current.value = volumen;
     }
   };
 
-  const adjustVolumeWithScroll = (e) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.05 : 0.05;
-    const newVolume = Math.min(Math.max(0, volume + delta), 1);
-    setVolume(newVolume);
-  };
-
-  const nextSongHandler = () => {
-    if (isShuffleOn) {
+  // Manejador para avanzar a la siguiente canción
+  const siguiente = () => {
+    if (aleatorio) {
       const randomIndex = Math.floor(Math.random() * playlist.length);
-      if (currentTrackIndex === randomIndex) {
-        audioRef.current.currentTime = 0;
-      } else {
-        setCurrentTrackIndex(randomIndex);
-      }
+      setCurrentTrackIndex(randomIndex);
     } else {
       setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % playlist.length);
     }
   };
 
-  const prevSongHandler = () => {
+  // Manejador para retroceder a la canción anterior
+  const anterior = () => {
     const now = Date.now();
     if (now - lastBackwardPressRef.current < 2000) {
       setCurrentTrackIndex((prevIndex) =>
@@ -110,16 +100,18 @@ const Reproductor = () => {
       );
     } else {
       audioRef.current.currentTime = 0;
-      setCurrentTime(0);
+      setTiempoActual(0);
     }
     lastBackwardPressRef.current = now;
   };
 
-  const timeUpdateHandler = () => {
-    setCurrentTime(audioRef.current.currentTime);
+  // Manejador para actualizar el tiempo actual de la canción
+  const cambioTiempo = () => {
+    setTiempoActual(audioRef.current.currentTime);
   };
 
-  const formatTime = (timeInSeconds) => {
+  // Función para formatear el tiempo en segundos a mm:ss
+  const formatearDuracion = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
@@ -128,36 +120,42 @@ const Reproductor = () => {
     )}`;
   };
 
-  const toggleShuffle = () => {
-    setIsShuffleOn(!isShuffleOn);
+  // Alternar el modo de reproducción aleatoria (shuffle)
+  const randomizar = () => {
+    setAleatorio(!aleatorio);
   };
 
-  const toggleRepeat = () => {
-    setRepeatMode(!repeatMode);
+  // Alternar el modo de repetición
+  const repetirCancion = () => {
+    setRepeticion(!repeticion);
   };
 
+  // Manejador para ajustar el volumen con la rueda del ratón
+  const ajustarVolumenConScroll = (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.05 : 0.05;
+    const newVolume = Math.min(Math.max(0, volumen + delta), 1);
+    setVolumen(newVolume);
+  };
+
+  // Agregar el event listener para ajustar el volumen con la rueda del ratón
   useEffect(() => {
     const volumeControl = volumeRef.current;
-    if (volumeControl) {
-      const handleWheel = (e) => {
-        adjustVolumeWithScroll(e);
-        e.preventDefault();
-      };
+    const scrollear = (e) => {
+      ajustarVolumenConScroll(e);
+    };
+    volumeControl.addEventListener("wheel", scrollear, { passive: false });
+    return () => {
+      volumeControl.removeEventListener("wheel", scrollear);
+    };
+  }, [volumeRef, volumen]);
 
-      volumeControl.addEventListener("wheel", handleWheel, { passive: false });
-
-      return () => {
-        volumeControl.removeEventListener("wheel", handleWheel);
-      };
-    }
-  }, [volumeRef, volume]);
-
+  // Limpiar la lista de reproducción y pausar la canción actual si el usuario cierra sesión
   useEffect(() => {
     if (!sesionIniciada) {
       setPlaylist([]);
       setCurrentTrackIndex(null);
       audioRef.current.pause();
-
     }
   }, [sesionIniciada]);
 
@@ -169,13 +167,13 @@ const Reproductor = () => {
           playlist[currentTrackIndex]?.url ||
           playlist[currentTrackIndex]?.preview
         }
-        onTimeUpdate={timeUpdateHandler}
+        onTimeUpdate={cambioTiempo}
         onEnded={() => {
-          if (repeatMode) {
+          if (repeticion) {
             audioRef.current.currentTime = 0;
             audioRef.current.play();
           } else {
-            nextSongHandler();
+            siguiente();
           }
         }}
       />
@@ -202,51 +200,51 @@ const Reproductor = () => {
         <div className="flex flex-row justify-center items-center mb-3">
           <FontAwesomeIcon
             className={`hover:text-highlight duration-300 ease-in cursor-pointer group mr-4 ${
-              isShuffleOn ? "text-highlight" : "text-neutral-600"
+              aleatorio ? "text-highlight" : "text-neutral-600"
             }`}
             icon={faShuffle}
-            onClick={toggleShuffle}
+            onClick={randomizar}
           />
           <FontAwesomeIcon
             className="fa-xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
             icon={faBackwardStep}
-            onClick={prevSongHandler}
+            onClick={anterior}
           />
           <FontAwesomeIcon
             className="fa-2xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
-            icon={!isPlaying ? faCirclePlay : faCirclePause}
-            onClick={playPauseHandler}
+            icon={!reproduciendo ? faCirclePlay : faCirclePause}
+            onClick={playPausa}
           />
           <FontAwesomeIcon
             className="fa-xl hover:text-highlight duration-300 ease-in cursor-pointer group mr-4"
             icon={faForwardStep}
-            onClick={nextSongHandler}
+            onClick={siguiente}
           />
           <FontAwesomeIcon
             className={`hover:text-highlight duration-300 ease-in cursor-pointer group ${
-              repeatMode ? "text-highlight" : "text-neutral-600"
+              repeticion ? "text-highlight" : "text-neutral-600"
             }`}
             icon={faRepeat}
-            onClick={toggleRepeat}
+            onClick={repetirCancion}
           />
         </div>
         <div className="flex flex-row items-center justify-between text-xs sm:text-sm w-full text-neutral-400">
-          <span className="mr-2">{formatTime(currentTime)}</span>
+          <span className="mr-2">{formatearDuracion(tiempoActual)}</span>
           <input
             className="w-full h-0.5 rounded-full"
             type="range"
-            value={currentTime}
-            max={duration}
+            value={tiempoActual}
+            max={duracion}
             step="0.01"
             onChange={(e) => {
               audioRef.current.currentTime = e.target.value;
-              setCurrentTime(e.target.value);
+              setTiempoActual(e.target.value);
             }}
           />
           <span className="ml-2">
             {playlist[currentTrackIndex]?.duracion ||
             playlist[currentTrackIndex]?.duration
-              ? formatTime(
+              ? formatearDuracion(
                   playlist[currentTrackIndex]?.duracion ||
                     playlist[currentTrackIndex]?.duration
                 )
@@ -268,25 +266,25 @@ const Reproductor = () => {
         <FontAwesomeIcon
           className="mr-2 hover:text-highlight duration-300 ease-in cursor-pointer group"
           icon={
-            isMuted
+            muteado
               ? faVolumeXmark
-              : volume < 0.33
+              : volumen < 0.33
               ? faVolumeOff
-              : volume < 0.66
+              : volumen < 0.66
               ? faVolumeLow
               : faVolumeHigh
           }
-          onClick={toggleMute}
+          onClick={mutear}
         />
         <input
           className="h-0.5"
           ref={volumeRef}
           type="range"
-          value={isMuted ? 0 : volume}
+          value={muteado ? 0 : volumen}
           max="1"
           min="0"
           step="0.05"
-          onChange={changeVolumeHandler}
+          onChange={cambiarVolumen}
         />
       </div>
     </div>

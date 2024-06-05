@@ -14,6 +14,7 @@ import PlaylistsCuadricula from "../../componentes/playlists/PlaylistsCuadricula
 import Carga from "../../componentes/interfaz/Carga";
 import ModalCrearPlaylist from "../../componentes/modales/ModalCrearPlaylist";
 
+// Página del perfil de usuario.
 const PerfilUsuario = () => {
   const { id } = useParams();
   const {

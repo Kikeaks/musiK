@@ -11,6 +11,7 @@ import PerfilesCuadricula from "../componentes/perfiles/PerfilesCuadricula.jsx";
 import BarraBusqueda from "../componentes/interfaz/BarraBusqueda.jsx";
 import { useUsuarios } from "../hooks/useUsuarios.js";
 
+// Página de "Explorar".
 const Explorar = () => {
   const { cancionesDestacadas, cancionesBuscadas, buscarCanciones } =
     useCanciones();

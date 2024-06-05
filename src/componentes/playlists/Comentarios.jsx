@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+// Componente correspondiente a los comentarios de una playlist.
 const Comentarios = ({ playlist }) => {
   const { usuario } = useUsuarios();
   const {
@@ -23,7 +24,6 @@ const Comentarios = ({ playlist }) => {
       nuevoComentario
     );
 
-    // Asegúrate de que el comentario incluye la información del usuario
     const comentarioConUsuario = {
       ...comentario,
       usuarios: { nombre: usuario.nombre },
@@ -34,7 +34,7 @@ const Comentarios = ({ playlist }) => {
       comentarioConUsuario,
     ]);
 
-    // Limpiar el campo de texto después de agregar el comentario
+    // Limpia el campo de texto después de agregar el comentario.
     setNuevoComentario("");
   };
 

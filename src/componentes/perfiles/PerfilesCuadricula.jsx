@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import PerfilCard from "./PerfilCard"; // Suponiendo que tienes un componente de tarjeta de usuario
+import PerfilCard from "./PerfilCard";
 
 // Componente para mostrar la cuadrícula de seguidores o seguidos en el perfil de un usuario.
 const PerfilesCuadricula = ({ perfiles }) => {

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { usePlaylists } from "../../hooks/usePlaylists.js";
+import { useNavigate } from "react-router-dom";
 
 // Modal para quitar una canción de una playlist.
 const ModalQuitarDePlaylist = ({
@@ -11,6 +12,8 @@ const ModalQuitarDePlaylist = ({
   const { quitarCancionDePlaylist } = usePlaylists();
   const [mensajeExito, setMensajeExito] = useState(false);
 
+  const navigate = useNavigate();
+
   // Función para quitar la canción de la playlist
   const handleQuitarCancion = async () => {
     try {
@@ -18,6 +21,7 @@ const ModalQuitarDePlaylist = ({
       setMensajeExito(true);
       setTimeout(() => {
         setMensajeExito(false);
+        navigate(`/playlists/bbdd/${playlist}`)
         manejarCerrado();
       }, 3000);
     } catch (error) {

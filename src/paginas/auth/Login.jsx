@@ -3,6 +3,7 @@ import logo from "../../assets/musik.png";
 import { Link } from "react-router-dom";
 import { useUsuarios } from "../../hooks/useUsuarios.js";
 
+// Página de inicio de sesión.
 const Login = () => {
   const { iniciarSesion, actualizarDato, confirmacionLogin } = useUsuarios();
   // Función para manejar el inicio de sesión.

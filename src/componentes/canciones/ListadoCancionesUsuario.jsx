@@ -9,10 +9,10 @@ const ListadoCancionesUsuario = ({ canciones, playlist }) => {
   const { setPlaylist, setCurrentTrackIndex } = useReproductor();
 
   const reproducirCancion = (index) => {
-    // Configura la lista de reproducción y el índice de la canción actual en el reproductor
+    // Configura la lista de reproducción y el índice de la canción actual en el reproductor.
     setPlaylist(canciones);
     setCurrentTrackIndex(index);
-    iniciarReproduccion(index); // Inicia la reproducción de la canción seleccionada
+    iniciarReproduccion(index); // Inicia la reproducción de la canción seleccionada.
   };
 
   return (

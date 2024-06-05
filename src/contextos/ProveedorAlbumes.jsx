@@ -1,12 +1,17 @@
 import React, { createContext, useEffect, useState } from "react";
 import { deezerAPI } from "../config/deezer.js";
 
+// Crear un nuevo contexto para los álbumes
 const CtxAlbumes = createContext();
 
+// Proveedor de álbumes que contendrá el estado y las funciones relacionadas con los álbumes
 const ProveedorAlbumes = ({ children }) => {
+  // Estado para almacenar los álbumes destacados
   const [albumesDestacados, setAlbumesDestacados] = useState([]);
+  // Estado para almacenar los álbumes buscados
   const [albumesBuscados, setAlbumesBuscados] = useState([]);
 
+  // Función para cargar los álbumes destacados
   const cargarAlbumesDestacados = async () => {
     try {
       const response = await deezerAPI.get("/chart/0/albums", {
@@ -18,6 +23,7 @@ const ProveedorAlbumes = ({ children }) => {
     }
   };
 
+  // Función para buscar álbumes
   const buscarAlbumes = async (termino) => {
     if (!termino) {
       setAlbumesBuscados([]);
@@ -33,6 +39,7 @@ const ProveedorAlbumes = ({ children }) => {
     }
   };
 
+  // Función para obtener los datos de un álbum específico por su ID
   const obtenerDatosAlbum = async (idAlbum) => {
     try {
       const response = await deezerAPI.get(`/album/${idAlbum}`);
@@ -46,6 +53,7 @@ const ProveedorAlbumes = ({ children }) => {
     }
   };
 
+  // Función para obtener los álbumes de un artista por su ID
   const obtenerAlbumesPorIdArtista = async (idArtista) => {
     try {
       const responseArtista = await deezerAPI.get(`/artist/${idArtista}`);
@@ -61,10 +69,12 @@ const ProveedorAlbumes = ({ children }) => {
     }
   };
 
+  // Cargar los álbumes destacados al cargar el componente
   useEffect(() => {
     cargarAlbumesDestacados();
   }, []);
 
+  // Exportar el estado y las funciones relacionadas con los álbumes
   const exports = {
     albumesDestacados,
     albumesBuscados,
@@ -73,8 +83,10 @@ const ProveedorAlbumes = ({ children }) => {
     obtenerAlbumesPorIdArtista,
   };
 
+  // Proporcionar el contexto y pasar los valores a los componentes secundarios
   return <CtxAlbumes.Provider value={exports}>{children}</CtxAlbumes.Provider>;
 };
 
+// Exportar el proveedor de álbumes y el contexto
 export default ProveedorAlbumes;
 export { CtxAlbumes };

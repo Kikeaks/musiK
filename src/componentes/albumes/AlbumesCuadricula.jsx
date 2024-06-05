@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import AlbumCard from "./AlbumCard.jsx";
 
+// Cuadrícula para las tarjetas de álbumes.
 const AlbumesCuadricula = ({ albums, artista }) => {
   return (
     <Fragment>

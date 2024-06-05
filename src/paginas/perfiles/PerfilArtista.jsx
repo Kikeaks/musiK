@@ -7,6 +7,7 @@ import ArtistaHeader from "../../componentes/artistas/ArtistaHeader.jsx";
 import AlbumesCuadricula from "../../componentes/albumes/AlbumesCuadricula.jsx";
 import { useAlbumes } from "../../hooks/useAlbumes.js";
 
+// Página del perfil de artista.
 const PerfilArtista = () => {
   const { id } = useParams();
   const { obtenerDatosArtistaPorId } = useArtistas();

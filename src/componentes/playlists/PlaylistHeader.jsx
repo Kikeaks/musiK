@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
 
+// Componente para las playlists.
 const PlaylistHeader = ({
   playlist,
   portada,
@@ -20,15 +21,21 @@ const PlaylistHeader = ({
   usuario,
   sesionIniciada,
 }) => {
+  // Estado para almacenar el fondo degradado generado a partir de la imagen de portada
   const [backgroundGradient, setBackgroundGradient] = useState("");
+  // Estado para almacenar la imagen de portada de la playlist
   const [imagen, setImagen] = useState(null);
+  // Estado para almacenar la cantidad de canciones en la playlist
   const [cantidadCanciones, setCantidadCanciones] = useState(0);
+  // Estado para almacenar la cantidad de comentarios en la playlist
   const [cantidadComentarios, setCantidadComentarios] = useState(0);
 
+  // Utilizamos el hook de playlists para obtener funciones relacionadas con las playlists
   const { obtenerComentariosPlaylist } = usePlaylists();
   const { actualizarPortadaPlaylist, contarCancionesEnPlaylist } =
     usePlaylists();
 
+  // Efecto para actualizar la imagen de portada cuando cambia
   useEffect(() => {
     if (!portada) {
       setImagen(playlistDefault);
@@ -37,6 +44,7 @@ const PlaylistHeader = ({
     }
   }, [portada]);
 
+  // Efecto para contar la cantidad de comentarios en la playlist
   useEffect(() => {
     if (creador.nombre) {
       const obtenerCantidadComentarios = async () => {
@@ -47,6 +55,7 @@ const PlaylistHeader = ({
     }
   }, [creador.nombre, obtenerComentariosPlaylist, playlist.id]);
 
+  // Efecto para contar la cantidad de canciones en la playlist
   useEffect(() => {
     if (creador.nombre) {
       const obtenerCantidadCanciones = async () => {
@@ -65,6 +74,7 @@ const PlaylistHeader = ({
     }
   }, [creador.nombre, contarCancionesEnPlaylist, playlist.id]);
 
+  // Efecto para generar el fondo degradado a partir de la imagen de portada
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -78,6 +88,7 @@ const PlaylistHeader = ({
     };
   }, [imagen]);
 
+  // Manejador para cambiar la portada de la playlist
   const handleCoverChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -130,7 +141,9 @@ const PlaylistHeader = ({
           <h1 className="mb-2 font-bold text-2xl sm:text-3xl md:text-5xl truncate">
             {titulo}
           </h1>
+          {/* Si hay descripción, se muestra */}
           {descripcion && <p className="mb-2 truncate">{descripcion}</p>}
+          {/* Si hay creador, se muestra */}
           {creador.id ? (
             <div className="flex flex-row w-full min-w-0 items-center justify-center sm:justify-start">
               <img
@@ -153,6 +166,7 @@ const PlaylistHeader = ({
               {creador} · {playlist.nb_tracks} canciones
             </p>
           )}
+          {/* Si hay creador.nombre, se muestran los iconos de like y comentarios */}
           {creador.nombre && (
             <div className="mt-2">
               <FontAwesomeIcon

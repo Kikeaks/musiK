@@ -3,6 +3,7 @@ import logo from "../../assets/musik.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useUsuarios } from "../../hooks/useUsuarios";
 
+// Página de registro.
 const Registro = () => {
   const { actualizarDato, registrarUsuario } = useUsuarios();
   const [registroCorrecto, setRegistroCorrecto] = useState(false);

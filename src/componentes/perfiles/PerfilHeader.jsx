@@ -12,19 +12,20 @@ const PerfilHeader = ({
   seguidores,
   seguidos,
 }) => {
-  const [backgroundGradient, setBackgroundGradient] = useState("");
-  const [avatar, setAvatar] = useState(null);
-  const { usuario, actualizarFotoPerfilUsuario } = useUsuarios();
+  const [backgroundGradient, setBackgroundGradient] = useState(""); // Estado para el degradado de fondo
+  const [avatar, setAvatar] = useState(null); // Estado para la foto de perfil
+  const { usuario, actualizarFotoPerfilUsuario } = useUsuarios(); // Obtiene el usuario actual y la función para actualizar la foto de perfil
 
+  // Actualiza el estado de la foto de perfil cuando cambia
   useEffect(() => {
     if (!fotoPerfil) {
-      setAvatar(avatarDefault);
+      setAvatar(avatarDefault); // Si no hay foto de perfil, usa la imagen predeterminada
     } else {
-      setAvatar(fotoPerfil);
+      setAvatar(fotoPerfil); // Si hay una foto de perfil, establece la imagen
     }
   }, [fotoPerfil]);
 
-  // Crea un degradado con el color predominante de la portada y lo pone de fondo
+  // Crea un degradado con el color predominante de la foto de perfil y lo pone de fondo
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -38,6 +39,7 @@ const PerfilHeader = ({
     };
   }, [avatar]);
 
+  // Manejador para cambiar la foto de perfil
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -64,12 +66,12 @@ const PerfilHeader = ({
   return (
     <div
       className="bg-center bg-cover"
-      style={{ backgroundImage: `${backgroundGradient}, url(${avatar})` }}
+      style={{ backgroundImage: `${backgroundGradient}, url(${avatar})` }} // Establece el degradado de fondo y la imagen de avatar como fondo
     >
       <div className="flex flex-col sm:flex-row items-center p-3 backdrop-blur-md group mb-2">
         <div className="relative">
           <img
-            className="rounded-full aspect-square shadow-2xl mb-4 sm:mb-0 sm:mr-4 size-44 sm:size-52"
+            className="rounded-full aspect-square shadow-2xl mb-4 sm:mb-0 sm:mr-4 size-44 sm:size-52" // Establece estilos para la imagen de avatar
             src={avatar}
             alt="Avatar"
           />
