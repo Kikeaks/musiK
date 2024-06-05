@@ -1,2 +1,2 @@
 # musiK
-Repositorio provisional con los archivos del TFC de DAW 23/24.
+Repositorio con los archivos del PFC de DAW 23/24.
