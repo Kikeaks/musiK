@@ -36,11 +36,11 @@ const ModalAgregarAPlaylist = ({ mostrar, manejarCerrado, cancion }) => {
     <Fragment>
       {/* Modal */}
       {mostrar && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-gray-900 bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-neutral-900 bg-opacity-50">
           <div className="absolute top-4 right-4">
             {/* Botón para cerrar el modal */}
             <button
-              className="text-white rounded-md p-2 bg-gray-800 focus:outline-none"
+              className="text-white rounded-md p-2 bg-neutral-800 focus:outline-none"
               onClick={manejarCerrado}
             >
               X
@@ -48,10 +48,10 @@ const ModalAgregarAPlaylist = ({ mostrar, manejarCerrado, cancion }) => {
           </div>
           {/* Contenido del modal */}
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-800 border-slate-700">
+            <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-cards border-neutral-800">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-                  Agregar a playlist
+                <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
+                  Agregar a lista de reproducción
                 </h1>
                 {/* Mensaje de éxito */}
                 {sesionIniciada ? (
@@ -65,19 +65,19 @@ const ModalAgregarAPlaylist = ({ mostrar, manejarCerrado, cancion }) => {
                       <div className="space-y-4 md:space-y-6">
                         <label
                           htmlFor="playlist"
-                          className="block mb-2 text-sm font-medium text-white"
+                          className="block mb-2 text-sm md:text-base font-medium text-white"
                         >
-                          Selecciona una playlist
+                          Selecciona una lista
                         </label>
                         <select
                           id="playlist"
                           name="playlist"
-                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
+                          className="cursor-pointer border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-neutral-800 placeholder-neutral-600 text-white duration-300 ease-in"
                           value={playlistId}
                           onChange={(e) => setPlaylistId(e.target.value)}
                         >
                           <option value="" disabled>
-                            -- Selecciona una Playlist --
+                            - Selecciona una lista -
                           </option>
                           {/* Mapeo de las playlists del usuario */}
                           {playlistsUsuario.map((playlist) => (
@@ -89,13 +89,13 @@ const ModalAgregarAPlaylist = ({ mostrar, manejarCerrado, cancion }) => {
                       </div>
                       {/* Botón para agregar la canción a la playlist */}
                       <button
-                        className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
+                        className="w-full text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
                         onClick={() => {
                           handleAgregarCancion();
                         }}
                         disabled={!playlistId}
                       >
-                        Agregar a playlist
+                        Agregar a lista
                       </button>
                     </>
                   )

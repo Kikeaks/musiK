@@ -20,6 +20,7 @@ const ModalCrearPlaylist = ({ mostrar, manejarCerrado }) => {
       setMensajeExito(true);
       setTimeout(() => {
         setMensajeExito(false);
+        setNombrePlaylist("");
         manejarCerrado();
       }, 3000);
     }
@@ -29,11 +30,11 @@ const ModalCrearPlaylist = ({ mostrar, manejarCerrado }) => {
     <Fragment>
       {/* Modal */}
       {mostrar && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-gray-900 bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-neutral-900 bg-opacity-50">
           <div className="absolute top-4 right-4">
             {/* Botón para cerrar el modal */}
             <button
-              className="text-white rounded-md p-2 bg-gray-800 focus:outline-none"
+              className="text-white rounded-md p-2 bg-neutral-800 focus:outline-none"
               onClick={manejarCerrado}
             >
               X
@@ -41,15 +42,15 @@ const ModalCrearPlaylist = ({ mostrar, manejarCerrado }) => {
           </div>
           {/* Contenido del modal */}
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-800 border-slate-700">
+            <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-cards border-neutral-800">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-                  Crear Playlist
+                <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
+                  Crear lista de reproducción
                 </h1>
                 {/* Mensaje de éxito */}
                 {mensajeExito ? (
                   <p className="text-green-500 font-semibold">
-                    Playlist creada correctamente.
+                    Lista creada correctamente.
                   </p>
                 ) : (
                   <Fragment>
@@ -60,14 +61,14 @@ const ModalCrearPlaylist = ({ mostrar, manejarCerrado }) => {
                           htmlFor="nombrePlaylist"
                           className="block mb-2 text-sm font-medium text-white"
                         >
-                          Nombre de la Playlist
+                          Nombre de la lista
                         </label>
                         <input
                           type="text"
                           name="nombrePlaylist"
                           id="nombrePlaylist"
-                          className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-slate-700 border-slate-600 placeholder-slate-400 text-white focus:ring-indigo-500 focus:border-indigo-600"
-                          placeholder="Nombre de la Playlist"
+                          className="border-cards text-sm rounded focus:ring-highlight hover:border-white focus:border-highlight block w-full p-2.5 bg-neutral-800 placeholder-neutral-600 text-white duration-300 ease-in"
+                          placeholder="Establece un nombre..."
                           value={nombrePlaylist}
                           onChange={(e) => setNombrePlaylist(e.target.value)}
                           required
@@ -75,10 +76,10 @@ const ModalCrearPlaylist = ({ mostrar, manejarCerrado }) => {
                       </div>
                       {/* Botón para crear la playlist */}
                       <button
-                        className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
+                        className="w-full text-white font-medium rounded-lg hover:border-white text-center text-base focus:border-highlight focus:ring-highlight duration-300 ease-in cursor-pointer group bg-highlight"
                         onClick={handleSubmitCrearPlaylist}
                       >
-                        Crear Playlist
+                        Crear lista
                       </button>
                     </div>
                   </Fragment>
